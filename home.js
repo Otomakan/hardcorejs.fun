@@ -27,7 +27,7 @@ const drawRectangles = (div) => {
 			const square = createSquare(margin + xPos,margin + yPos, squareSizes)
 			div.appendChild(square)
 			window.setTimeout(()=>{
-			if (!isTouchScreen? Math.random()>0.9: Math.random()>0.05 ) {
+			if (isTouchScreen? Math.random()>0.9: Math.random()>0.05 ) {
 				changeSquareColor(square)
 			}
 			square.style.transform = '';

@@ -19,6 +19,7 @@ body {
 	margin: 0;
 	padding-top: var(--navbar-height);
 	/* margin-top: var(--navbar-height); */
+	isolation: isolate;
 
 }
 body, div, p {
