@@ -42,7 +42,7 @@ const babelSettings = {
 
 const serve =  ()=> {
     browserSync.init({
-        server: "./dist/"
+        server: "./doc/"
     })
     gulp.watch('src/js/*.js', series(webpackify)).on('change',browserSync.reload)
     gulp.watch('src/styles/*.scss', cleanCSS).on('change',browserSync.reload)
@@ -61,14 +61,14 @@ const compress =  ()=>
             console.log(e);})
          // .pipe(uglify().on('error', function(e){
             // console.log(e);}))
-        .pipe(gulp.dest('./dist/js'))
+        .pipe(gulp.dest('./doc/js'))
 
 // const mainBundle =  ()=>
 // 		gulp.src(['src/js/main.js','src/js/history.js','src/js/serviceWorkers.js'])
 // 				.pipe(concat('bundle.js'))
 // 				.pipe(named())
 //         .pipe(webpack())
-// 				.pipe(gulp.dest('./dist/js'))
+// 				.pipe(gulp.dest('./doc/js'))
 
 const webpackify = () =>  {
 		console.log('webpackifying')
@@ -77,7 +77,7 @@ const webpackify = () =>  {
 			.pipe(webpack())
 		
 
-			.pipe(gulp.dest('./dist/js'));
+			.pipe(gulp.dest('./doc/js'));
 
 }
 // DONT MIND THIS FOR NOW, MIGHT USE FOR BROWSERIFY LATER
@@ -88,14 +88,14 @@ const webpackify = () =>  {
 //   //       .pipe(source('main1.js'))
 //   //       .pipe(buffer())
 //   //       // .pipe(uglify())
-//   //       .pipe(gulp.dest('./dist/'));;
+//   //       .pipe(gulp.dest('./doc/'));;
 //    gulp.src('src/js/*.js')
 //          .pipe(babel({
 //             presets: ['@babel/env']
 //         }))
 //          .pipe(uglify().on('error', function(e){
 //             console.log(e);}))
-//         .pipe(gulp.dest('./dist/'))
+//         .pipe(gulp.dest('./doc/'))
 // });
 
 // const browserifyJS  = () => {
@@ -114,7 +114,7 @@ const webpackify = () =>  {
 //         .pipe(uglify())
 //         .on('error', console.log('error'))
 //     .pipe(sourcemaps.write('./'))
-//     .pipe(gulp.dest('./dist/js/'));
+//     .pipe(gulp.dest('./doc/js/'));
 // }
 
 
@@ -124,27 +124,27 @@ const cleanCSS = ()=>
   .pipe(sass().on('error', sass.logError))
   .pipe(autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
   // .pipe(gulpCleanCSS())
-  .pipe(gulp.dest('./dist/'))
+  .pipe(gulp.dest('./doc/'))
 
 
 const imageMin =  () =>
     gulp.src('src/assets/images/*')
         // .pipe(imagemin())
-        .pipe(gulp.dest('dist/assets/images/'))
+        .pipe(gulp.dest('doc/assets/images/'))
 
 
 
 const fonts =  () =>
     gulp.src('src/assets/fonts/*')
         // .pipe(imagemin())
-        .pipe(gulp.dest('dist/assets/fonts/'))
+        .pipe(gulp.dest('doc/assets/fonts/'))
 
 
 
 
 const html = ()=>
   gulp.src('src/*.html')
-  .pipe(gulp.dest('dist'))
+  .pipe(gulp.dest('doc'))
   
 
 const jsonhtml = ()=>
@@ -152,17 +152,17 @@ const jsonhtml = ()=>
     {base: './src/content/contentJson/'}) 
   .pipe(jsonLoader())
   .pipe(rename({extname:'.html'}))
-  .pipe(gulp.dest('dist/content'))
+  .pipe(gulp.dest('doc/content'))
   
 const htmlutils = ()=>
   gulp.src('src/content/utils/*.html')
   .pipe(htmlmin({ collapseWhitespace: true }))
-  .pipe(gulp.dest('dist/utils'))
+  .pipe(gulp.dest('doc/utils'))
   
 const indexhtml = ()=>
   gulp.src('src/content/*.html')
   .pipe(indexIsSoSpecial())
-  .pipe(gulp.dest('dist/'))
+  .pipe(gulp.dest('doc/'))
   
 // Remember to put imagemin later on in
 exports.default= series(parallel(series(webpackify), fonts, html,indexhtml,htmlutils,jsonhtml,cleanCSS) ,serve)
