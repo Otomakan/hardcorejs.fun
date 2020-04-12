@@ -1,0 +1,45 @@
+Site MAP Autonomy
+
+WHERE TO PUT BATTERIES?
+
+Solar and batteries{
+	Industrial
+	Residential
+	Commercial 
+	Rural
+}
+
+
+Embedded Networks{
+	What it is
+	What we can do
+}
+
+Advanced Efficiency Solutions{
+	PFC,
+	VO
+}
+
+Energy Management{
+	Monitoring,
+	Billing
+}
+
+Go OFF GRID{
+	
+}
+
+Industries{
+	
+}
+
+Custom Solutions / Free Audit{
+	Advanced OffGrid
+	Free Audit:
+}
+
+Procurement//Rate analysis/negotiation
+About us{
+	
+}
+

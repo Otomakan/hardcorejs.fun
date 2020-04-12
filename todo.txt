@@ -1,0 +1,8 @@
+Write a script which will call the js associated to the call page at each Ajax
+Make PWA version
+Make integration with firebase to have a more dynamic site
+watch more files (eg: utils/headernav)
+check out html5 up forty theme
+Add the imagemin to the build and say in the readme that it slows it down
+create a token tree for the templating engine
+Create c bindings for the templating engine

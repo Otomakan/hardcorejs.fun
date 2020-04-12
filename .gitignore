@@ -1,0 +1,6 @@
+ src/assets/
+node_modules
+dist
+comments.txt
+backlog.txt
+
