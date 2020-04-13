@@ -1,0 +1,35 @@
+@mixin polka-dots($base, $accent, $radial, $size, $position, $attachment) {
+    background-color: $base;
+    background-image: radial-gradient($accent $radial, transparent $radial);
+    background-size: $size $size;
+    background-position: $position;
+    background-attachment: $attachment;
+  }
+  
+  @mixin titlecontainer{
+      -webkit-margin-before: 0.83em;
+      margin-block-start: 0.83em;
+      -webkit-margin-after: 0.83em;
+      margin-block-end: 0.83em;
+      -webkit-margin-start: 0px;
+      -moz-margin-start: 0px;
+      margin-inline-start: 0px;
+      -webkit-margin-end: 0px;
+      -moz-margin-end: 0px;
+      margin-inline-end: 0px;
+      margin: 4em;
+  }
+
+@mixin spacedfont {
+    text-decoration: none;
+    font-family: SourceSansProp, NexaLight,Helvetica, Arial;
+    font-size: 25px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+@mixin centeredFlex{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

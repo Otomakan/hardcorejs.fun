@@ -1,0 +1,25 @@
+{
+  "name": "fa-parse",
+  "version": "1.0.0",
+  "description": "A Parser to convert MD Files into javascript objects",
+  "main": "index.js",
+  "scripts": {
+    "nearlytest": "nearleyc faGrammar.ne -o faGrammar.js && node test.js",
+    "test" : "node ./node_modules/mocha/bin/mocha test.js"
+  },
+  "keywords": [
+    "parser",
+    "node",
+    "md"
+  ],
+  "author": "Jack Misteli",
+  "license": "ISC",
+  "dependencies": {
+    "nearley": "^2.18.0",
+    "nearly": "^1.8.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "moo": "^0.5.0"
+  }
+}

@@ -15,11 +15,12 @@ const source = require('vinyl-source-stream');
 const imagemin = require('gulp-imagemin');
 const util = require('util')
 const templatePrefixer = require('./gulpUtils/templatePrefixer.js')
-const jsonLoader =  require('./gulpUtils/jsonLoader.js')
 const rename = require('gulp-rename')
 const htmlmin = require('gulp-htmlmin');
 const indexIsSoSpecial = require('./gulpUtils/indexIsSoSpecial')
 const webpack = require('webpack-stream')
+const faLoader  = require('./gulpUtils/faLoader')
+var gulpsitemap = require('gulp-sitemap');
 
 const named = require('vinyl-named')
 
@@ -45,13 +46,18 @@ const serve =  ()=> {
         server: "./docs/"
     })
     gulp.watch('src/js/*.js', series(webpackify)).on('change',browserSync.reload)
-    gulp.watch('src/styles/*.scss', cleanCSS).on('change',browserSync.reload)
-    // gulp.watch('src/js/*.js',['browserify']).on('change',browserSync.reload)
-    // gulp.watch('*').on('change',browserSync.reload)
-    // gulp.watch(['src/js/main.js','src/js/transitions.js','src/js/history.js','src/js/serviceWorkers.js'],series( , webpackify)).on('change',browserSync.reload)
-    gulp.watch(['src/content/templates/*.html','src/content/contentJson/*.json','src/content/contentJson/**/*.json','src/content/contentJson/**/**.json'], jsonhtml).on('change',browserSync.reload)
+    gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
+    gulp.watch(['src/content/templates/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/*.fa','src/content/contentFA/**/**.yaml'], fa2html).on('change',browserSync.reload)
     gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
 }
+
+const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!dist/content/*', '!dist/content/**/*', '!dist/content/**/**/*'], {
+					read: false
+			})
+			.pipe(gulpsitemap({
+					siteUrl: 'http://hardcorejs.fun'
+			}))
+			.pipe(gulp.dest('dist/'));
 
 
 const compress =  ()=> 
@@ -80,6 +86,25 @@ const webpackify = () =>  {
 			.pipe(gulp.dest('./docs/js'));
 
 }
+
+const fa2html =  ()=>
+gulp.src(['src/content/contentFA/*.fa','src/content/contentFA/**.fa','src/content/contentFA/***/*.fa','src/content/contentFA/**/**/**/*.fa'],
+{base: './src/content/contentFA/'}) 
+.pipe(faLoader()).on('error', (e)=>{
+	console.error(e)
+	throw e
+
+})
+.pipe(rename({extname:'.html'}))
+.pipe(gulp.dest('./docs'))
+
+
+gulp.task('pwa', ()=>
+  gulp.src(['src/pwa/manifest.json','src/js/sw.js'])
+  .pipe(gulp.dest('./docs')
+  )
+ 
+)
 // DONT MIND THIS FOR NOW, MIGHT USE FOR BROWSERIFY LATER
 // const browserify =  function () {
 //   // return browserify({entries: './src/js/main1.js', debug: true})
@@ -119,12 +144,13 @@ const webpackify = () =>  {
 
 
 const cleanCSS = ()=>
-  gulp.src('src/styles/*.scss')
-  // .pipe(concat('bundle.css'))
-  .pipe(sass().on('error', sass.logError))
+  gulp.src('src/styles/**/*.scss')
+	// .pipe(concat('bundle.css'))
+  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
   .pipe(autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
   // .pipe(gulpCleanCSS())
   .pipe(gulp.dest('./docs/'))
+
 
 
 const imageMin =  () =>
@@ -165,6 +191,6 @@ const indexhtml = ()=>
   .pipe(gulp.dest('docs/'))
   
 // Remember to put imagemin later on in
-exports.default= series(parallel(series(webpackify), fonts, html,indexhtml,htmlutils,jsonhtml,cleanCSS) ,serve)
+exports.default= series(parallel(series(webpackify), fonts, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
 
 

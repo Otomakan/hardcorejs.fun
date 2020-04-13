@@ -1,0 +1,10 @@
+template: ##single-color-title##
+title: ##About Us##
+titlecolor:##beige##
+subtitle: ##About Autonomy Power##
+mainimg: ##/assets/images/dots_bubble.png##
+mainimgalt: ##Autonomy asset Sphere of Bubbles##
+content : ##
+  <p>We are not very interesting</p>
+##
+

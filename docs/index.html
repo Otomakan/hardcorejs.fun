@@ -1,1 +1,121 @@
-<script>var content="<div class='hero'>	<div class='home-page-title-container'>	<h1 class='home-page-title'>Hardcore Javascript</h1>	<h2 class='home-page-subtitle'>Not as tough as it sounds</h2>	</div></div><!-- End Hero --><!-- First homepage container --><div class='main-container'>	<!-- <div class='main-container-background'></div> -->	<div class='home-articles-container'>		<div class='article-box'>			<div class='title'>				<h2>Node Best Practices Part 1</h2>			</div>			<div class='description'>				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>			</div>		</div>		<div class='article-box'>			<div class='title'>				<h2>Node Best Practices Part 1</h2>			</div>			<div class='description'>				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>			</div>		</div>		<div class='article-box'>			<div class='title'>				<h2>Node Best Practices Part 1</h2>			</div>			<div class='description'>				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>			</div>		</div>		<div class='article-box'>			<div class='title'>				<h2>Node Best Practices Part 1</h2>			</div>			<div class='description'>				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>			</div>		</div>	</div></div><!-- End First homepage container --><!-- Javascript  container --><h2 class='main-container-title'>Javascript</h2><div class='main-container'>	<!-- <div class='main-container-background' style='background: var(--orange)'></div> -->	<div class='home-articles-container'>	<div class='article-box'>		<div class='title'>			<h2>Node Best Practices Part 1</h2>		</div>		<div class='description'>			<p>Writting clean and well organized code is sometimes the hardest part of programming</p>		</div>	</div>	<div class='article-box'>		<div class='title'>			<h2>Node Best Practices Part 1</h2>		</div>		<div class='description'>			<p>Writting clean and well organized code is sometimes the hardest part of programming</p>		</div>	</div></div></div><!--End Javascript  container -->";'use strict';if(!document.body){document.open(),document.body=document.createElement('body'),function loadBody(){fetch('/utils/headernav.html').then(function(resHead){fetch('/utils/footer.html').then(function(footHead){resHead.arrayBuffer().then(function(abHead){footHead.arrayBuffer().then(function(abFoot){var headString=String.fromCharCode.apply(null,new Uint8Array(abHead)),footString=String.fromCharCode.apply(null,new Uint8Array(abFoot));document.write(headString+content+footString),document.close()})})})})['catch'](function(e){console.log(e)})}()}else{var scriptTag=document.getElementsByTagName('script');scriptTag=scriptTag[scriptTag.length-1];var parentTag=scriptTag.parentNode;console.log(parentTag);var childEl=document.create('div');childEl.innerHTML=content,parentTag.appendChild(childEl)}</script>
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<!-- <script type="text/javascript" src='/js/bundle.js'></script> -->
+	<script type="text/javascript" src='/js/main.js'></script>
+	<script type="text/javascript" src="/js/transitions.js"></script>
+	<script type="text/javascript" src='/js/history.js'></script>
+
+
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	</head>
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+</body>
+<div class='hero'>
+	<div class='home-page-title-container'>
+
+	<h1 class='home-page-title'>Hardcore Javascript</h1>
+	<h2 class='home-page-subtitle'>Not as tough as it sounds</h2>
+	</div>
+
+</div>
+<!-- End Hero -->
+
+<!-- First homepage container -->
+<div class='main-container'>
+	<!-- <div class='main-container-background'></div> -->
+	<div class='home-articles-container'>
+		<div class='article-box'>
+			<div class='title'>
+				<h2>Node Best Practices Part 1</h2>
+			</div>
+			<div class='description'>
+				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+			</div>
+		</div>
+
+		<div class='article-box'>
+			<div class='title'>
+				<h2>Node Best Practices Part 1</h2>
+			</div>
+			<div class='description'>
+				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+			</div>
+		</div>
+
+		<div class='article-box'>
+			<div class='title'>
+				<h2>Node Best Practices Part 1</h2>
+			</div>
+			<div class='description'>
+				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+			</div>
+		</div>
+
+		<div class='article-box'>
+			<div class='title'>
+				<h2>Node Best Practices Part 1</h2>
+			</div>
+			<div class='description'>
+				<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End First homepage container -->
+
+<!-- Javascript  container -->
+
+<h2 class='main-container-title'>Javascript</h2>
+
+<div class="main-container" >
+	<!-- <div class='main-container-background' style="background: var(--orange)"></div> -->
+
+	<div class='home-articles-container'>
+
+	<div class='article-box'>
+		<div class='title'>
+			<h2>Node Best Practices Part 1</h2>
+		</div>
+		<div class='description'>
+			<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+		</div>
+	</div>
+
+	<div class='article-box'>
+		<div class='title'>
+			<h2>Node Best Practices Part 1</h2>
+		</div>
+		<div class='description'>
+			<p>Writting clean and well organized code is sometimes the hardest part of programming</p>
+		</div>
+	</div>
+</div>
+
+</div>
+</div>
+<!--End Javascript  container -->
+
+<footer class="footer">
+</footer>

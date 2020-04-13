@@ -13,7 +13,9 @@
     "@babel/runtime": "^7.1.5",
     "acorn": "^6.0.4",
     "bootstrap-scss": "^4.1.3",
+    "fa-parse": "^1.0.0",
     "gulp": "^4.0.2",
+    "gulp-sitemap": "^7.6.0",
     "through2": "^3.0.0",
     "vinyl-named": "^1.1.0"
   },
