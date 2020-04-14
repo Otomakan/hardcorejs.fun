@@ -12,11 +12,11 @@ module.exports  = (targetHTMLFile, data) => {
     let header = headerContent
     let footer = footerContent
     
-     let body = fs.readFileSync(targetHTMLFile).toString('ascii')
+     let body = fs.readFileSync(targetHTMLFile).toString('utf-8')
 
     //  htmlContent = htmlminify(htmlContent)
       // Implement page per page sass
-    // let mysass = fs.readFileSync(path.resolve('','src/styles/main.scss')).toString('ascii')
+    // let mysass = fs.readFileSync(path.resolve('','src/styles/main.scss')).toString('utf-8')
     // let relevantCSS = findCSS(header+body+footer, mysass )
     // head += relevantCSS + '</head>'
 

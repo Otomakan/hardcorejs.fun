@@ -57,6 +57,8 @@ class Reader{
             this.currentValue = ""
         }
         else if (!currentChar.match(/[A-Za-z0-9$_-\s]/)){
+					console.log(this.currentKey)
+					console.log(this.currentValue)
             this.error(`${this.currentChar} is not a valid key character`)
         }
         else if ( this.currentChar != " "){
@@ -82,14 +84,16 @@ class Reader{
             }
     }
     valueReader(){
-        while(this.currentChar!="#" && this.lookAhead(1)!="#"){
-            this.currentValue += this.currentChar
-            if(this.lookAhead(1) === null){
-                this.error(`There is a formating problem at the key ${this.currentKey}`)
-            }
-            this.next()
+        while(!(this.currentChar=="#" && this.lookAhead(1)=="#")){
+				
+					this.currentValue += this.currentChar
+					if(this.lookAhead(1) === null){
+							this.error(`There is a formating problem at the key ${this.currentKey}`)
+					}
+				
+					this.next()
         }
-        this.objectRepresentation[this.currentKey] = this.currentValue + this.currentChar
+        this.objectRepresentation[this.currentKey] = this.currentValue 
         this.currentType = "key"
         this.currentValue = ""
         this.next(3)

@@ -11,7 +11,7 @@ const htmlminify = require('html-minifier').minify;
 module.exports =  ()=> {
    return through.obj(function(file, encoding, cb) {
     console.log(file)
-     const jsonData = JSON.parse(file.contents.toString('ascii'))
+     const jsonData = JSON.parse(file.contents.toString('utf-8'))
      //We get the location of the file from there we access the templates
      
      let targetHTMLFile=''
@@ -23,11 +23,11 @@ module.exports =  ()=> {
     
      let htmlContent = fs.readFileSync(targetHTMLFile)
 
-     htmlContent = htmlContent.toString('ascii')
+     htmlContent = htmlContent.toString('utf-8')
      htmlContent = htmlminify(htmlContent).replace(/\"/g,"\'").replace(/\r?\n|\r/g,"")
      // console.log(htmlContent)
      let mysass = fs.readFileSync(file.cwd+'/src/styles/index.scss')
-      mysass = mysass.toString('ascii')
+      mysass = mysass.toString('utf-8')
      let relevantCSS = findCSS(htmlContent, mysass )
 
       for(let key in jsonData){
@@ -46,7 +46,7 @@ module.exports =  ()=> {
     //Maybe to this check in a header Loader function and depending on the head, change the header to load
     //Eg if you need custom scripts, maybe have in the template.html the name of the header to load
     // Actaully maybe not useful having those scripts because we have the custom scripts parsed with our js attacher
-     if(htmlContent.slice(0,7).toString('ascii')=="#headme"){
+     if(htmlContent.slice(0,7).toString('utf-8')=="#headme"){
         const pageContent = htmlContent.slice(7,htmlContent.length)
         const script = loadBodyPrefixer()
         // .replace(/\s+/g, '')
@@ -88,7 +88,7 @@ function findCSS(htmlFile, sassFile){
        ids = ids.map((tag)=> tag.substring(4,tag.length-1))
 
      var dummyarray;
-     mycss = mycss.css.toString('ascii')
+     mycss = mycss.css.toString('utf-8')
      // console.log(mycss)
     //  while ((dummyarray = re.exec(mycss)) !== null) {
     //    console.log(`Found ${dummyarray[0]}. Next starts at ${re.lastIndex}.`);

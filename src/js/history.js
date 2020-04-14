@@ -1,12 +1,12 @@
 
 let customHistoryFIFO = [window.location.href]
 import {ready} from './helpers'
-
+import {pageTransitionAnimation} from './transitions'
 ready(()=>{
 	populateLinks()
 })
 
-function populateLinks (target)  {
+export function populateLinks (target)  {
 	target = target || document
 	console.log('target', target)
 	let links = target.getElementsByTagName('a')
@@ -33,7 +33,10 @@ function populateLinks (target)  {
 					}
 					continue
 				}
-					
+				else if(attributes.href.nodeValue.includes("#")){
+					// this is for same page anchor tags
+					continue
+				}
 				else{
 					nextPage  = href
 				}
@@ -58,11 +61,11 @@ function populateLinks (target)  {
 			nextPageTitle = nextPageTitle.substr(0, nextPageTitle.length-5)
 			//Visual component, make sure to close the navigation menu if any link is clicked
 			console.log(nextPageTitle)
-			closeNavBar()
+			// closeNavBar()
 			//Push the new state and call the appropriate function
 			history.pushState({title: nextPageTitle}, nextPageTitle, nextPage)
 			if(nextPage != '/')
-				document.title = nextPageTitle + " - Autonomy"
+				document.title = nextPageTitle + " - Hardcore JS"
 			pageTransitionAnimation(nextPage)
 		}
 	}

@@ -163,7 +163,11 @@ const imageMin =  () =>
 const fonts =  () =>
     gulp.src('src/assets/fonts/*')
         // .pipe(imagemin())
-        .pipe(gulp.dest('docs/assets/fonts/'))
+				.pipe(gulp.dest('docs/assets/fonts/'))
+const data =  () =>
+				gulp.src('src/assets/data/**/*')
+						// .pipe(imagemin())
+						.pipe(gulp.dest('docs/assets/data/'))
 
 
 
@@ -191,6 +195,6 @@ const indexhtml = ()=>
   .pipe(gulp.dest('docs/'))
   
 // Remember to put imagemin later on in
-exports.default= series(parallel(series(webpackify), fonts, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
+exports.default= series(parallel(series(webpackify), fonts,data, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
 
 

@@ -13,7 +13,7 @@ module.exports =  ()=> {
    return through.obj(function(file, encoding, cb) {
     try{
 			
-		 const jsonData = faParse(file.contents.toString('ascii'))
+		 const jsonData = faParse(file.contents.toString('utf-8'))
      //We get the location of the file from there we access the templates
      console.log(jsonData)
      let targetHTMLFile=''
@@ -29,7 +29,8 @@ module.exports =  ()=> {
      cb(null,file)
     }
     catch(e){
-     log.error(file.path)
+		 log.error(file.path)
+		 console.log('Error in file ', file.path)
      cb(e, null)
     }
   });

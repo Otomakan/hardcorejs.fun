@@ -17,14 +17,15 @@
 
 .blog-title-container {
 	display: flex;
-	justify-content: flex-end;
-	flex-wrap: wrap;
+	// justify-content: flex-end;
+	// flex-wrap: wrap;
 	padding: 2rem;
 	margin: 1rem;
 	width: 100%;
 	h1 {
 		background: white;
 		font-size: 3.6rem;
+		width: fit-content;
 	}
 	.blog-subtitle {
 		 background: white;
@@ -41,9 +42,9 @@
 	// max-width: 17rem;
 	background: white;
 	padding: 2rem;
-	cursor: pointer;
+	// cursor: pointer;
 	transition: 0.3s;
-	margin: 1rem;
+	// margin: 1rem;
 	z-index: 2;
 
 }

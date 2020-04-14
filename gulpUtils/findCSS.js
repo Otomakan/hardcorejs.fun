@@ -5,8 +5,8 @@ const fs = require('fs')
 
 const mycss = sass.renderSync({
   file:  path.join(__dirname,'..' ,'src/styles/index.scss')
-}).css.toString('ascii')
-// .toString('ascii')
+}).css.toString('utf-8')
+// .toString('utf-8')
 module.exports =  (htmlFile, sassFile) => {
   
     // console.log(mycss)
@@ -32,7 +32,7 @@ module.exports =  (htmlFile, sassFile) => {
        ids = ids.map((tag)=> tag.substring(4,tag.length-1))
 
      var dummyarray;
-    //  mycss = mycss.css.toString('ascii')
+    //  mycss = mycss.css.toString('utf-8')
      // console.log(mycss)
     //  while ((dummyarray = re.exec(mycss)) !== null) {
     //    console.log(`Found ${dummyarray[0]}. Next starts at ${re.lastIndex}.`);

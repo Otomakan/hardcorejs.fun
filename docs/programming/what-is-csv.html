@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<!-- <script type="text/javascript" src='/js/bundle.js'></script> -->
+	<script type="text/javascript" src='/js/main.js'></script>
+	<script type="text/javascript" src="/js/transitions.js"></script>
+	<script type="text/javascript" src='/js/history.js'></script>
+
+
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	</head>
+
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+</body><div class="page-wrapper">
+
+<div class='blog-page'>
+		<div class="blog-content-container">
+			<div class='blog-title-container'>
+					<h1 >What is the CSV format</h1>
+					<h4 class='blog-subtitle'>Jack Misteli</h4>
+			</div>
+			<div class="blog-content">
+				<p>
+<h2>Comma separated file</h2>
+
+As you now already now, CSV stands for Comma separated file. It is a file that uses commas to separate values. 
+
+CSV is one of the most popular format to store data. You might have already encountered it when exporting data from an Excel spread sheet.
+
+<h2>Specifications</h2>
+
+<p>There is no official standard for the CSV format. There is a <a href="<a href="https://tools.ietf.org/html/rfc4180">Request for Comment (RFC) which attempts to codify it</a>.</p>
+
+<p>Here is what a CSV usually looks like: </p>
+
+<code>
+Entity,Code,Year,
+Australia,AUS,2017,0.09
+Indonesia,IDN,2017,0.18
+United Kingdom,GBR,2017,0.08
+United States,USA,2017,0.16
+</code>
+<span>You can find the file <a href="/assets/data/correlation-income-and-life-satisfaction.csv">here</a></span>
+
+<p>You can see that each line is equivalent to a row.</p>
+
+<table class="table table-bordered table-hover table-condensed">
+<thead><tr><th title="Field #1">Entity</th>
+<th title="Field #2">Code</th>
+<th title="Field #3">Year</th>
+<th title="Field #4">FIELD4</th>
+</tr></thead>
+<tbody><tr>
+<td>Australia</td>
+<td>AUS</td>
+<td align="right">2017</td>
+<td align="right">0.09</td>
+</tr>
+<tr>
+<td>Indonesia</td>
+<td>IDN</td>
+<td align="right">2017</td>
+<td align="right">0.18</td>
+</tr>
+<tr>
+<td>United Kingdom</td>
+<td>GBR</td>
+<td align="right">2017</td>
+<td align="right">0.08</td>
+</tr>
+<tr>
+<td>United States</td>
+<td>USA</td>
+<td align="right">2017</td>
+<td align="right">0.16</td>
+</tr>
+</tbody></table>
+
+We also made <a href="/javascript/13-04-2020-building-a-line-chart-with-d3.html"> a visualization using this data and d3 here</a>.
+</p>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+</footer>

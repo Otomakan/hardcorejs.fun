@@ -3,8 +3,13 @@ import {ready, getDocHeight, isTouchScreen} from './helpers'
 import colors from './colors'
 
 ready(()=> {
+	
 	const body = document.getElementsByTagName('body')[0]
 	drawRectangles(body)
+
+
+	const localStorage = window.localStorage
+	const visited = localStorage.setItem('visited', 'y')
 })
 window.addEventListener('scroll',function(e){
 	const body = document.getElementsByTagName('body')[0]
@@ -15,11 +20,12 @@ window.addEventListener('scroll',function(e){
 })
 const drawRectangles = (div) => {
 	// Number of squares per row minus one
-	const sqNum = 5 + Math.floor(Math.random()*Math.floor(window.innerWidth/70))
+	const sqNum = 4 + Math.floor(Math.random()*Math.floor(window.innerWidth/70))
 	const squareSizes = window.innerWidth / sqNum
 	const margin = window.innerWidth/sqNum/sqNum
 	const rows = Math.round(getDocHeight()/squareSizes)
 
+	
 	// Calculate columns
 	for (let y = 0; y < rows - 1; y++) {
 		// Generate rows
@@ -29,9 +35,11 @@ const drawRectangles = (div) => {
 
 			const square = createSquare(margin + xPos,margin + yPos, squareSizes)
 			div.appendChild(square)
+			const localStorage = window.localStorage
+			const visited = localStorage.getItem('visited')
 			window.setTimeout(()=>{
 				console.log('is touch screen', isTouchScreen())
-			if ((isTouchScreen() || window.innerWidth <= 780) ? Math.random()>0.25: Math.random()>0.9 ) {
+			if ((visited || isTouchScreen() || window.innerWidth <= 780) ? Math.random()>0.25: Math.random()>0.9 ) {
 				changeSquareColor(square)
 			}
 			square.style.transform = '';
