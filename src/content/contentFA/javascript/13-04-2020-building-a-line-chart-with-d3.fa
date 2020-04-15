@@ -8,11 +8,77 @@ content:  ##<p>If you are using the D3 API for the first time, you are probably 
 <p><a href="#writing-lines"> I already have data skip ↓</a><p>
 <p>Choosing the right data set is important. We have to make sure that we'll have something that plots well with no crazy edge cases. </p>
 
-<p>I wanted to choose something a bit uplifting in these hard times so I chose the data available at <a href="https://ourworldindata.org/happiness-and-life-satisfaction#all-charts-preview" target="_blank">Our World in Data</a>.
+<p>I wanted to choose something a bit uplifting in these hard times so I chose some of the happiness data available at <a href="https://ourworldindata.org/happiness-and-life-satisfaction#all-charts-preview" target="_blank">Our World in Data</a>.
  </p>
 
 <p>
-Usually when you find data it will be <a href="/programming/what-is-csv.html"> in a CSV format</a>. 
+Usually when you find data it will be <a href="/programming/what-is-csv.html"> in a CSV format</a>. Here our data looks like this:
+
+<pre>
+Entity,Code,Year, (%)
+Albania,ALB,1998,33.433434
+Albania,ALB,2004,58.799999
+Algeria,DZA,2004,80.733231
+Algeria,DZA,2014,79.89418
+Andorra,AND,2009,92.878632
+Argentina,ARG,1984,78.571426
+...
+</pre>
+<p>
+We have four columns with country names and codes, years, and percentages. The first thing I want to do is think about what data format I want to play with. All I'm interested in is the year, country name and happiness percentage.</p>
+
+<p> I want to use that data in Javascript so we have to think in terms of Javascript friendly format. To do so, I want to turn the CSV data into a JSON Object.</p> At first glance I see three possible structures:</p>
+
+<p>An array of objects very similar to the csv format.</p>
+<code>
+	const data = [
+		{country: 'Albania', year:'1998', happinessPercentage:33.433434},
+		...
+	]
+</code>
+
+<p>An object with country names as keys.</p>
+<code>
+	const data = {
+		Albania: [{
+			year:'1998', 
+			happinessPercentage:33.433434},
+			{
+				year: '2004'
+				happinessPercentage: 58.799999
+			}
+			// More years
+			]
+		Argentina: [
+			//...
+		]
+		//...
+	}
+
+</code>
+
+<p>An object with years as keys.</p>
+<code>
+const data = {
+		'1998': [{
+			country:'Albania', 
+			happinessPercentage:33.433434},
+			{
+				country: 'France'
+				happinessPercentage: 86.799999
+			}
+			// ,,,More countrys
+		]
+		'1999: [
+			//...
+		]
+		//...More years
+	}
+</code>
+
+
+<p>
+There are a lot of tools you can use to transmorm csv to json. If you want to stick to Node/Javascript you can use the npm package <mark>csvtojson</mark>. Here is the script I use
 </p>
 
 <h2 ><a id='writing-lines'></a>Writing the lines </h2>

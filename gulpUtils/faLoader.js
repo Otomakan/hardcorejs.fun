@@ -15,7 +15,6 @@ module.exports =  ()=> {
 			
 		 const jsonData = faParse(file.contents.toString('utf-8'))
      //We get the location of the file from there we access the templates
-     console.log(jsonData)
      let targetHTMLFile=''
      if(jsonData.template)
         targetHTMLFile = file.cwd+'/src/content/templates/'+jsonData.template+'.html'

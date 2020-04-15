@@ -1,7 +1,7 @@
 const gulp = require('gulp')
 const { series,parallel } = require('gulp')
 const uglify = require('gulp-uglify')
-const babel = require('gulp-babel')
+// const babel = require('gulp-babel')
 const gulpCleanCSS= require('gulp-clean-css')
 const browserSync = require('browser-sync').create()
 const autoprefixer = require('gulp-autoprefixer')
@@ -22,19 +22,42 @@ const webpack = require('webpack-stream')
 const faLoader  = require('./gulpUtils/faLoader')
 var gulpsitemap = require('gulp-sitemap');
 
+const webpackOptions = {
+	module: {
+		rules: [
+			{
+				test: /\.m?js$/,
+				exclude: /(node_modules|bower_components)/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env'],
+					"plugins": [
+						"@babel/plugin-transform-modules-commonjs", 
+						"@babel/plugin-transform-regenerator",
+						'@babel/plugin-transform-runtime',
+						"@babel/plugin-proposal-export-default-from"]
+
+					}
+				}
+			}
+		]
+	}
+}
+
 const named = require('vinyl-named')
 
-const AUTOPREFIXER_BROWSERS = [
-  'ie >= 10',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 7',
-'opera >= 23',
-  'ios >= 7',
-  'android >= 4.4',
-  'bb >= 10'
-]
+// const AUTOPREFIXER_BROWSERS = [
+//   'ie >= 10',
+//   'ie_mob >= 10',
+//   'ff >= 10',
+//   'chrome >= 34',
+//   'safari >= 7',
+// 'opera >= 23',
+//   'ios >= 7',
+//   'android >= 4.4',
+//   'bb >= 10'
+// ]
 
 const babelSettings = {
 	presets: ["@babel/preset-env"],
@@ -45,11 +68,12 @@ const serve =  ()=> {
     browserSync.init({
         server: "./docs/"
     })
-    gulp.watch('src/js/*.js', series(webpackify)).on('change',browserSync.reload)
+    gulp.watch('src/js/*.js', series(webpackify,sw)).on('change',browserSync.reload)
     gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
-    gulp.watch(['src/content/templates/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/*.fa','src/content/contentFA/**/**.yaml'], fa2html).on('change',browserSync.reload)
+    gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/*.fa','src/content/contentFA/**/**.yaml'], fa2html).on('change',browserSync.reload)
     gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
-}
+		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, fa2html,indexhtml) ).on('change',browserSync.reload)
+	}
 
 const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!dist/content/*', '!dist/content/**/*', '!dist/content/**/**/*'], {
 					read: false
@@ -60,14 +84,14 @@ const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!d
 			.pipe(gulp.dest('dist/'));
 
 
-const compress =  ()=> 
-        gulp.src('src/js/*.js')
-        // .pipe(concat('bundle.js'))
-        .pipe(babel(babelSettings)).on('error', function(e){
-            console.log(e);})
-         // .pipe(uglify().on('error', function(e){
-            // console.log(e);}))
-        .pipe(gulp.dest('./docs/js'))
+// const compress =  ()=> 
+//         gulp.src('src/js/*.js')
+//         // .pipe(concat('bundle.js'))
+//         .pipe(babel(babelSettings)).on('error', function(e){
+//             console.log(e);})
+//          // .pipe(uglify().on('error', function(e){
+//             // console.log(e);}))
+//         .pipe(gulp.dest('./docs/js'))
 
 // const mainBundle =  ()=>
 // 		gulp.src(['src/js/main.js','src/js/history.js','src/js/serviceWorkers.js'])
@@ -77,15 +101,22 @@ const compress =  ()=>
 // 				.pipe(gulp.dest('./docs/js'))
 
 const webpackify = () =>  {
-		console.log('webpackifying')
-		return	gulp.src('src/js/*.js')			
+		return	gulp.src('src/js/*.js')		
 			.pipe(named())
-			.pipe(webpack())
-		
-
+			.pipe(webpack(webpackOptions))
 			.pipe(gulp.dest('./docs/js'));
-
 }
+const registerJS = ()=>{
+	return gulp.src('src/js/sw.js')	
+.pipe(named())
+.pipe(webpack(webpackOptions))
+.pipe(gulp.dest('./docs/'))
+}
+const registerManifest = ()=> {
+	return gulp.src('src/manifest.json')	
+	.pipe(gulp.dest('./docs/'))
+}
+const sw = series(registerJS, registerManifest)
 
 const fa2html =  ()=>
 gulp.src(['src/content/contentFA/*.fa','src/content/contentFA/**.fa','src/content/contentFA/***/*.fa','src/content/contentFA/**/**/**/*.fa'],
@@ -147,7 +178,7 @@ const cleanCSS = ()=>
   gulp.src('src/styles/**/*.scss')
 	// .pipe(concat('bundle.css'))
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-  .pipe(autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
+  .pipe(autoprefixer())
   // .pipe(gulpCleanCSS())
   .pipe(gulp.dest('./docs/'))
 
@@ -155,7 +186,7 @@ const cleanCSS = ()=>
 
 const imageMin =  () =>
     gulp.src('src/assets/images/*')
-        // .pipe(imagemin())
+        .pipe(imagemin())
         .pipe(gulp.dest('docs/assets/images/'))
 
 
@@ -195,6 +226,6 @@ const indexhtml = ()=>
   .pipe(gulp.dest('docs/'))
   
 // Remember to put imagemin later on in
-exports.default= series(parallel(series(webpackify), fonts,data, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
+exports.default= series(parallel(series(webpackify,sw), fonts,data, imageMin, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
 
 

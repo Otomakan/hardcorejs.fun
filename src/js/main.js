@@ -6,6 +6,10 @@ ready(()=> {
 	
 	const body = document.getElementsByTagName('body')[0]
 	drawRectangles(body)
+	// Registering our Service worker
+	if('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('sw.js', { scope: '/' })
+	}
 
 
 	const localStorage = window.localStorage
@@ -27,9 +31,9 @@ const drawRectangles = (div) => {
 
 	
 	// Calculate columns
-	for (let y = 0; y < rows - 1; y++) {
+	for (var y = 0; y < rows - 1; y++) {
 		// Generate rows
-		for (let x = 0; x < sqNum - 1; x++) {
+		for (var x = 0; x < sqNum - 1; x++) {
 			const xPos = x*(squareSizes+margin)
 			const yPos = y*(squareSizes+margin)
 

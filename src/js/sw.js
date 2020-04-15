@@ -4,10 +4,10 @@ self.addEventListener('install', e => {
       return cache.addAll([
         `/`,
         `/index.html`,
-        `/js/bundle.js`,
-        `/main.css`,
-        `/assets/images/autonomy_logo.png`,
-        `/assets/images/wind_turbine_back_no_man_nothing_cropped.jpg`,
+				`/js/main.js`,
+        `/js/history.js`,
+				
+        `/index.css`,
         `/manifest.json`,
         `/offline.html`
       ])
@@ -21,7 +21,7 @@ self.addEventListener('install', e => {
 });
 
 
-addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -49,3 +49,11 @@ addEventListener('fetch', function(event) {
       .catch((e)=>{console.log(e)})
   );
 }); 
+
+
+self.addEventListener('load', () => {
+  const code = document.querySelector('#code');
+  const worker = new Worker('worker.js');
+  worker.onmessage = (event) => { code.innerHTML = event.data; }
+  worker.postMessage(code.textContent);
+});

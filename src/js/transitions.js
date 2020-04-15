@@ -13,17 +13,6 @@ export const pageTransitionAnimation = (targetUrl)=>{
 		pageContent.style.transform =  "scale(1)"
 		populateLinks()
 	},500)
-  	// bodt.innerHTML = ""
-   //  fetch(targetUrl).then(res=>{
-   //    res.arrayBuffer().then((ab)=>{
-   //      // for(let i =0; i<ab.length; i++){
-
-   //        let myString =  String.fromCharCode.apply(null, new Uint8Array(ab)).replace(/<div class="page-wrapper">/,"")  // }
-   //        console.log( myString)
-   //        //Eleminating all the scripts and useless data
-   //        targetDiv.innerHTML += myString.match(/(content=\")([^]+)\"/)[0].replace(/(content=\")/,"").slice(0, -1)
-   //      })
-   //    })
 
 }
 
