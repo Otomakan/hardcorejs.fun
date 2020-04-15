@@ -183,7 +183,6 @@ const cleanCSS = ()=>
   .pipe(gulp.dest('./docs/'))
 
 
-
 const imageMin =  () =>
     gulp.src('src/assets/images/**/*')
         .pipe(imagemin())
@@ -192,7 +191,7 @@ const imageMin =  () =>
 
 
 const fonts =  () =>
-    gulp.src('src/assets/fonts/*')
+    gulp.src('src/assets/fonts/**/*')
         // .pipe(imagemin())
 				.pipe(gulp.dest('docs/assets/fonts/'))
 const data =  () =>

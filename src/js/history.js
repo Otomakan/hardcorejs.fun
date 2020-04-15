@@ -8,7 +8,6 @@ ready(()=>{
 
 export function populateLinks (target)  {
 	target = target || document
-	console.log('target', target)
 	let links = target.getElementsByTagName('a')
 	for(let i=0;i< links.length;i++){
 		let link = links[i]
@@ -18,11 +17,9 @@ export function populateLinks (target)  {
 			let target = link.getAttribute('target')
 			if(target != "_blank"){
 				const href = attributes.href.value
-				// console.log(attributes.href.nodeValue)
 				if(attributes.href.nodeValue == "#"){
 					link.onclick = (e) =>{
 						e.preventDefault()
-						console.log(target)
 						const targetY = document.getElementById(target).getBoundingClientRect().y
 						let additionalOffset
 						if(window.innerWidth < 750)
@@ -48,8 +45,6 @@ export function populateLinks (target)  {
 			e.preventDefault()
 			e.stopImmediatePropagation()
 			const t = e.target
-			console.log('click')
-			console.log(nextPage)
 
 			// Infering the next page titl from its url
 			nextPageTitle
@@ -60,7 +55,6 @@ export function populateLinks (target)  {
 			nextPageTitle = nextPageTitle.join(' ')
 			nextPageTitle = nextPageTitle.substr(0, nextPageTitle.length-5)
 			//Visual component, make sure to close the navigation menu if any link is clicked
-			console.log(nextPageTitle)
 			// closeNavBar()
 			//Push the new state and call the appropriate function
 			history.pushState({title: nextPageTitle}, nextPageTitle, nextPage)

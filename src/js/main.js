@@ -1,15 +1,41 @@
 // const {ready, } = require('./helpers')
 import {ready, getDocHeight, isTouchScreen} from './helpers'
 import colors from './colors'
+import hljs from 'highlight.js/lib/highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
 
+function highlight_code()
+{
+		if (typeof (Worker) === undefined)
+				return false
+
+		// var workerFunction = new Blob(['(' + highlight_worker_function.toString() + ')()'], {type: "text/javascript"});
+
+		const codes = document.querySelectorAll('code')
+		for (let i= 0; i < codes.length; i++) {
+			const code = codes[i]
+			var worker = new Worker('/js/worker.js');
+				worker.onmessage = function () {
+						code.innerHTML = (event.data)
+						code.classList.add('hljs')
+				}
+				worker.postMessage(code.innerHTML); // start worker
+		}
+}
+self.addEventListener('load', () => {
+	highlight_code()
+})
 ready(()=> {
-	
 	const body = document.getElementsByTagName('body')[0]
 	drawRectangles(body)
 	// Registering our Service worker
-	if('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('sw.js', { scope: '/' })
-	}
+	// console.log(process.env)
+	// if(process.env==='production'){
+	// if('serviceWorker' in navigator) {
+	// 	navigator.serviceWorker.register('/sw.js', { scope: '/' })
+
+	// }
+// }
 
 
 	const localStorage = window.localStorage
@@ -42,7 +68,6 @@ const drawRectangles = (div) => {
 			const localStorage = window.localStorage
 			const visited = localStorage.getItem('visited')
 			window.setTimeout(()=>{
-				console.log('is touch screen', isTouchScreen())
 			if ((visited || isTouchScreen() || window.innerWidth <= 780) ? Math.random()>0.25: Math.random()>0.9 ) {
 				changeSquareColor(square)
 			}

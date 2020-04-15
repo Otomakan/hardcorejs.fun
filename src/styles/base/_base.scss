@@ -14,6 +14,7 @@ body {
 	/* margin-top: var(--navbar-height); */
 	isolation: isolate;
 	position: relative;
+	overflow-y: hidden;
 
 }
 body, div, p {
@@ -35,6 +36,10 @@ h1, h2, h3, h4, h5 {
 h1, h2, h3 {
 	mix-blend-mode: multiply;
 	z-index: 3;
+}
+code {
+	font-family: 'JetBrainsMono';
+	letter-spacing: 1px;
 }
 
 a {

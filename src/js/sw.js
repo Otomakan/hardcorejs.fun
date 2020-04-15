@@ -7,7 +7,6 @@ self.addEventListener('install', e => {
         `/index.html`,
 				`/js/main.js`,
         `/js/history.js`,
-				
         `/index.css`,
         `/manifest.json`,
       ])
@@ -30,10 +29,3 @@ self.addEventListener('fetch', event => {
   );
 });
 
-
-self.addEventListener('load', () => {
-  const code = document.querySelector('#code');
-  const worker = new Worker('worker.js');
-  worker.onmessage = (event) => { code.innerHTML = event.data; }
-  worker.postMessage(code.textContent);
-});
