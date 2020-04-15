@@ -200,7 +200,9 @@ const data =  () =>
 						// .pipe(imagemin())
 						.pipe(gulp.dest('docs/assets/data/'))
 
-
+const CNAME = () => 
+	gulp.src('CNAME')
+	.pipe(gulp.dest('docs/'))
 
 
 const html = ()=>
