@@ -1,9 +1,11 @@
 html {
-	width: 100vw;
+	// width: 100vw;
+	box-sizing: border-box;
 }
 html, body {
   position:relative;
-  overflow-x:hidden;
+	overflow-x:hidden;
+	
 }
 body {
 	max-width: 100vw;
@@ -18,8 +20,16 @@ body {
 
 }
 body, div, p {
-	// font-family: 'Open Sans', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 	/* margin-top: var(--navbar-height); */
+	font-size: 21px;
+	@media(max-width: 550px) {
+    font-size: 18px;
+	}
+}
+
+*{
+	box-sizing: inherit;
 }
 
 div{
@@ -40,6 +50,9 @@ h1, h2, h3 {
 code {
 	font-family: 'JetBrainsMono';
 	letter-spacing: 1px;
+	@media(max-width: 550px) {
+		font-size: 18px;
+	}
 }
 
 a {

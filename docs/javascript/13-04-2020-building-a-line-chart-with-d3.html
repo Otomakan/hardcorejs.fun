@@ -33,13 +33,15 @@
 </body><div class="page-wrapper">
 
 <div class='blog-page'>
-		<div class="blog-content-container">
+		<div class="blog-center-container">
 			<div class='blog-title-container'>
 					<h1 >Building a Line Chart with D3</h1>
 					<h4 class='blog-subtitle'>Jack Misteli</h4>
 			</div>
-			<div class="blog-content">
-				<p><p>If you are using the D3 API for the first time, you are probably a little bit intimidated. A line chart is great project to get your feet in the water 😃 💧. Before we get started make sure you read <a href="/javascript/setting-up-d3">our article about setting up d3 in your project</a>.
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p><p>If you are using the D3 API for the first time, you are probably a little bit intimidating. A line chart is great project to get your feet in the water 😃 💧. Before we get started make sure you read <a href="/javascript/setting-up-d3">our article about setting up d3 in your project</a>.
 </p>
 
 <pre>
@@ -67,7 +69,7 @@ function $initHighlight(block, cls) {
 export  $initHighlight;
 </code>
 </pre>
-<h2>Choosing our data</h2>
+<h1>Choosing our data</h1>
 <p><a href="#writing-lines"> I already have data skip ↓</a><p>
 <p>Choosing the right data set is important. We have to make sure that we'll have something that plots well with no crazy edge cases. </p>
 
@@ -151,10 +153,11 @@ const data = {
 There are a lot of tools you can use to transform csv to json. If you want to stick to Node/Javascript you can use the npm package <mark>csvtojson</mark>. Here is the script I used
 </p>
 
-<h2 ><a id='writing-lines'></a>Writing the lines </h2>
+<h1 ><a id='writing-lines'></a>Writing the lines </h1>
 
 
 </p>
+				</div>
 			</div>
 		</div>
 </div>
