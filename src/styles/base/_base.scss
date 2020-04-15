@@ -1,5 +1,5 @@
 html {
-	// width: 100vw;
+	width: 100vw;
 	box-sizing: border-box;
 }
 html, body {
@@ -20,7 +20,9 @@ body {
 
 }
 body, div, p {
-	font-family: 'Open Sans', sans-serif;
+	// font-family: 'Open Sans', sans-serif;
+	font-family: 'Inter', sans-serif;
+
 	/* margin-top: var(--navbar-height); */
 	font-size: 21px;
 	@media(max-width: 550px) {

@@ -22,7 +22,7 @@ const loadTemplate = (targetDiv, targetUrl,targetContent) => {
 	
 	targetDiv.innerHTML = ""
 	  fetch(targetUrl).then(async res=>{
-		const responseString =await  res.text()
+		const responseString = await  res.text()
 			 //Parse the response to html
 			const parser = new DOMParser()
 			const newHTML = parser.parseFromString(responseString,'text/html')
@@ -32,7 +32,6 @@ const loadTemplate = (targetDiv, targetUrl,targetContent) => {
 			populateLinks(newBody)
 			targetDiv.innerHTML = newBody.innerHTML
 
-		
 			// We populate the existing link on the new page
 			// Can maybe be optimzed by doing it one step before only on the new links
 			// To do that pass a "target" by default it will be documetn

@@ -6,9 +6,16 @@
 	padding: 1rem 3rem;
 	/* margin-bottom: var(--navbar-height); */
 	mix-blend-mode: luminosity;
+	transition: 0.3s;
 	@media(max-width: 780px) {
 		padding: 1rem 0;
 	}
+	z-index:1;
+}
+.hero:hover{
+	mix-blend-mode: unset;
+	// background: red;
+	// transform: scale(1.1)
 }
 
 .home-page-title-container {
@@ -16,6 +23,8 @@
 	background: white;
 	margin-left: var(--main-containers-margin);	
 	padding: 1rem;
+	display: flex;
+	flex-direction: column;
 
 	@media(max-width: 780px) {
 		margin-left:0;

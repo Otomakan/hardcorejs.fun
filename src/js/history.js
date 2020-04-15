@@ -35,6 +35,8 @@ export function populateLinks (target)  {
 					continue
 				}
 				else{
+					// console.log(attributes.href)
+
 					nextPage  = href
 				}
 			}else 
@@ -47,7 +49,7 @@ export function populateLinks (target)  {
 			const t = e.target
 
 			// Infering the next page titl from its url
-			nextPageTitle
+			// nextPageTitle
 			let nextPageTitle  = nextPage.split('/')
 
 			nextPageTitle = nextPageTitle[nextPageTitle.length-1].split('-')
@@ -71,11 +73,15 @@ export function populateLinks (target)  {
 // };
 // history.pushState(null, null, location.href)
 // Th onpopstate event is used to detect the back and forward button events
-window.onpopstate = ()=>{
-	// this allows to use the backbutton
-	pageTransitionAnimation(location.href)
-	populateLinks()
+window.onpopstate = (e)=>{
+	// allows hash same page navigation
+	if(e.state === null) 
+		return
+	// this allows a backbutton animation
+ 
+ pageTransitionAnimation(location.href)
 
+	populateLinks()
 }
 // For some hash naviagation detection
 // window.onhashchange  = ()=>{

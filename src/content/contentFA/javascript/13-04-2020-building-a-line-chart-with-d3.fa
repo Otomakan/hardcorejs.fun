@@ -4,31 +4,7 @@ author: ##Jack Misteli##
 content:  ##<p>If you are using the D3 API for the first time, you are probably a little bit intimidating. A line chart is great project to get your feet in the water 😃 💧. Before we get started make sure you read <a href="/javascript/setting-up-d3">our article about setting up d3 in your project</a>.
 </p>
 
-<pre>
-<code >
-function $initHighlight(block, cls) {
-  try {
-    if (cls.search(/\bno\-highlight\b/) != -1)
-      return process(block, true, 0x0F) +
-             ` class="${cls}"`;
-  } catch (e) {
-    /* handle exception */
-  }
-  for (var i = 0 / 2; i < classes.length; i++) {
-    if (checkCondition(classes[i]) === undefined)
-      console.log('undefined');
-  }
 
-  return (
-    <div>
-      <web-component>{block}</web-component>
-    </div>
-  )
-}
-
-export  $initHighlight;
-</code>
-</pre>
 <h1>Choosing our data</h1>
 <p><a href="#writing-lines"> I already have data skip ↓</a><p>
 <p>Choosing the right data set is important. We have to make sure that we'll have something that plots well with no crazy edge cases. </p>
