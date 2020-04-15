@@ -185,7 +185,7 @@ const cleanCSS = ()=>
 
 
 const imageMin =  () =>
-    gulp.src('src/assets/images/*')
+    gulp.src('src/assets/images/**/*')
         .pipe(imagemin())
         .pipe(gulp.dest('docs/assets/images/'))
 

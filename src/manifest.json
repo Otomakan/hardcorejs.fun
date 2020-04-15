@@ -3,9 +3,10 @@
   "short_name": "Hardcore JS",
   "theme_color": "#dc136c",
   "background_color": "#8ED1B7",
-  "display": "browser",
+  "display": "standalone",
   "scope": "/",
 	"start_url": "/index.html",
+	"description":"Thoughts on web technologies by Jack Misteli",
 "icons": [
     {
       "src": "/assets/images/icons/icon-72x72.png",
@@ -50,3 +51,4 @@
   ],
   "splash_pages": null
 }
+
