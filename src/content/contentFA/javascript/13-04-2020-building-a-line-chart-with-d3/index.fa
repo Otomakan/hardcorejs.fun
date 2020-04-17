@@ -3,7 +3,7 @@ title: ##Building a Line Chart with D3##
 author: ##Jack Misteli##
 content:  ##
 
-<p class='prelude'>This article is a bit long if you want to go straight to the code it <a href="">is available in this Github Repository</a></p>
+<p class='prelude'>This article is a bit long if you want to go straight to the code it <a href="https://github.com/Otomakan/hardcorejs.fun/tree/master/docs/javascript/13-04-2020-building-a-line-chart-with-d3">is available in this Github Repository</a></p>
 
 <p>If you are using the D3 API for the first time, you are probably a little bit intimidating. A line chart is great project to get your feet in the water 😃 💧. Before we get started make sure you read <a href="/javascript/setting-up-d3">our article about setting up d3 in your project</a>.
 </p>
