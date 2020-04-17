@@ -70,7 +70,7 @@ const serve =  ()=> {
     })
     gulp.watch('src/js/*.js', series(webpackify,sw)).on('change',browserSync.reload)
     gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
-    gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/*.fa','src/content/contentFA/**/**.yaml'], fa2html).on('change',browserSync.reload)
+    gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/**/*.fa','src/content/contentFA/**/**/**/*.fa'], fa2html).on('change',browserSync.reload)
     gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
 		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, fa2html,indexhtml) ).on('change',browserSync.reload)
 	}

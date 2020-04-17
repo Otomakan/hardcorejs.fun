@@ -3,18 +3,19 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
 	.st1{fill:#606EFE;stroke:#000000;stroke-miterlimit:10;}
-	.st2{fill:#FDD483;stroke:#000000;stroke-miterlimit:10;}
-	.st3{fill:#DC136C;stroke:#000000;stroke-miterlimit:10;}
+	.st2{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+	.st3{fill:#FDD483;stroke:#000000;stroke-miterlimit:10;}
+	.st4{fill:#DC136C;stroke:#000000;stroke-miterlimit:10;}
 </style>
-<rect x="8.4" y="0.52" class="st0" width="82.7" height="82.7"/>
-<rect x="8.4" y="0.52" class="st1" width="49.99" height="32.71"/>
-<rect x="8.4" y="50.51" class="st0" width="38.63" height="32.71"/>
-<rect x="58.39" y="33.23" class="st1" width="32.71" height="49.99"/>
-<rect x="58.39" y="0.52" class="st0" width="32.71" height="32.71"/>
-<rect x="8.4" y="0.52" class="st2" width="16.35" height="82.7"/>
-<rect x="25.22" y="66.4" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 124.7902 58.0031)" class="st3" width="16.35" height="49.99"/>
-<rect x="57.93" y="-16.3" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 74.7989 -57.4073)" class="st3" width="16.35" height="49.99"/>
-<rect x="74.74" y="0.52" class="st2" width="16.35" height="82.7"/>
+<rect x="8.4" y="0.5" class="st0" width="82.7" height="82.7"/>
+<rect x="8.4" y="0.5" class="st1" width="50" height="32.7"/>
+<rect x="8.4" y="50.5" class="st2" width="38.6" height="32.7"/>
+<rect x="58.4" y="33.2" class="st1" width="32.7" height="50"/>
+<rect x="58.4" y="0.5" class="st2" width="32.7" height="32.7"/>
+<rect x="8.4" y="0.5" class="st3" width="16.4" height="82.7"/>
+<rect x="8.4" y="83.2" class="st4" width="50" height="16.4"/>
+<rect x="41.1" y="0.5" class="st4" width="50" height="16.3"/>
+<rect x="74.7" y="0.5" class="st3" width="16.3" height="82.7"/>
 </svg>

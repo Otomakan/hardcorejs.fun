@@ -24,6 +24,9 @@ function highlight_code()
 }
 self.addEventListener('load', () => {
 	highlight_code()
+	document.querySelectorAll("code").forEach(function(element) {
+    element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+})
 })
 ready(()=> {
 	const body = document.getElementsByTagName('body')[0]

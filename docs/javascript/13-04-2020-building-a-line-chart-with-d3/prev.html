@@ -66,6 +66,8 @@ Argentina,ARG,1984,78.571426
 ...
 </pre>
 
+<p>You can find <a href='/assets/data/share-of-people-who-say-they-are-happy.csv'>the full data set here</a></p>, and then load it into google a google spreadsheet.
+
 <h1>Setting up our data</h1>
 
 <p>
@@ -152,24 +154,42 @@ const data = {
 <ul>Not as readable as the country names as keys in my opinion, this would work better if we were interested in building a map</ul>
 
 <p>
-	You can also imagine a multitude of combination of all these approaches. Here we will choose an array of arrays:
+	You can also imagine a multitude of combination of all these approaches. Here we will choose to go with this:
 </p>
 <pre>
 <code>
-const data = [
-	['Albania', '1998', 33.433434], ...
-]
+const data = {
+	properties: {
+		lineLabel: 'Country',
+		xAxisLabel: 'Year',
+		yAxisLabel: 'Happiness Percentage'
+	},
+	data: [
+		{
+			id: 'Albania',
+			data: [
+				['1998', '86.799999'],
+				['2004','58.799999']
+			]
+		},
+		{
+			id: 'Algeria',
+			data: //...
+		}]
+	]
+}
 </code>
 </pre>
 
 <p>
-This might seem a bit impractical at first. But with no object (and object keys), we don't need any context to read our data. This means that we will be able to reuse our Line Chart in other contexts, with different data set. The only issue is that we need to pass some additional information to tell our graph what's the name our lines, yaxis and xaxis. 
+This might seem a bit impractical at first. But the
 </p>
 
 <h2>Converting our data to JSON. </h2>
 <p>
 There are a lot of tools you can use to transform csv to json. If you want to stick to Node/Javascript you can use the npm package <mark>csvtojson</mark>. Here is the script I used:
 </p>
+
 <pre><code>
 const path = require('path')
 const fs = require('fs')
@@ -183,11 +203,15 @@ csv().fromFile(path.resolve(__dirname, './share-of-people-who-say-they-are-happy
 		jsonObj.forEach(entry=>{
 			finalArray.push([entry.Entity, entry.Year, entry['(%)']])
 		})
-		fs.writeFileSync(path.resolve(__dirname, './share-of-people-who-say-they-are-happy.json'), JSON.stringify(finalArray))
+		fs.writeFileSync(
+			path.resolve(__dirname, './share-of-people-who-say-they-are-happy.json'), 
+			JSON.stringify(finalArray)
+		)
 })
 </code></pre>
 
-<h1 ><a id='writing-lines'></a>Writing the lines </h1>
+<h1 >Calling our data </h1>
+
 
 Alright so now we can access our data by running:
 <pre><code>
@@ -200,68 +224,160 @@ const getHappinessData = () => {
 <p>You can run in your developer console: <code>getHappinessData().then(data=> console.log(data) )</code> to see the data.
 </p>
 
-<p>
 
-</p>
+<h1 ><a id='writing-lines'></a>Writing the lines </h1>
 
-<svg width='500' height='500' viewBox="0 0 100 100}">
-    <!-- line chart -->
-		<g class="axis x-axis">
-      {#each xScale.ticks() as i}
-        <g class="tick" transform="translate({xScale(i)},{height})">
-          <text x="0" y="-4">{i == 0 ? "Day ":""}{i}</text>
-        </g>
-      {/each}
-			<g class="axis y-axis" transform="translate(0,{padding.top})">
-      {#each yScale.ticks(5) as tick}
-        <g class="tick tick-{tick}" transform="translate(0, {yScale(tick) - padding.bottom})">
-          <line x2="100%"></line>
-          <text y="-4">{Number.isInteger(Math.log10(tick)) ? (tick).toLocaleString() : (log ? "": (tick).toLocaleString())}{ (tick == yScale.ticks(5)[0]) ? " ": ""}</text>
-        </g>
-      {/each}
-		
-    </g>
 
-    </g>
-		<g>
-      <!-- <path fill="#cce5df" stroke="none" d="{area(data)}" /> -->
-      {#each lines as line, i}
-			<g>
-				<path fill="none" 
-				stroke={colors[i]} 
-				stroke-width="4" d="{line(timeSeries)}" />
-				</g>
-			{/each}
 
-					<g class="focus">
-			
-			<circle r=5 fill={colors[0]} cx={xScale(toolTipDataY)} cy={yScale(toolTipData.confirmed)}></circle>
-			<circle r=5 fill={colors[2]} cx={xScale(toolTipDataY)} cy={yScale(toolTipData.fatalities)}></circle>
-			{#if toolTipData.confirmed}
-					<rect class="tooltip" width={100} height={80} x={mousePosX} y={mousePosY} rx={4} ry={4}/>
-					{#each Object.keys(toolTipData) as data,i}
-					<text x={mousePosX + i + 20} y={mousePosY +  i *20 +20}  class="tooltip-date">
-							{data}
-					</text>
+Finally some code ! The only thing you need to know is that I don't use all the d3 builtin functions here. We only use d3 functions to draw our lines paths and map our values. 
 
-					{/each}
-				
-			{/if}
+<pre><code>
 
-			</g>
-		</g>
-		<rect 
-			{width} {height}
-			class="overlay" 
-			on:mousemove={mousemove}
-		></rect>
-</svg>
-
+<div class='svg-container'>
+<!--Our target svg inside of which we will build the graph-->
+	<svg>
+	</svg>
+</div>
+<!--Loading d3-->
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
 const getHappinessData = () => {
-	return fetch('/assets/data/share-of-people-who-say-they-are-happy.json').then(res => res.text())
+	return fetch('/assets/data/share-of-people-who-say-they-are-happy.json').then(res => res.json())
 }
+getHappinessData().then( rawData => {
+	const graphWidth = window.innerWidth
+	const graphHeight = 400
+	buildLineGraph(rawData, graphWidth, graphHeight)
+} )
+
+const buildLineGraph = (rawData, graphWidth, graphHeight) => {
+
+	const properties = rawData.properties
+	const entries = rawData.data
+
+	const {xExtent, yExtent} = getExtents(entries)
+	// xExtent === {min: "1984", max: "2014"}
+	// yExtend === {min: "29.678267", max: "98.113213"}
+	
+	const xScale = d3.scaleLinear()
+								.domain([xExtent.min,  xExtent.max])
+								.range([0, graphWidth])
+							
+
+	const yScale = d3.scaleLinear()
+							.domain([yExtent.min,  yExtent.max])
+							// Notice that the range is reversed here
+							.range([ graphHeight, 0 ])
+
+	// This is the function which we will use to draw our lines
+	const drawLine = d3.line()
+			.x( d => { return xScale(Number(d[0])) })
+			.y( d => { return yScale(Number(d[1])) })
+
+	const numberOfLines = entries.length
+  // Grabbing our svg element to add out line paths to
+	const svg = document.getElementsByTagName('svg')[0]
+ 
+	// We are looping through each line
+	// remember in our data set each entry is a country
+	for(let i=0; i < numberOfLines; i++) {
+		const entry = entries[i]
+		const g = document.createElement('g')
+		// createElementNS is a weird requirement to create an svg path dynamically
+		const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+
+		// The d attribute is key, that's were we tell our path what shape it should take
+		path.setAttribute('d', drawLine(entry.data))
+		path.setAttribute('class', 'line')
+		svg.setAttribute('height', graphHeight)
+		svg.setAttribute('width', graphWidth)
+		svg.appendChild(path)
+	}
+
+}
+
+// A little helper function to get min and max value for the x and y of our dataset
+const getExtents = (data) => {
+	let yExtent  = {max:0, min:null}
+	let xExtent = {max:0, min:null}
+	data.forEach((line)=> {
+		line.data.forEach(entry=>{
+		const [x, y] = entry
+		if(x > xExtent.max) 
+			xExtent.max = x
+		if(x < xExtent.min || !xExtent.min ) 
+			xExtent.min = x
+		if(y > yExtent.max) 
+			yExtent.max = y
+		if(y < yExtent.min || !yExtent.min ) 
+			yExtent.min = y
+
+		})
+	})
+	return {xExtent, yExtent}
+}
+
 </script>
+
+</code></pre>
+
+<p>And this gives us.... This!</p>
+<iframe class='example-container' src="./example-one.html" style='height: 500px'></iframe>
+
+<p>Ok this is super ugly, I just wanted to show the most basic line chart you can make without any noise. Let's change <mark>buildData</mark>'s input a bit.</p>
+
+<pre><code>
+	// we are only going to look at Russia and Brazil for now
+	const filteredData = rawData.data.filter(data=> data.id.match(/Russia|Brazil/))
+	rawData.data = filteredData
+	buildLineGraph(rawData, graphWidth, graphHeight)
+</code></pre>
+
+
+
+<iframe class='example-container' style='height: 500px' src="./example-two.html"></iframe>
+
+<h1>Bringing context to our D3 Chart</h1>
+
+<h2>Coloring D3 Lines</h2>
+
+<p>In the previous line is Brazil and one is Russia to add some differenciation we can add some color:</p>
+
+<pre><code>
+//... skipping
+const filteredData = rawData.data.filter(data=> data.id.match(/Russia|Brazil/))
+rawData.data = filteredData
+buildLineGraph(rawData, graphWidth, graphHeight)
+//...
+const buildLineGraph = (rawData, graphWidth, graphHeight, lineColors) => {
+...
+	for(let i=0; i < numberOfLines; i++) {
+		...
+		const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+		const lineColor = lineColors[i % lineColors.length]
+		path.setAttribute('stroke', lineColor)
+		...
+	}
+...
+
+</code></pre>
+
+<iframe class='example-container' style='height: 500px' src="./example-three.html"></iframe>
+
+<p>Super easy! You can imagine different ways to introduce custom line styles to your lines.</p>
+
+<h2>Building axis</h2>
+
+<p>In d3, everything is an svg element. To me it feels a bit somehow <code>wrong|uncomfortable|countreintuitive</code> to use svg for text. But it's just because I'm not used to it. 
+</p>
+<p>d3 gives us really hand tools to build our axis. We are going to use our <code>xScale</code> and <code>yScale</code> objects. They have a <code>.tick</code> property which generates a regular array of ticks.</p>
+
+<pre><code>
+
+</code></pre>
+
+
+
 </p>
 				</div>
 			</div>

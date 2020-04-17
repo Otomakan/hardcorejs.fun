@@ -22,8 +22,13 @@ module.exports =  ()=> {
 			 console.log(file)
       throw "We need a template target"
 		 }
-        file.contents = populateHTMLPage(targetHTMLFile, jsonData)
-
+		
+		//  To embed examples we want don't want any nav bar or footer
+		 if (jsonData.template === 'example') {
+			file.contents = Buffer.from(jsonData.content,'utf-8')
+		 } else {
+    	file.contents = populateHTMLPage(targetHTMLFile, jsonData)
+		 }
       // console.log(file)
      cb(null,file)
     }
