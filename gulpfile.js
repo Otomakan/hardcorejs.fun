@@ -1,28 +1,23 @@
 const gulp = require('gulp')
 const { series,parallel } = require('gulp')
-const uglify = require('gulp-uglify')
 // const babel = require('gulp-babel')
-const gulpCleanCSS= require('gulp-clean-css')
 const browserSync = require('browser-sync').create()
 const autoprefixer = require('gulp-autoprefixer')
-const sourcemaps = require('gulp-sourcemaps');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')
 // const browserify = require('browserify')
-const buffer = require('vinyl-buffer')
-const transform = require('vinyl-transform')
-const concat = require('gulp-concat');
-const source = require('vinyl-source-stream');
-const imagemin = require('gulp-imagemin');
-const util = require('util')
-const templatePrefixer = require('./gulpUtils/templatePrefixer.js')
+const imagemin = require('gulp-imagemin')
 const rename = require('gulp-rename')
-const htmlmin = require('gulp-htmlmin');
+const htmlmin = require('gulp-htmlmin')
 const indexIsSoSpecial = require('./gulpUtils/indexIsSoSpecial')
 const webpack = require('webpack-stream')
 const faLoader  = require('./gulpUtils/faLoader')
-var gulpsitemap = require('gulp-sitemap');
+var gulpsitemap = require('gulp-sitemap')
+const named = require('vinyl-named')
 
 const webpackOptions = {
+	output : {
+		filename : '[name].js'    
+	},
 	module: {
 		rules: [
 			{
@@ -45,7 +40,6 @@ const webpackOptions = {
 	}
 }
 
-const named = require('vinyl-named')
 
 // const AUTOPREFIXER_BROWSERS = [
 //   'ie >= 10',
@@ -68,11 +62,14 @@ const serve =  ()=> {
     browserSync.init({
         server: "./docs/"
     })
-    gulp.watch('src/js/*.js', series(webpackify,sw)).on('change',browserSync.reload)
+    gulp.watch(['src/js/*.js', 'src/js/**/*.js'], series(webpackify,sw)).on('change',browserSync.reload)
     gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
     gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/**/*.fa','src/content/contentFA/**/**/**/*.fa'], fa2html).on('change',browserSync.reload)
     gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
-		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, fa2html,indexhtml) ).on('change',browserSync.reload)
+		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, fa2html,indexhtml) ).on('change',browserSync.reload),
+		gulp.watch('src/assets/data/**/*', data).on('change',browserSync.reload),
+		gulp.watch('src/assets/images/**/*', imageMin).on('change',browserSync.reload)
+	
 	}
 
 const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!dist/content/*', '!dist/content/**/*', '!dist/content/**/**/*'], {
@@ -81,16 +78,16 @@ const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!d
 			.pipe(gulpsitemap({
 					siteUrl: 'http://hardcorejs.fun'
 			}))
-			.pipe(gulp.dest('dist/'));
+			.pipe(gulp.dest('dist/'))
 
 
 // const compress =  ()=> 
-//         gulp.src('src/js/*.js')
+//         gulp.src('src/js/*.js', 'src/js/**/*.js')
 //         // .pipe(concat('bundle.js'))
 //         .pipe(babel(babelSettings)).on('error', function(e){
-//             console.log(e);})
+//             console.log(e)})
 //          // .pipe(uglify().on('error', function(e){
-//             // console.log(e);}))
+//             // console.log(e)}))
 //         .pipe(gulp.dest('./docs/js'))
 
 // const mainBundle =  ()=>
@@ -101,11 +98,20 @@ const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!d
 // 				.pipe(gulp.dest('./docs/js'))
 
 const webpackify = () =>  {
-		return	gulp.src('src/js/*.js')		
-			.pipe(named())
-			.pipe(webpack(webpackOptions))
-			.pipe(gulp.dest('./docs/js'));
+	const tmp = {}
+	return	gulp.src(['src/js/*.js', 'src/js/**/*.js'])		
+		.pipe(named())
+		.pipe(named())
+		.pipe(rename((path) => {
+			tmp[path.basename] = path
+		}))    
+		.pipe(webpack(webpackOptions))
+		.pipe(rename((path) => {
+			path.dirname = tmp[path.basename].dirname
+		}))    
+		.pipe(gulp.dest('./docs/js/'))
 }
+
 const registerJS = ()=>{
 	return gulp.src('src/js/sw.js')	
 .pipe(named())
@@ -119,12 +125,13 @@ const registerManifest = ()=> {
 const sw = series(registerJS, registerManifest)
 
 const fa2html =  ()=>
-gulp.src(['src/content/contentFA/*.fa','src/content/contentFA/**.fa','src/content/contentFA/***/*.fa','src/content/contentFA/**/**/**/*.fa'],
+gulp.src(
+	['src/content/contentFA/*.fa','src/content/contentFA/**.fa','src/content/contentFA/***/*.fa','src/content/contentFA/**/**/**/*.fa'],
+	// 'src/content/contentFa/node/**/*.fa',
 {base: './src/content/contentFA/'}) 
 .pipe(faLoader()).on('error', (e)=>{
 	console.error(e)
 	throw e
-
 })
 .pipe(rename({extname:'.html'}))
 .pipe(gulp.dest('./docs'))
@@ -144,15 +151,15 @@ gulp.task('pwa', ()=>
 //   //       .pipe(source('main1.js'))
 //   //       .pipe(buffer())
 //   //       // .pipe(uglify())
-//   //       .pipe(gulp.dest('./docs/'));;
+//   //       .pipe(gulp.dest('./docs/'))
 //    gulp.src('src/js/*.js')
 //          .pipe(babel({
 //             presets: ['@babel/env']
 //         }))
 //          .pipe(uglify().on('error', function(e){
-//             console.log(e);}))
+//             console.log(e)}))
 //         .pipe(gulp.dest('./docs/'))
-// });
+// })
 
 // const browserifyJS  = () => {
 //   // var b = browserify({
@@ -160,7 +167,7 @@ gulp.task('pwa', ()=>
 //   //   debug: true,
 //   //   // defining transforms here will avoid crashing your stream
 //   //   transform: [reactify]
-//   // });
+//   // })
 
 //   return browserify.bundle()
 //     .pipe(source('app.js'))
@@ -170,7 +177,7 @@ gulp.task('pwa', ()=>
 //         .pipe(uglify())
 //         .on('error', console.log('error'))
 //     .pipe(sourcemaps.write('./'))
-//     .pipe(gulp.dest('./docs/js/'));
+//     .pipe(gulp.dest('./docs/js/'))
 // }
 
 

@@ -1,0 +1,12 @@
+template: ##blog-page##
+title: ##How this website is built##
+subtitle: ####
+meta_description: ####
+author: ##Jack Misteli##
+tags: ## Hardcorejs; Web Build; Gulp; Web development##
+content:  ##
+
+<h1>Philosophy behind the website</h1>
+
+<h1>Tech Stack</h1>
+##

@@ -14,7 +14,7 @@ function highlight_code()
 		const codes = document.querySelectorAll('code')
 		for (let i= 0; i < codes.length; i++) {
 			const code = codes[i]
-			var worker = new Worker('/js/worker.js');
+			var worker = new Worker('/js/workers/hljs.js')
 				worker.onmessage = function () {
 						code.innerHTML = (event.data)
 						code.classList.add('hljs')
@@ -22,15 +22,23 @@ function highlight_code()
 				worker.postMessage(code.innerHTML); // start worker
 		}
 }
-self.addEventListener('load', () => {
+window.addEventListener('load', () => {
+	// document.querySelectorAll("code").forEach(function(element) {
+	// 	element.innerHTML = element.innerHTML
+	// 	// .replace(/</g,'&lt;').replace(/>/g, '&gt;')
+	// 	// .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+	
+
+	// })
 	highlight_code()
-	document.querySelectorAll("code").forEach(function(element) {
-    element.innerHTML = element.innerHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-})
-})
-ready(()=> {
+
+	console.log(this) 
 	const body = document.getElementsByTagName('body')[0]
 	drawRectangles(body)
+
+})
+ready(()=> {
+	
 	// Registering our Service worker
 	// console.log(process.env)
 	// if(process.env==='production'){

@@ -6,5 +6,7 @@ mainimg: ##/assets/images/dots_bubble.png##
 mainimgalt: ##Autonomy asset Sphere of Bubbles##
 content : ##
   <p>We are not very interesting</p>
+	<h1>Tech stack</h1>
+	<h1>User driven design</h1>
 ##
 

@@ -1,0 +1,10 @@
+Make the promise article more horizontal, there is a lot of code repetion.
+WHat we can do is have the repetitive code come in as a slide and have a little description at the bottom of what changed.
+
+Have an inbuilt level evaluator:each article can set a level for themselves.
+Then if the article has multiple levels we will show the article in sync with the user's level.
+
+Create "executable code" have a little playground always available. For mobile, we can have a little button that you can click, it oopens the playground and copy/pastes the code you are currently viewing.
+
+Allow users to lint/transform code according to their preference
+(for example see async/await or Promises/ semi colons or not, single/double quotes )

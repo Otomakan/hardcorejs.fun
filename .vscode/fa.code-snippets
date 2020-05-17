@@ -1,0 +1,197 @@
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"new-blog": {
+		"prefix": "new-blog",
+		"body": [
+			"template: ##blog-page##",
+			"title: ##$1##",
+			"subtitle: ##$2##",
+			"meta_description: ##$3##",
+			"author: ##Jack Misteli##",
+			"tags:  ##$5##",
+			"content:  ##$6##",
+		],
+		"description": "FA"
+	},
+	"new-example page": {
+		"prefix": "new-example-page",
+		"body": [
+			"template: ##example##",
+			"title: ##$1##",
+			"subtitle: ##$2##",
+			"meta_description: ##$3##",
+			"author: ##Jack Misteli##",
+			"content:  ##$5##"
+		],
+		"description": "FA"
+	},
+	"paragraph": {
+		"prefix": "p",
+		"body": [
+			"<p>$1</p>",
+		],
+	},
+	"header": {
+		"prefix":"h2",
+		"body": [
+			"<h2>$1</h2>"
+		]
+	},
+	"header1": {
+		"prefix":"h1",
+		"body": [
+			"<h1>$1</h1>"
+		]
+	},
+	"code": {
+		"prefix":"code",
+		"body": [
+			"<pre><code>",
+			"$1",
+			"</code></pre>"
+		]
+	},
+	"anchor": {
+		"prefix":"a",
+		"body": [
+			"<a href=\"$1\">$2</a>"
+		]
+	},
+	"iframe": {
+		"prefix":"example iframe",
+		"body": [
+			"<iframe class='example-container' src=\"$1\"></iframe>"
+		]
+	},
+	"unordered list": {
+		"prefix":"ul",
+		"body": [
+			"<ul>",
+			"	<li>$1</li>",
+			"</ul>"
+		]
+	},
+	"list item": {
+		"prefix": "li",
+		"body": [
+			"<li>$1</li>"
+		]
+	},
+	"pros and cons": {
+		"prefix": "pros and cons",
+		"body": [
+		"<div class='pros-cons'>",
+		"	<ul class='pros'>",
+		"		<li>$1</li>",
+		"	</ul>",
+		"	<ul class='cons'>",
+		"		<li></li>",
+		"	</ul>"]
+
+	},
+	"comment": {
+		"prefix": "//",
+		"body": [
+			"<!--$1-->"
+		]
+	},
+	"parting thoughts":{
+		"prefix": "parting thoughts",
+		"body": [
+			"<p class='parting-thoughts'>$1</p>"
+		]
+	},
+	"prelude": {
+		"prefix": "prelude",
+		"body": [
+			"<p class='prelude'>$1</p>"
+		]
+	},
+	"module": {
+		"prefix": "module",
+		"body": [
+			"<p class='module-name'>$1</p>",
+			"<pre><code>",
+			"$2",
+			"</code></pre>"
+		]
+	},
+	"careful": {
+		"prefix": "careful",
+		"body": [
+			"<p class='careful'>$1</p>"
+		]
+	},
+	"warning": {
+		"prefix": "warning",
+		"body": [
+			"<p class='careful'>$1</p>"
+		]
+	},
+	"information": {
+		"prefix": "information",
+		"body": [
+			"<p class='information'>$1</p>"
+		]
+	},
+	"filename": {
+		"prefix": "filename",
+		"body": [
+			"<em class='filename'>$1</em>"
+		]
+
+	},
+	"image": {
+		"prefix": "img",
+		"body": [
+			"<img src='/assets/images/$1' alt='$2'/>"
+		]
+	},
+	"my art": {
+		"prefix": "my art",
+		"body": [
+			"<img src='/assets/images/my-art/$1' class='my-art'  alt='$2' />"
+		]
+	},
+	"command": {
+		"prefix": "command",
+		"body": [
+			"<code class='command'> $1</code>"
+		]
+		},
+	"html-comment": {
+		"prefix": "commenthtml",
+		"body": ["<!–– $1 -->"]
+	},
+	"tree": {
+		"prefix": "tree",
+		"body": ["<pre class='folder'>$1</pre>"]
+	},
+	"folder": {
+		"prefix": "folder",
+		"body": ["<pre class='folder'>$1</pre>"]
+	},
+	"directory": {
+		"prefix": "directory",
+		"body": ["<pre class='folder'>$1</pre>"]
+	},
+	
+}
+
+
+		

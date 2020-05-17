@@ -4,12 +4,12 @@ const htmlminify = require('html-minifier').minify;
 const fs = require('fs')
 const path = require('path')
 const headContent = fs.readFileSync( path.join(__dirname, '..','src/content/utils/head.html'))
-const headerContent = fs.readFileSync( path.join(__dirname, '..','src/content/utils/nav.html'))
+const navContent = fs.readFileSync( path.join(__dirname, '..','src/content/utils/nav.html'))
 const footerContent = fs.readFileSync( path.join(__dirname, '..', 'src/content/utils/footer.html'))
 const findCSS = require('./findCSS')
 module.exports  = (targetHTMLFile, data) => {
     let head = headContent
-    let header = headerContent
+    let nav = navContent
     let footer = footerContent
     
      let body = fs.readFileSync(targetHTMLFile).toString('utf-8')
@@ -17,12 +17,12 @@ module.exports  = (targetHTMLFile, data) => {
     //  htmlContent = htmlminify(htmlContent)
       // Implement page per page sass
     // let mysass = fs.readFileSync(path.resolve('','src/styles/main.scss')).toString('utf-8')
-    // let relevantCSS = findCSS(header+body+footer, mysass )
+    // let relevantCSS = findCSS(nav+body+footer, mysass )
     // head += relevantCSS + '</head>'
 
 
     // Join all html before populating 
-    let htmlContent = head + header + body + footer
+    let htmlContent = head + nav + body + footer
 
       for(let key in data){
         if(key==='template')
@@ -58,7 +58,7 @@ module.exports  = (targetHTMLFile, data) => {
         
         // const pageBody = htmlContent
         // const head = headContent
-        // const header = headerContent
+        // const header = navContent
         // const footer = footerContent
         return Buffer.from(htmlContent,'utf8')
 }

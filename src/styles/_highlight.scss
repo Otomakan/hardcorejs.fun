@@ -1,12 +1,24 @@
-.hljs {
+pre .hljs {
 	display: block;
-	overflow-x: auto;
+	// code {
+		font-family: 'JetBrainsMono';
+		letter-spacing: 1px;
+		font-size:15px;
+		@media(max-width: 550px) {
+			font-size: 18px;
+		}
 	padding: .5em;
+
+	// }
+}
+.hljs {
+	overflow-x: auto;
+	padding: 3px;
 	background: lemonchiffon;
 	background: papayawhip;
 	background: snow;
 	tab-size: 2;
-	line-height: 32px;
+	line-height: 26px;
 }
 
 .hljs,
