@@ -1,0 +1,214 @@
+---
+	layout: blog-page
+	title: How to use gulp
+	meta_description: 
+	author: Jack Misteli
+	subtitle: 
+	categories:
+---
+
+<p class='prelude'>Gulp is a buld tool to manage all the workflows, compilers, transpilers and more that use to create modern web pages. If you're not sure why we build web assets I recommend reading <a href='/web-development/compiling-web-pages/index.html'>our article about compilation in the context of web development</a>.</p>
+
+<h1>Why use Gulp?</h1>
+
+<p>Well we use Gulp to build this website! I wish I could give you a super technical and precise reason why I use Gulp but here is the truth:</p>
+
+<p>I was just playing around with Gulp and I ended up building a tool I liked to generate website. It worked for me so I decided that I didn't need to look any further. </p>
+
+<p>To be even more honest, the build tool for this website is really not great to say the least. If I wanted to be smart about my blog build management I would probably pick a tool like Hugo, Jenkins, Gatsby and more to create my website. <a href="/web-development/how-this-website-is-built">(More info about how the website was/is built here)</a></p>
+
+<p>But that only partially answers our question: why is Gulp still useful to me?</p>
+
+<p>Well I use Gulp first because I write code that doesn't work in browsers. So I need to translate it into code that my browser can understand.</p>
+
+<p> If we open our developer console in this website, we'll notice that the header and the footer of the website are the same in all pages. I do not actually write the same HTML code for all my pages. I use templates. </p>
+ 
+<iframe class='example-container' src="./templating.html"></iframe>
+
+<p>Then I use Gulp for other optimization tasks: minimizing images, files... You can find all that code <a href="https://github.com/Otomakan/hardcorejs.fun/blob/master/gulpfile.js">here</a>. Just imagine that Gulp is a big funnel and at the end of it you have a website.</p>
+
+<h1>Installing gulp</h1>
+<p>Gulp can be installed locally by running:</p>
+<code class='command'>npm install -g gulp</code>
+<p>Or locally:</p>
+<code class='command'> mkdir myGulpProject</code>
+<code class='command'> cd myGulpProject</code>
+<code class='command'> npm init</code>
+<code class='command'> npm install --save gulp</code>
+
+<p>But Gulp on its' own is not very useful. We want to use Gulp plugins to give instructions to our funnel. We can <a href="https://gulpjs.com/plugins"> a list of all gulp plugins here.</a> </p>
+
+<p>For this project we will need:</p> 
+<code class='command'>npm install --save gulp-babel gulp-imagemin gulp-sass
+</code>
+<code class='command'> </code>
+<code class='command'> </code>
+<code class='command'> </code>
+
+<h1>How to use Gulp</h1>
+
+<p>As an example we are going to imagine we want to create a simple landing page. We are going to use Gulp do achieve 5 goals: </p>
+
+<ul>
+	<li>Write our Javascript using Babel</li>
+	<li>Minify our Images</li>
+	<li>Use Sass</li>
+</ul>
+
+<p>To use gulp locally we firsst need to modify <em class='filename'>package.json</em> and add the following script.</p>
+<pre><code>
+"scripts": {
+	"build": "gulp"
+},
+</code></pre>
+
+<p>Every gulp project starts with a <em class='filename'>gulpfile</em>. The Gulpfile is where everything happens, it's the funnel. Our project is going to look like this:</p>
+
+<pre class='folders'>
+│   gulpfile.js
+│   package-lock.json
+│   package.json
+│
+├───dist
+│   │   main.js
+│   │
+│   └───images
+│           take_a_breather.gif
+│
+└───src
+    │   index.html
+    │   main.js
+    │
+    ├───images
+    │       take_a_breather.gif
+    │
+    └───styles
+            main.scss
+            _fonts.scss
+</pre>
+
+
+<p class='module-name'>gulpfile.js</p>
+<pre><code>
+const gulp = require('gulp')
+const { parallel } = require('gulp')
+
+const gulpBabel = require('gulp-babel')
+const gulpSass = require('gulp-sass')
+const gulpImagemin = require('gulp-imagemin')
+
+const babelifyJavascript = () =>
+// In src (source) we enter the name of the file we want to transform
+	gulp.src('src/main.js')
+	// we 'pipe' the content of 'src' and apply the function 'gulpBabel'
+		.pipe(gulpBabel({
+				presets: ['@babel/env']
+		}))
+	// we use dest to define the destination folder of the transformed content
+		.pipe(gulp.dest('dist'))
+
+const minifyImages = () =>     
+// The little stars means 'all files'
+	gulp.src('src/images/*')
+		.pipe(gulpImagemin())
+		// We define anew
+		.pipe(gulp.dest('dist/images'))
+
+const createCSSFromSCSS = () => 
+gulp.src('src/styles/*.scss')
+.pipe(gulpSass({outputStyle: 'compressed'})
+// .on is a special event listener, here for errors
+.on('error', gulpSass.logError))
+.pipe(gulp.dest('./dist/'))
+
+const copyHTML = () => 
+// the double star means 'all folders' and the *.html means 'all files that end with '.html''
+		gulp.src('src/**/*.html')
+		.pipe(gulp.dest('dist'))
+
+exports.default= parallel(minifyImages, babelifyJavascript, createCSSFromSCSS, copyHTML)
+</code></pre>
+
+<p class='module-name'>src/index.html</p>
+<pre><code>
+<!-- This doesn't really matter -->
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Gulp Page</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link rel='stylesheet' type='text/css' media='screen' href='/main.css'>
+	<script src='/main.js'></script>
+</head>
+<body>
+	<h1>Testing out Gulp</h1>	
+</body>
+</code></pre>
+
+<p class='module-name'>src/main.js</p>
+<pre><code>
+const sayHi = () => {
+	console.log('hey you')
+}
+</code></pre>
+
+<p class='module-name'>src/styles/main.scss</p>
+<pre>
+<code>
+@import 'fonts';
+
+body {
+	background: aliceblue;
+	h1 {
+		font-family: 'DM Mono', monospace;
+	}
+}
+</pre>
+</code>
+
+<p class='module-name'>src/styles/_fonts.scss</p>
+<pre><code>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap');
+</code></pre>
+
+<p>Now if we run : <code class='command'> npm run build</code>, the final result inside of the dist directory will look like this:</p>
+<pre class='folders'>
+│   index.html
+│   main.css
+│   main.js
+│
+└───images
+        take_a_breather.gif
+</pre>
+
+<p>Much Cleaner!</p>
+
+<p>If we look inside of <em class='filename'>dist/main.js</em> we can see:</p>
+<pre><code>
+"use strict";
+
+var sayHi = function sayHi() {
+  console.log('hey you');
+};
+
+sayHi();
+</code></pre>
+
+
+<p>This code is much uglier than before. But we can now use it in many more browser (like Internet Explorer). </p>
+
+<p>And our scss files which normally would'nt work in any browser:</p>
+<p class='module-name'>dist/main.css</p>
+<pre><code>
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");body{background:aliceblue}body h1{font-family:'DM Mono', monospace}
+
+</code></pre>
+<p>They just became one long condensed CSS line.</p>
+
+<p class='parting-thoughts'>I hope this helped! I really like Gulp. It is very intimidating at first but you can do a lot of cool thing. Maybe later we'll explore how to create our own Gulp plugins :). </p>
+<requirements>
+Find a way to create connected workflows
+Create a way to easily get code snippets and folder structures represented in our page
+At least a pretty way to have playgrounds or demo apps.
+Sass
+</requirements>

@@ -1,0 +1,51 @@
+---
+	layout: blog-page
+	title: The basics of a web page
+	meta_description: What is a web page and how to create one from scratch
+	author: Jack Misteli
+	subtitle: 
+	categories:
+---
+
+<p class='prelude'>Web pages can often look like some mysterious complex entities. But the more you dig into web development the more you realize that the basic of a web page are super simple</p>
+<p>Then you dig deeper and you realize that everything is super complicate so you decide to stick to your superficial knowledge which is enough to impress everyone around you.</p>
+<p>So we are going to stick to easy</p>
+
+<h1> What happens when I enter a website's address</h1>
+
+<p>When you enter the name of your website in your <mark>Browser</mark>(like Firefox, Chrome, Internet Explorer...), you're asking <mark>The Internet</mark> to contact another computer.</p>
+<p>That other computer (aka server) then sends you some files. Think about when you're navigating in your folder to find a specific file. For example, you might store your last vacation pictures under <mark><code>Pictures/Holiday/Summer2020/awesome-selfie.png</code></mark></p>.
+
+<p>The way you would navigate to this image on your computer is similar to how a lot of websites work. <em>hardcorejs.fun</em> works that way. You enter:<em>hardcorejs.fun/javascript</em> and it <em>GETs</em> you the file at that location. This type of website is called a <mark>Static Website</mark> because no matter who you are we will always send you the same file.</p> 
+
+<h2>How do the files turn into a webpage</h2>
+
+It usually all starts with an HTML file which in its ost basic form looks like this:
+
+<pre><code class="xml">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Page Title</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+	<script src='main.js'></script>
+</head>
+<body>
+	
+</body>
+</html>
+
+</code></pre>
+
+<definitions>
+Browser
+HTML
+Client
+server
+CSS
+Javascript
+WHAT IS HTML
+</definitions>

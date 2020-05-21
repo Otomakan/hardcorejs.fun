@@ -1,0 +1,149 @@
+---
+	layout: blog-page
+	title: Making your own Fetch
+	meta_description: 
+	author: Jack Misteli
+	subtitle: 
+	categories:
+---
+
+
+<p class='prelude'>The native <code>fetch</code> function is not as bad as many people say I think. But it's definitely super wordy.</p>
+<pre><code>
+
+const getCakes = (returnPromisedValue, reject) => {
+	fetch('/assets/data/shopping/cakes.json')
+		.then(data =>{
+			data.json().then(cakes => {
+				returnPromisedValue(cakes)
+			})
+		})
+}
+</code></pre>
+<p>The other problem is that it is a bit tricky to detect if our API call was successful or not: </p>
+
+<pre><code>
+const getCakes = (returnPromisedValue, reject) => {
+	// URL TYPO!
+	fetch('/assets/data/shopping/caks.json')
+		.then(data =>{
+			const callIsSuccess = data.ok
+			if (callIsSuccess){
+				data.json().then(cakes => {
+					returnPromisedValue(cakes)
+				})
+			} else {
+				throw new Error('call was not successful')
+			}
+		})
+}
+</code></pre>
+
+<p>One thing we can do is to wrap fetch and create a fetch with a new standard behavior.</p>
+<pre><code>
+const myFetch = (url, options) => {
+	return new Promise((resolve, reject) => {
+	fetch(url, options).then(
+		data => {
+			if(!data.ok){
+				throw new Error('invalid request')
+			} else {
+				// Only do this if you are sure you will only work with JSON data
+				data.json().then(result => resolve(result))
+			}
+		})
+	})
+}
+
+myFetch('/assets/data/shopping/caks.json')
+// This will throw 'invalid request'
+myFetch('/assets/data/shopping/cakes.json').then(cakes=>{console.log(cakes)})
+// This will log ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
+</code></pre>
+
+<h1>Fetching with custom credentials</h1>
+
+<p>One more useful feature might be to add some base configuration to your calls. For example you can add a special token or base URL.</p> This time I decided to use <code> async await </code> syntax instead of Promise, but it's the same thing.
+<pre><code>
+const fetchMyAPI = async (url, options) => {
+	const baseURL = 'https://myapi.hardcorejs.fun'
+	// If no token is set the default token is 'No TOKEN!'
+	const specialToken = localStorage.getItem('hardcoreJSUserToken') || 'No TOKEN!'
+	const targetURL = baseURL + url
+	options = options || {}
+	 options  = 	{...options, 
+		headers: {
+			...options.headers,
+			'Special-Token': specialToken
+		}
+	 }
+	return await fetch(	targetURL, options)	
+}
+</code></pre>
+
+<h1>Custom GET POST Update</h1>
+
+<p>Base on our previous example we can simply do: </p>
+<pre><code>
+const getMyAPI = async (url, options) => {
+	const baseURL = 'https://myapi.hardcorejs.fun'
+	const targetURL =
+	 options  = 	{...options, method: "POST" }
+	return await fetch(	 baseURL + url, options)	
+}
+</code></pre>
+
+<p> But we can try going a bit further and create a custom object which will look something like <a href="https://github.com/axios/axios">axios</a>. We will  <a href="/javascript/axios"> write a blog post about it</a>.
+
+<pre><code>
+
+const myAPIReq ={
+	baseURL: 'https://myapi.hardcorejs.fun',
+	getBaseOptions : () => {
+		console.log('hey')
+			const specialToken = localStorage.getItem('userToken') || ''
+			return { 	
+				mode: 'cors', 
+				cache: 'no-cache', 
+				credentials: 'same-origin',
+				headers: {
+				'Special-Token': specialToken
+			}
+			}
+	},
+	// We can't use arrow functions here because we want to use this
+	get : async function (url, options) { fetch(this.baseURL, {...this.getBaseOptions(), ...options})},
+	post : async function (url, options) { fetch(this.baseURL, {...this.getBaseOptions(), ...options, method: 'POST'})}
+}
+</code></pre>
+
+<h1>Use fetch for specific data types</h1>
+
+<p>As we saw earlier with JSON, we can also make API calls to get specific data type.</p>
+<h2>Fetch Images</h2>
+<pre><code class='executable'>
+
+const getImageURL = async (url, options) => {
+	const res = await fetch(url, options)
+	const imageBlob = await res.blob()
+	const imageURL = await URL.createObjectURL(imageBlob)
+	return imageURL
+}
+
+getImageURL('/assets/images/random/take_a_breather.gif')
+	.then(imageURL=>{
+		const img = document.createElement('img')
+		img.src = imageURL
+		//Execute this code and you'll get an image at the very end of the site
+		document.body.appendChild(img)
+	})
+
+</code></pre>
+<requirements>
+axios
+contructor function
+this scope arrow function
+async await
+async await vs promises
+blobs?
+</requirements>

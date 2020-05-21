@@ -1,10 +1,12 @@
-template: ##blog-page##
-title: ##How this website is built##
-subtitle: ####
-meta_description: ####
-author: ##Jack Misteli##
-tags: ## Hardcorejs; Web Build; Gulp; Web development##
-content:  ##
+---
+	layout: blog-page
+	title: How this website is built
+	meta_description: 
+	author: Jack Misteli
+	subtitle: 
+	categories:
+---
+
 
 <h1>Philosophy behind the website</h1>
 
@@ -15,4 +17,3 @@ content:  ##
 <p>To be even more honest, the build tool for this website is really not great to say the least. If I wanted to be smart about my blog build management I would probably pick a tool like Hugo, Jenkins, Gatsby and more to create my website. So please don't try this at work folks.</p>
 
 <p></p>
-##

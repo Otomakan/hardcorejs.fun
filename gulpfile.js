@@ -13,6 +13,7 @@ const webpack = require('webpack-stream')
 const faLoader  = require('./gulpUtils/faLoader')
 var gulpsitemap = require('gulp-sitemap')
 const named = require('vinyl-named')
+const markdown = require('gulp-markdown');
 
 const webpackOptions = {
 	output : {
@@ -64,9 +65,12 @@ const serve =  ()=> {
     })
     gulp.watch(['src/js/*.js', 'src/js/**/*.js'], series(webpackify,sw)).on('change',browserSync.reload)
     gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
-    gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/**/*.fa','src/content/contentFA/**/**/**/*.fa'], fa2html).on('change',browserSync.reload)
-    gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
-		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, fa2html,indexhtml) ).on('change',browserSync.reload),
+    // gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/contentFA/*.fa','src/content/contentFA/**/**/*.fa','src/content/contentFA/**/**/**/*.fa'], fa2html).on('change',browserSync.reload)
+	 
+    gulp.watch(['src/content/templates/*.html', 'src/utils/*.html','src/content/mdContent/*.md','src/content/mdContent/**/**/*.md','src/content/mdContent/**/**/**/*.md'], md2html).on('change',browserSync.reload)
+		
+		gulp.watch('src/content.html', indexhtml).on('change',browserSync.reload)
+		gulp.watch('src/content/utils/*.html', series(webpackify,sw, htmlutils, md2html,indexhtml) ).on('change',browserSync.reload),
 		gulp.watch('src/assets/data/**/*', data).on('change',browserSync.reload),
 		gulp.watch('src/assets/images/**/*', imageMin).on('change',browserSync.reload)
 	
@@ -135,6 +139,14 @@ gulp.src(
 })
 .pipe(rename({extname:'.html'}))
 .pipe(gulp.dest('./docs'))
+
+const md2html =  ()=>
+gulp.src(
+	['src/content/mdContent/*.md','src/content/mdContent/**.md','src/content/mdContent/***/*.md','src/content/mdContent/**/**/**/*.md'],
+	// 'src/content/mdContent/node/**/*.md',
+{base: './src/content/mdContent/'}) 
+.pipe(markdown())
+.pipe(gulp.dest('./dist'))
 
 
 gulp.task('pwa', ()=>
@@ -234,6 +246,6 @@ const indexhtml = ()=>
   .pipe(gulp.dest('docs/'))
   
 // Remember to put imagemin later on in
-exports.default= series(parallel(series(webpackify,sw), fonts,data, imageMin, fa2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
+exports.default= series(parallel(series(webpackify,sw), fonts,data, imageMin, md2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
 
 
