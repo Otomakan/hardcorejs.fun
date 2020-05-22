@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: Const vs Var vs Let
 	meta_description: A primer on the different variable declarations in Javascript. const vs var vs let
 	author: Jack Misteli
@@ -22,20 +22,20 @@
 var stateLaw = `You can't just go around killing people`
 
 function regionOne () {
-	var regionOneLaw = `don't dance in front of the city hall at 3am`
-	console.log(regionOneLaw)
-	// will log  'don't dance in front of the city hall at 3am'
-	console.log(stateLaw)
-	// will log `You can't just go around killing people`
+ var regionOneLaw = `don't dance in front of the city hall at 3am`
+ console.log(regionOneLaw)
+ // will log  'don't dance in front of the city hall at 3am'
+ console.log(stateLaw)
+ // will log `You can't just go around killing people`
 }
 
 console.log(regionOneLaw)
 //will log undefined because the regional law only works in the region
 
 function regionTwo () {
-	var regionTwoLaw = `be polite to people over 100 years old`
-	console.log(regionOneLaw)
-	//will log undefined because the regional law only works in the region
+ var regionTwoLaw = `be polite to people over 100 years old`
+ console.log(regionOneLaw)
+ //will log undefined because the regional law only works in the region
 }
 </code></pre>
 
@@ -57,7 +57,7 @@ console.log(bob)
 // "Bob"
 
 function getBob2() {
-	// In strict mode this will throw an error
+ // In strict mode this will throw an error
   var bob = bob2 = 'bob2'
 }
 getBob2();
@@ -65,11 +65,11 @@ getBob2();
 console.log(bob, bob2)
 // Bob bob2
 
-var counter = 0 
+var counter = 0
 
 for (var i = 0; i < 10; i++) {
-	// I want to create a new counter but it turns out to be the same!
-	var counter = i
+ // I want to create a new counter but it turns out to be the same!
+ var counter = i
 }
 
 counter += 1
@@ -78,7 +78,7 @@ console.log(counter)
 // logs 10
 </code></pre>
 
-<p>There are a lot of different issues here which are all solved by <code>let</code>. 
+<p>There are a lot of different issues here which are all solved by <code>let</code>.
 
 <ul>Advantages of let</ul>
 <li><p>First of all, we can't modify or assign the <code>let</code> variable before it is assigned.</p>
@@ -98,5 +98,3 @@ console.log(bob)
 </li>
 <li></li>
 </ul>
-
-

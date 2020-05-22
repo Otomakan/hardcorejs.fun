@@ -1,4 +1,15 @@
-
+---
+template: page-fullwidth
+title:  "Using JavaScript to Make Crispy Bacon"
+categories:
+		- JS
+tags:
+		- bacon
+header: no
+breadcrumb: true
+meta_description: "Description in the range of 80 to 155 characters."
+author: Jack Misteli
+---
 # Framed Autonomy 🐼
 
 ## What is Framed

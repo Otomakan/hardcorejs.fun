@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: custom highlighting rules vscode
 	meta_description: undefined
 	author: Jack Misteli

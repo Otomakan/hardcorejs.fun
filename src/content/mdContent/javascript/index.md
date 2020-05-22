@@ -1,5 +1,5 @@
 ---
-	layout: root-section
+	template: root-section
 	title: 
 	meta_description: 
 	author: Jack Misteli

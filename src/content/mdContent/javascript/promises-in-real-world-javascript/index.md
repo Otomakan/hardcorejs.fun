@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: 
 	meta_description: 
 	author: Jack Misteli

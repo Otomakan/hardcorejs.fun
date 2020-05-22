@@ -1,5 +1,5 @@
 ---
-	layout: example
+	template: example
 	title: Recursively Accessing files in NodeJS
 	meta_description: 
 	author: Jack Misteli

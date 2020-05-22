@@ -1,5 +1,5 @@
 ---
-	layout: example
+	template: example
 	title: 
 	meta_description: 
 	author: Jack Misteli

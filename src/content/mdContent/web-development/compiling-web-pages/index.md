@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: What are web compilers
 	meta_description: Webpack, React, Babel, Gulp, Grunt all these make possible or are possible thanks to a compiling process, to make our Javascript, HTML and CSS more performant and more accessible
 	author: Jack Misteli

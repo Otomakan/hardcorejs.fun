@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: How this website is built
 	meta_description: 
 	author: Jack Misteli

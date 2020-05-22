@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel='manifest' href='/manifest.json'>
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98810842-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-98810842-5');
+</script>
+
+
+	</head>
+
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+</body><div class="page-wrapper">
+
+<div class='blog-page'>
+		<div class="blog-center-container">
+			<div class='blog-title-container'>
+					<h1 >custom highlighting rules vscode</h1>
+					<h4 class='blog-subtitle'>Jack Misteli</h4>
+			</div>
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p>undefined</p>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	<script type="text/javascript" src='/js/main.js' ></script>
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	<script type="text/javascript" src='/js/history.js' ></script>
+
+</footer>

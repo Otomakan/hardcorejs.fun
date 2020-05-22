@@ -14,7 +14,7 @@ const faLoader  = require('./gulpUtils/faLoader')
 var gulpsitemap = require('gulp-sitemap')
 const named = require('vinyl-named')
 const markdown = require('gulp-markdown');
-
+const mdLoader = require('./gulpUtils/mdLoader')
 const webpackOptions = {
 	output : {
 		filename : '[name].js'    
@@ -145,8 +145,11 @@ gulp.src(
 	['src/content/mdContent/*.md','src/content/mdContent/**.md','src/content/mdContent/***/*.md','src/content/mdContent/**/**/**/*.md'],
 	// 'src/content/mdContent/node/**/*.md',
 {base: './src/content/mdContent/'}) 
-.pipe(markdown())
-.pipe(gulp.dest('./dist'))
+// .pipe(markdown())
+.pipe(mdLoader())
+.pipe(rename({extname:'.html'}))
+
+.pipe(gulp.dest('./docs'))
 
 
 gulp.task('pwa', ()=>
@@ -237,7 +240,8 @@ const jsonhtml = ()=>
   
 const htmlutils = ()=>
   gulp.src('src/content/utils/*.html')
-  .pipe(htmlmin({ collapseWhitespace: true }))
+	.pipe(htmlmin({ collapseWhitespace: true }))
+	
   .pipe(gulp.dest('docs/utils'))
   
 const indexhtml = ()=>

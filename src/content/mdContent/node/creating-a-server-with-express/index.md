@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: Creating a server with Express
 	meta_description: 
 	author: Jack Misteli

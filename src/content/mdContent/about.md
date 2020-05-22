@@ -1,5 +1,5 @@
 ---
-	layout: single-color-title
+	template: single-color-title
 	title: About Us
 	meta_description: undefined
 	author: undefined

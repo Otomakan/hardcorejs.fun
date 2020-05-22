@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: Building a Line Chart with D3
 	meta_description: undefined
 	author: Jack Misteli

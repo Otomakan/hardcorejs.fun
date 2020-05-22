@@ -55,7 +55,7 @@ const convertFAtoMD = async (filePath) => {
 	const {template, title, subtitle, meta_description, author, tags, content} = jsoned
 	const newFileContent =
 `---
-	layout: ${template}
+	template: ${template}
 	title: ${title}
 	meta_description: ${meta_description}
 	author: ${author}

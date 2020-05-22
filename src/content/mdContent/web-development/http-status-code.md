@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: Basics of HTTP status codes
 	meta_description: 
 	author: Jack Misteli

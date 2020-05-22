@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: The basics of a web page
 	meta_description: What is a web page and how to create one from scratch
 	author: Jack Misteli

@@ -1,5 +1,5 @@
 ---
-	layout: example
+	template: example
 	title: Templating
 	meta_description: 
 	author: Jack Misteli

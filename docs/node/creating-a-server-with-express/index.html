@@ -52,8 +52,7 @@
 			<div class="blog-content-container">
 				<div class="blog-content">
 
-				<p>
-<p class='prelude'>Creating a server is an essential part of web development.  A server allows you to serve content which might require database storage, secret or not so secret calculations, API calls with secret API keys and more!</p>
+				<p><p class='prelude'>Creating a server is an essential part of web development.  A server allows you to serve content which might require database storage, secret or not so secret calculations, API calls with secret API keys and more!</p>
 
 <h1>What is a web server</h1>
 <p>A web server is the tool which receives requests from the web and sends it to whomever requested it. </p>
@@ -120,14 +119,14 @@ app.listen(port, () => console.log(`Server running on: http://localhost:${port}`
 
 <p class="module-name">public/main.js</p>
 <pre><code>
-&lt;!DOCTYPE html&gt;
+<!DOCTYPE html>
 <html>
-&lt;head&gt;
+<head>
 	<title>My Page!</title>
 	<link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
 	<script src='/main.js'></script>
 	<script>console.log('you stink')</script>
-&lt;/head&gt;
+</head>
 <body>
 	<h1> This is My Custom page</h1>
 </body>
@@ -229,13 +228,13 @@ module.exports = {getInfo}
 <pre><code class='language-javascript'>
 // Usually you we read the content of templates from files
 // This is just for clarity
-const head = '&lt;!DOCTYPE html&gt;
+const head = '<!DOCTYPE html>
 <html>
-&lt;head&gt;
+<head>
 	<title>{{name}}</title>
 	<link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
 	<script src='/main.js'></script>
-&lt;/head&gt;'
+</head>'
 
 const body  = `
 	<body>

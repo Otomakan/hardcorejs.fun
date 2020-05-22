@@ -1,0 +1,37 @@
+<style>
+* {
+	font-family: 'Inter', sans-serif;
+	font-size: 21px;
+}
+h1 {
+	padding-left: 45px;
+}
+</style>
+
+<h1> Cake Price 🎂 </h1>
+<ul id='cake-price-list'>
+</ul>
+
+
+<script>
+const getCakePrice = (cake) => {
+	return new Promise((resolve, reject) => {
+		const kebabCake = cake.replace(' ', '-').toLowerCase()
+		fetch('/assets/data/shopping/prices/' + kebabCake + '.json').then(data => {
+			data.json().then(cakePrice => resolve(cakePrice))
+		})
+	})
+}
+
+const allCakes = ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
+const cakePriceList = document.getElementById('cake-price-list')
+allCakes.forEach((cake) => {
+	getCakePrice(cake).then(cakePrice => {
+		const newPriceItem = document.createElement('ul')
+		newPriceItem.innerHTML = cake + ': ' + cakePrice.value + cakePrice.currency
+		cakePriceList.appendChild(newPriceItem)
+	}
+	)
+})
+</script>
+

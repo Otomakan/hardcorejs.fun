@@ -1,5 +1,5 @@
 ---
-	layout: contact-form
+	template: contact-form
 	title: Who We are
 	meta_description: undefined
 	author: undefined

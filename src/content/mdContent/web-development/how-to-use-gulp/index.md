@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: How to use gulp
 	meta_description: 
 	author: Jack Misteli

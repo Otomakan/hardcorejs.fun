@@ -1,5 +1,5 @@
 ---
-	layout: example
+	template: example
 	title: undefined
 	meta_description: undefined
 	author: undefined

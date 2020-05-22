@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: Node vs Javascript
 	meta_description: What is the difference between Node and Javascript?
 	author: Jack Misteli

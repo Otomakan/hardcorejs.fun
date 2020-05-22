@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel='manifest' href='/manifest.json'>
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98810842-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-98810842-5');
+</script>
+
+
+	</head>
+
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+</body>#headme
+<div class="body-wrapper">
+	<div>
+	<div class="form-container">
+	<h2>Who We are</h2>
+			<form class="contact-us-container" method="post" action="mailto:jgmisteli@gmail.com">
+				
+  
+    <label for="email">Email:</label><br>
+    <input type="text" name="email" id="email-form" minlength="3" placeholder="eg: jmisteli@mmpenergy.com.au" required> <br>
+
+	<label for="email">Name:</label><br>
+     <input type="text" name="name" id="name-form" minlength="3" placeholder="eg: John Doe" required> <br>
+    
+
+    <label for="your-message">Message</label><br>
+
+    <textarea name="your-message" id="your-message" placeholder="Drop us a line here" class="expanding" required></textarea><br>
+  
+    <button type="submit">
+      <svg version="1.1" class="send-icn" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="36px" viewBox="0 0 100 36" enable-background="new 0 0 100 36" xml:space="preserve">
+        <path d="M100,0L100,0 M23.8,7.1L100,0L40.9,36l-4.7-7.5L22,34.8l-4-11L0,30.5L16.4,8.7l5.4,15L23,7L23.8,7.1z M16.8,20.4l-1.5-4.3
+	l-5.1,6.7L16.8,20.4z M34.4,25.4l-8.1-13.1L25,29.6L34.4,25.4z M35.2,13.2l8.1,13.1L70,9.9L35.2,13.2z" />
+      </svg>
+      <small>send</small>
+    </button>
+			</form>
+
+	</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	<script type="text/javascript" src='/js/main.js' ></script>
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	<script type="text/javascript" src='/js/history.js' ></script>
+
+</footer>

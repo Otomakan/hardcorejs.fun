@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: What is the CSV format
 	meta_description: 
 	author: Jack Misteli

@@ -1,5 +1,5 @@
 ---
-	layout: blog-page
+	template: blog-page
 	title: How to use Highlight JS to pretty up you snippets
 	meta_description: 
 	author: Jack Misteli

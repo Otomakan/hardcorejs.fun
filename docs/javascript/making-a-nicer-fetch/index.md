@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel='manifest' href='/manifest.json'>
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98810842-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-98810842-5');
+</script>
+
+
+	</head>
+
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+</body><div class="page-wrapper">
+
+<div class='blog-page'>
+		<div class="blog-center-container">
+			<div class='blog-title-container'>
+					<h1 >Making your own Fetch</h1>
+					<h4 class='blog-subtitle'>Jack Misteli</h4>
+			</div>
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p><p class='prelude'>The native <code>fetch</code> function is not as bad as many people say I think. But it's definitely super wordy.</p>
+<pre><code>
+
+const getCakes = (returnPromisedValue, reject) => {
+	fetch('/assets/data/shopping/cakes.json')
+		.then(data =>{
+			data.json().then(cakes => {
+				returnPromisedValue(cakes)
+			})
+		})
+}
+</code></pre>
+<p>The other problem is that it is a bit tricky to detect if our API call was successful or not: </p>
+
+<pre><code>
+const getCakes = (returnPromisedValue, reject) => {
+	// URL TYPO!
+	fetch('/assets/data/shopping/caks.json')
+		.then(data =>{
+			const callIsSuccess = data.ok
+			if (callIsSuccess){
+				data.json().then(cakes => {
+					returnPromisedValue(cakes)
+				})
+			} else {
+				throw new Error('call was not successful')
+			}
+		})
+}
+</code></pre>
+
+<p>One thing we can do is to wrap fetch and create a fetch with a new standard behavior.</p>
+<pre><code>
+const myFetch = (url, options) => {
+	return new Promise((resolve, reject) => {
+	fetch(url, options).then(
+		data => {
+			if(!data.ok){
+				throw new Error('invalid request')
+			} else {
+				// Only do this if you are sure you will only work with JSON data
+				data.json().then(result => resolve(result))
+			}
+		})
+	})
+}
+
+myFetch('/assets/data/shopping/caks.json')
+// This will throw 'invalid request'
+myFetch('/assets/data/shopping/cakes.json').then(cakes=>{console.log(cakes)})
+// This will log ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
+</code></pre>
+
+<h1>Fetching with custom credentials</h1>
+
+<p>One more useful feature might be to add some base configuration to your calls. For example you can add a special token or base URL.</p> This time I decided to use <code> async await </code> syntax instead of Promise, but it's the same thing.
+<pre><code>
+const fetchMyAPI = async (url, options) => {
+	const baseURL = 'https://myapi.hardcorejs.fun'
+	// If no token is set the default token is 'No TOKEN!'
+	const specialToken = localStorage.getItem('hardcoreJSUserToken') || 'No TOKEN!'
+	const targetURL = baseURL + url
+	options = options || {}
+	 options  = 	{...options, 
+		headers: {
+			...options.headers,
+			'Special-Token': specialToken
+		}
+	 }
+	return await fetch(	targetURL, options)	
+}
+</code></pre>
+
+<h1>Custom GET POST Update</h1>
+
+<p>Base on our previous example we can simply do: </p>
+<pre><code>
+const getMyAPI = async (url, options) => {
+	const baseURL = 'https://myapi.hardcorejs.fun'
+	const targetURL =
+	 options  = 	{...options, method: "POST" }
+	return await fetch(	 baseURL + url, options)	
+}
+</code></pre>
+
+<p> But we can try going a bit further and create a custom object which will look something like <a href="https://github.com/axios/axios">axios</a>. We will  <a href="/javascript/axios"> write a blog post about it</a>.
+
+<pre><code>
+
+const myAPIReq ={
+	baseURL: 'https://myapi.hardcorejs.fun',
+	getBaseOptions : () => {
+		console.log('hey')
+			const specialToken = localStorage.getItem('userToken') || ''
+			return { 	
+				mode: 'cors', 
+				cache: 'no-cache', 
+				credentials: 'same-origin',
+				headers: {
+				'Special-Token': specialToken
+			}
+			}
+	},
+	// We can't use arrow functions here because we want to use this
+	get : async function (url, options) { fetch(this.baseURL, {...this.getBaseOptions(), ...options})},
+	post : async function (url, options) { fetch(this.baseURL, {...this.getBaseOptions(), ...options, method: 'POST'})}
+}
+</code></pre>
+
+<h1>Use fetch for specific data types</h1>
+
+<p>As we saw earlier with JSON, we can also make API calls to get specific data type.</p>
+<h2>Fetch Images</h2>
+<pre><code class='executable'>
+
+const getImageURL = async (url, options) => {
+	const res = await fetch(url, options)
+	const imageBlob = await res.blob()
+	const imageURL = await URL.createObjectURL(imageBlob)
+	return imageURL
+}
+
+getImageURL('/assets/images/random/take_a_breather.gif')
+	.then(imageURL=>{
+		const img = document.createElement('img')
+		img.src = imageURL
+		//Execute this code and you'll get an image at the very end of the site
+		document.body.appendChild(img)
+	})
+
+</code></pre>
+<requirements>
+axios
+contructor function
+this scope arrow function
+async await
+async await vs promises
+blobs?
+</requirements>
+</p>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	<script type="text/javascript" src='/js/main.js' ></script>
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	<script type="text/javascript" src='/js/history.js' ></script>
+
+</footer>
