@@ -63,7 +63,7 @@ const babelSettings = {
 
 const serve =  ()=> {
     browserSync.init({
-        server: "./docs/"
+        server: "./dist/"
     })
     gulp.watch(['src/js/*.js', 'src/js/**/*.js'], series(webpackify,sw)).on('change',browserSync.reload)
     gulp.watch('src/styles/**/**/*.scss', cleanCSS).on('change',browserSync.reload)
@@ -94,14 +94,14 @@ const sitemap =  () =>	gulp.src(['dist/**/**/**/**/*.html', '!dist/utils/*', '!d
 //             console.log(e)})
 //          // .pipe(uglify().on('error', function(e){
 //             // console.log(e)}))
-//         .pipe(gulp.dest('./docs/js'))
+//         .pipe(gulp.dest('./dist/js'))
 
 // const mainBundle =  ()=>
 // 		gulp.src(['src/js/main.js','src/js/history.js','src/js/serviceWorkers.js'])
 // 				.pipe(concat('bundle.js'))
 // 				.pipe(named())
 //         .pipe(webpack())
-// 				.pipe(gulp.dest('./docs/js'))
+// 				.pipe(gulp.dest('./dist/js'))
 
 const webpackify = () =>  {
 	const tmp = {}
@@ -115,18 +115,18 @@ const webpackify = () =>  {
 		.pipe(rename((path) => {
 			path.dirname = tmp[path.basename].dirname
 		}))    
-		.pipe(gulp.dest('./docs/js/'))
+		.pipe(gulp.dest('./dist/js/'))
 }
 
 const registerJS = ()=>{
 	return gulp.src('src/js/sw.js')	
 .pipe(named())
 .pipe(webpack(webpackOptions))
-.pipe(gulp.dest('./docs/'))
+.pipe(gulp.dest('./dist/'))
 }
 const registerManifest = ()=> {
 	return gulp.src('src/manifest.json')	
-	.pipe(gulp.dest('./docs/'))
+	.pipe(gulp.dest('./dist/'))
 }
 const sw = series(registerJS, registerManifest)
 
@@ -140,7 +140,7 @@ gulp.src(
 	throw e
 })
 .pipe(rename({extname:'.html'}))
-.pipe(gulp.dest('./docs'))
+.pipe(gulp.dest('./dist'))
 
 const md2html =  ()=>
 gulp.src(
@@ -151,15 +151,15 @@ gulp.src(
 .pipe(mdLoader())
 .pipe(rename({extname:'.html'}))
 
-.pipe(gulp.dest('./docs'))
+.pipe(gulp.dest('./dist'))
 .pipe(ampIt())
-.pipe(gulp.dest('./docs/amp'))
+.pipe(gulp.dest('./dist/amp'))
 
 
 
 gulp.task('pwa', ()=>
   gulp.src(['src/pwa/manifest.json','src/js/sw.js'])
-  .pipe(gulp.dest('./docs')
+  .pipe(gulp.dest('./dist')
   )
  
 )
@@ -171,14 +171,14 @@ gulp.task('pwa', ()=>
 //   //       .pipe(source('main1.js'))
 //   //       .pipe(buffer())
 //   //       // .pipe(uglify())
-//   //       .pipe(gulp.dest('./docs/'))
+//   //       .pipe(gulp.dest('./dist/'))
 //    gulp.src('src/js/*.js')
 //          .pipe(babel({
 //             presets: ['@babel/env']
 //         }))
 //          .pipe(uglify().on('error', function(e){
 //             console.log(e)}))
-//         .pipe(gulp.dest('./docs/'))
+//         .pipe(gulp.dest('./dist/'))
 // })
 
 // const browserifyJS  = () => {
@@ -197,7 +197,7 @@ gulp.task('pwa', ()=>
 //         .pipe(uglify())
 //         .on('error', console.log('error'))
 //     .pipe(sourcemaps.write('./'))
-//     .pipe(gulp.dest('./docs/js/'))
+//     .pipe(gulp.dest('./dist/js/'))
 // }
 
 
@@ -207,33 +207,33 @@ const cleanCSS = ()=>
   .pipe(sass(({outputStyle: 'compressed'})).on('error', sass.logError))
   .pipe(autoprefixer())
   // .pipe(gulpCleanCSS())
-  .pipe(gulp.dest('./docs/'))
+  .pipe(gulp.dest('./dist/'))
 
 
 const imageMin =  () =>
     gulp.src('src/assets/images/**/*')
         .pipe(imagemin())
-        .pipe(gulp.dest('docs/assets/images/'))
+        .pipe(gulp.dest('dist/assets/images/'))
 
 
 
 const fonts =  () =>
     gulp.src('src/assets/fonts/**/*')
         // .pipe(imagemin())
-				.pipe(gulp.dest('docs/assets/fonts/'))
+				.pipe(gulp.dest('dist/assets/fonts/'))
 const data =  () =>
 				gulp.src('src/assets/data/**/*')
 						// .pipe(imagemin())
-						.pipe(gulp.dest('docs/assets/data/'))
+						.pipe(gulp.dest('dist/assets/data/'))
 
 const CNAME = () => 
 	gulp.src('CNAME')
-	.pipe(gulp.dest('docs/'))
+	.pipe(gulp.dest('dist/'))
 
 
 const html = ()=>
   gulp.src('src/*.html')
-  .pipe(gulp.dest('docs'))
+  .pipe(gulp.dest('dist'))
   
 
 const jsonhtml = ()=>
@@ -241,20 +241,20 @@ const jsonhtml = ()=>
     {base: './src/content/contentJson/'}) 
   .pipe(jsonLoader())
   .pipe(rename({extname:'.html'}))
-  .pipe(gulp.dest('docs/content'))
+  .pipe(gulp.dest('dist/content'))
   
 const htmlutils = ()=>
   gulp.src('src/content/utils/*.html')
 	.pipe(htmlmin({ collapseWhitespace: true }))
 	
-  .pipe(gulp.dest('docs/utils'))
+  .pipe(gulp.dest('dist/utils'))
   
 const indexhtml = ()=>
   gulp.src('src/content/*.html')
   .pipe(indexIsSoSpecial())
-  .pipe(gulp.dest('docs/'))
+  .pipe(gulp.dest('dist/'))
   
 // Remember to put imagemin later on in
-exports.default= series(parallel(series(webpackify,sw), fonts,data, imageMin, md2html,indexhtml,htmlutils,cleanCSS,sitemap) ,serve)
+exports.default= series(parallel(imageMin,cleanCSS), parallel(series(webpackify,sw), fonts,data, md2html,indexhtml,htmlutils,sitemap) ,serve)
 
 

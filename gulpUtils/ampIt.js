@@ -14,8 +14,8 @@ module.exports =  ()=> {
 			const amp = await ampify(fileContent, {
 				cheerioOptions: {
 				},
-				cssPath : path.join(__dirname, '..', 'docs'),
-				distRoot : path.join(__dirname, '..', 'docs'),
+				cssPath : path.join(__dirname, '..', 'dist'),
+				distRoot : path.join(__dirname, '..', 'dist'),
 				analyticsCode: '',
 				canonicalHref });
 			file.contents = Buffer.from(amp,'utf-8')
