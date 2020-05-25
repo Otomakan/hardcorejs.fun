@@ -115,6 +115,12 @@
 		"body": [
 			"<p class='parting-thoughts'>$1</p>"
 		]
+	},	
+	"case study":{
+		"prefix": "case study",
+		"body": [
+			"<p class='case study'>$1</p>"
+		]
 	},
 	"prelude": {
 		"prefix": "prelude",

@@ -34,7 +34,7 @@ module.exports =  ()=> {
 		 	targetHTMLFile =  file.cwd+'/src/content/templates/'+attributes.template+'.html'
 				
 
-			const jsonData = {...attributes, content: mdBody}
+			const jsonData = {...attributes, content: html}
 		 if (jsonData.template === 'example') { 
 			file.contents = Buffer.from(jsonData.content,'utf-8')
 		 } else {

@@ -1,14 +1,14 @@
 <style>
 .svg-container {
-	width: 100vw;
-	height: 100vh;
+    width: 100vw;
+    height: 100vh;
 }
 .line {
     stroke-width: 3px;
     fill: none;
 }
 body {
-	margin: 0;
+    margin: 0;
 }
 
 </style>
@@ -25,141 +25,132 @@ body {
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
 const getHappinessData = () => {
-	return fetch('/assets/data/share-of-people-who-say-they-are-happy.json').then(res => res.json())
+    return fetch('/assets/data/share-of-people-who-say-they-are-happy.json').then(res => res.json())
 }
 getHappinessData().then( rawData => {
-	const graphWidth = window.innerWidth
-	const graphHeight = 400
-	const filteredData = rawData.data.filter(data=> data.id.match(/Russia|Brazil/))
-	rawData.data = filteredData
-	const lineColors = ['#DC136C',
-	'#FDD483',
-	'#8ED1B7',
-	'#E7A8C6',
-	'#606EFE',
-	'#ED6550',
-	'#DDD5D0',
-	'#818AA3']
-	const chartStyle = {
-		margin : {top: 10, right: 30, bottom: 30, left: 60},
- 		padding : { top: 20, right: 0, bottom: 20, left: 25 },
-		lineColors
-	}
-	buildLineGraph(rawData, graphWidth, graphHeight, chartStyle)
+    const graphWidth = window.innerWidth
+    const graphHeight = 400
+    const filteredData = rawData.data.filter(data=> data.id.match(/Russia|Brazil/))
+    rawData.data = filteredData
+    const lineColors = ['#DC136C',
+    '#FDD483',
+    '#8ED1B7',
+    '#E7A8C6',
+    '#606EFE',
+    '#ED6550',
+    '#DDD5D0',
+    '#818AA3']
+    const chartStyle = {
+        margin : {top: 10, right: 30, bottom: 30, left: 60},
+         padding : { top: 20, right: 0, bottom: 20, left: 25 },
+        lineColors
+    }
+    buildLineGraph(rawData, graphWidth, graphHeight, chartStyle)
 })
 
-const buildLineGraph = (rawData, graphWidth, graphHeight, chartStyle) => {
-	const lineColors = chartStyle.lineColors || [red, blue, purple]
-	const margin = chartStyle.margin || {top:0, right: 0, bottom: 0, left: 0}
-	const padding = chartStyle.padding || {top:0, right: 0, bottom: 0, left: 0}
+<p>const buildLineGraph = (rawData, graphWidth, graphHeight, chartStyle) =&gt; {
+    const lineColors = chartStyle.lineColors || [red, blue, purple]
+    const margin = chartStyle.margin || {top:0, right: 0, bottom: 0, left: 0}
+    const padding = chartStyle.padding || {top:0, right: 0, bottom: 0, left: 0}</p>
+<pre><code>const properties = rawData.properties
+const entries = rawData.data
 
-	const properties = rawData.properties
-	const entries = rawData.data
+const {xExtent, yExtent} = getExtents(entries)
+console.log(getExtents(entries))
+// xExtent === {min: &quot;1984&quot;, max: &quot;2014&quot;}
+// yExtend === {min: &quot;29.678267&quot;, max: &quot;98.113213&quot;}
 
-	const {xExtent, yExtent} = getExtents(entries)
-	console.log(getExtents(entries))
-	// xExtent === {min: "1984", max: "2014"}
-	// yExtend === {min: "29.678267", max: "98.113213"}
-	
-	const xScale = d3.scaleLinear()
-								.domain([xExtent.min,  xExtent.max])
-								.range([padding.left, graphWidth])
-	const yScale = d3.scaleLinear()
-							.domain([yExtent.min,  yExtent.max])
-							.range([ graphHeight - padding.bottom, padding.top ])
+const xScale = d3.scaleLinear()
+                            .domain([xExtent.min,  xExtent.max])
+                            .range([padding.left, graphWidth])
+const yScale = d3.scaleLinear()
+                        .domain([yExtent.min,  yExtent.max])
+                        .range([ graphHeight - padding.bottom, padding.top ])
 
-	// This is the function which we will use to draw our lines
-	const drawLine = d3.line()
-			.x( d => { return xScale(Number(d[0])) })
-			.y( d => { return yScale(Number(d[1])) })
+// This is the function which we will use to draw our lines
+const drawLine = d3.line()
+        .x( d =&gt; { return xScale(Number(d[0])) })
+        .y( d =&gt; { return yScale(Number(d[1])) })
 
-	const numberOfLines = entries.length
-  // Grabbing our svg element to add out line paths to
-	const svg = document.getElementsByTagName('svg')[0]
- 
-	// We are looping through each line
-	// remember in our data set each entry is a country
-	for(let i=0; i < numberOfLines; i++) {
-		const entry = entries[i]
-		const g = document.createElement('g')
-		// createElementNS is a weird requirement to create an svg path dynamically
-		const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-		const lineColor = lineColors[i % lineColors.length]
-		path.setAttribute('stroke',lineColor)
+const numberOfLines = entries.length</code></pre>
+<p>  // Grabbing our svg element to add out line paths to
+    const svg = document.getElementsByTagName(&#39;svg&#39;)[0]</p>
+<pre><code>// We are looping through each line
+// remember in our data set each entry is a country
+for(let i=0; i &lt; numberOfLines; i++) {
+    const entry = entries[i]
+    const g = document.createElement(&#39;g&#39;)
+    // createElementNS is a weird requirement to create an svg path dynamically
+    const path = document.createElementNS(&#39;http://www.w3.org/2000/svg&#39;, &#39;path&#39;)
+    const lineColor = lineColors[i % lineColors.length]
+    path.setAttribute(&#39;stroke&#39;,lineColor)
 
-		// The d attribute is key, that's were we tell our path what shape it should take
-		path.setAttribute('d', drawLine(entry.data))
-		path.setAttribute('class', 'line')
-		svg.setAttribute('height', graphHeight)
-		svg.setAttribute('width', graphWidth)
+    // The d attribute is key, that&#39;s were we tell our path what shape it should take
+    path.setAttribute(&#39;d&#39;, drawLine(entry.data))
+    path.setAttribute(&#39;class&#39;, &#39;line&#39;)
+    svg.setAttribute(&#39;height&#39;, graphHeight)
+    svg.setAttribute(&#39;width&#39;, graphWidth)
 
-		svg.appendChild(path)
-	}
-	// New Stuff
-	const buildXAxis = (xData) => {
-		const xAxis = document.getElementsByClassName('x-axis')[0]
-		xScale.ticks().forEach(tickValue=> {
-			const tickEl =  document.createElementNS('http://www.w3.org/2000/svg', 'g')
-			const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+    svg.appendChild(path)
+}
+// New Stuff
+const buildXAxis = (xData) =&gt; {
+    const xAxis = document.getElementsByClassName(&#39;x-axis&#39;)[0]
+    xScale.ticks().forEach(tickValue=&gt; {
+        const tickEl =  document.createElementNS(&#39;http://www.w3.org/2000/svg&#39;, &#39;g&#39;)
+        const text = document.createElementNS(&#39;http://www.w3.org/2000/svg&#39;, &#39;text&#39;)
 
-			text.innerHTML = tickValue
-			text.setAttribute('x', '0')
-			text.setAttribute('y', '-4')
+        text.innerHTML = tickValue
+        text.setAttribute(&#39;x&#39;, &#39;0&#39;)
+        text.setAttribute(&#39;y&#39;, &#39;-4&#39;)
 
-			const translate = `translate(${xScale(tickValue)},${graphHeight})`
-			tickEl.setAttribute('class', 'tick')
-			tickEl.setAttribute('transform', translate)
-			tickEl.appendChild(text)
-			xAxis.appendChild(tickEl)
-		})
-	}
-
-	buildYAxis = () => {
-		const yAxis = document.getElementsByClassName('y-axis')[0]
-		const yAxisTranslate = `translate(0, ${padding.top})`
-		yAxis.setAttribute('transform',yAxisTranslate)
-		yScale.ticks().forEach( tickValue => {
-			const tickEl =  document.createElementNS('http://www.w3.org/2000/svg', 'g')
-			const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-
-			text.innerHTML = tickValue
-			text.setAttribute('x', '0')
-			text.setAttribute('y', '-4')
-
-			const translate = `translate(0, ${yScale(tickValue) - padding.bottom})`
-			tickEl.setAttribute('class', 'tick')
-			tickEl.setAttribute('transform', translate)
-			tickEl.appendChild(text)
-			yAxis.appendChild(tickEl)
-		})
-	}
-	buildXAxis()
-	buildYAxis()
+        const translate = `translate(${xScale(tickValue)},${graphHeight})`
+        tickEl.setAttribute(&#39;class&#39;, &#39;tick&#39;)
+        tickEl.setAttribute(&#39;transform&#39;, translate)
+        tickEl.appendChild(text)
+        xAxis.appendChild(tickEl)
+    })
 }
 
+buildYAxis = () =&gt; {
+    const yAxis = document.getElementsByClassName(&#39;y-axis&#39;)[0]
+    const yAxisTranslate = `translate(0, ${padding.top})`
+    yAxis.setAttribute(&#39;transform&#39;,yAxisTranslate)
+    yScale.ticks().forEach( tickValue =&gt; {
+        const tickEl =  document.createElementNS(&#39;http://www.w3.org/2000/svg&#39;, &#39;g&#39;)
+        const text = document.createElementNS(&#39;http://www.w3.org/2000/svg&#39;, &#39;text&#39;)
 
+        text.innerHTML = tickValue
+        text.setAttribute(&#39;x&#39;, &#39;0&#39;)
+        text.setAttribute(&#39;y&#39;, &#39;-4&#39;)
 
-// A little helper function to get min and max value for the x and y of our dataset
-const getExtents = (data) => {
-	let yExtent  = {max:0, min:null}
-	let xExtent = {max:0, min:null}
-	data.forEach((line)=> {
-		line.data.forEach(entry=>{
-		const [x, y] = entry
-		if(x > xExtent.max) 
-			xExtent.max = x
-		if(x < xExtent.min || !xExtent.min ) 
-			xExtent.min = x
-		if(y > yExtent.max) 
-			yExtent.max = y
-		if(y < yExtent.min || !yExtent.min ) 
-			yExtent.min = y
-
-		})
-	})
-	return {xExtent, yExtent}
+        const translate = `translate(0, ${yScale(tickValue) - padding.bottom})`
+        tickEl.setAttribute(&#39;class&#39;, &#39;tick&#39;)
+        tickEl.setAttribute(&#39;transform&#39;, translate)
+        tickEl.appendChild(text)
+        yAxis.appendChild(tickEl)
+    })
 }
-
-</script>
-
-
+buildXAxis()
+buildYAxis()</code></pre>
+<p>}</p>
+<p>// A little helper function to get min and max value for the x and y of our dataset
+const getExtents = (data) =&gt; {
+    let yExtent  = {max:0, min:null}
+    let xExtent = {max:0, min:null}
+    data.forEach((line)=&gt; {
+        line.data.forEach(entry=&gt;{
+        const [x, y] = entry
+        if(x &gt; xExtent.max) 
+            xExtent.max = x
+        if(x &lt; xExtent.min || !xExtent.min ) 
+            xExtent.min = x
+        if(y &gt; yExtent.max) 
+            yExtent.max = y
+        if(y &lt; yExtent.min || !yExtent.min ) 
+            yExtent.min = y</p>
+<pre><code>    })
+})
+return {xExtent, yExtent}</code></pre>
+<p>}</p>
+<p></script></p>

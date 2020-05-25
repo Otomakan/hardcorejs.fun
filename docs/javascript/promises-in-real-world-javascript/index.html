@@ -63,18 +63,15 @@
 <div class="horizontal-codes">
 <pre><code class="executable">
 
-const buyCake = (returnPromisedValue, reject) => {
-		returnPromisedValue('cake')
+<p>const buyCake = (returnPromisedValue, reject) =&gt; {
+        returnPromisedValue(&#39;cake&#39;)
 }
 // Today we are only buying cake 
-const gettingGroceries = new Promise((resolve, reject) => buyCake(resolve, reject))
-const eat = (food) => {console.log('Eating', food)}
-
-// We get the groceries, then we eat the groceries
-gettingGroceries.then(groceries =>  eat(groceries))
-
-// console will log "Eating cake"
-
+const gettingGroceries = new Promise((resolve, reject) =&gt; buyCake(resolve, reject))
+const eat = (food) =&gt; {console.log(&#39;Eating&#39;, food)}</p>
+<p>// We get the groceries, then we eat the groceries
+gettingGroceries.then(groceries =&gt;  eat(groceries))</p>
+<p>// console will log &quot;Eating cake&quot;</p>
 </code>
 <div class="code-description"> Level 1: always succeeding Promise</div>
 </pre>
@@ -88,13 +85,13 @@ gettingGroceries.then(groceries =>  eat(groceries))
 <pre><code class='executable'>
 
 const buyCake = (returnPromisedValue, reject) => {
-	try {
-		if (Math.random() > 0.2)
-			throw new Error('You slipped on a banana peel on your way there')
-		returnPromisedValue('cake')
-	} catch (error) {
-		reject(new Error('something went wrong with our cake shopping: ' + error.toString()))
-	}
+    try {
+        if (Math.random() > 0.2)
+            throw new Error('You slipped on a banana peel on your way there')
+        returnPromisedValue('cake')
+    } catch (error) {
+        reject(new Error('something went wrong with our cake shopping: ' + error.toString()))
+    }
 }
 
 // Today we are only buying cake 
@@ -103,9 +100,9 @@ const eat = (food) => {console.log('Eating', food)}
 
 // We get the groceries, then we eat the groceries
 gettingGroceries
-	.then(groceries =>  {eat(groceries);})
-	.catch(error => { 
-		console.log(error.toString());
+    .then(groceries =>  {eat(groceries);})
+    .catch(error => { 
+        console.log(error.toString());
 })
 
 // While we are doing the groceries we can do other things in the meantime
@@ -127,22 +124,22 @@ callVance()
 // But don't forget to catch your errors)
 
 const buyCake = (returnPromisedValue, reject) => {
-	fetch('/assets/data/shopping/cakes.json')
-		.then(data =>{
-			data.json().then(cakes => {
-				console.log(cakes)
-				// cakes === ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
-				const firstCake = cakes[0]
-				// firstCake === 'Chocolate Cake'
-				returnPromisedValue(firstCake)
-			})
-		})
+    fetch('/assets/data/shopping/cakes.json')
+        .then(data =>{
+            data.json().then(cakes => {
+                console.log(cakes)
+                // cakes === ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
+                const firstCake = cakes[0]
+                // firstCake === 'Chocolate Cake'
+                returnPromisedValue(firstCake)
+            })
+        })
 }
 
 const gettingGroceries = new Promise(buyCake)
 const eat = (food) => {console.log('Eating', food)}
 gettingGroceries
-	.then(groceries =>  {eat(groceries);})
+    .then(groceries =>  {eat(groceries);})
 
 console.log('Singing WonderWall')
 
@@ -158,22 +155,22 @@ console.log('Singing WonderWall')
 <h5>Example of dependant calls</h5>
 <pre><code>
 
-const orderFirstCake = () => {
-	getAllCakes.then( allCakes =>{
-		if (allCakes.includes)
-		const firstCake = allCakes[]
-		orderCake(firstCake).then(res => {
-			console.log(res)
-		}).catch(err => {
-			console.log('something went wrong when ordering the cake')
-			throw err
-		})
-	}).catch(err=> {
-		console.log('something went wrong getting all the cakes')
-		throw err
-	})
+<p>const orderFirstCake = () =&gt; {
+    getAllCakes.then( allCakes =&gt;{
+        if (allCakes.includes)
+        const firstCake = allCakes[]
+        orderCake(firstCake).then(res =&gt; {
+            console.log(res)
+        }).catch(err =&gt; {
+            console.log(&#39;something went wrong when ordering the cake&#39;)
+            throw err
+        })
+    }).catch(err=&gt; {
+        console.log(&#39;something went wrong getting all the cakes&#39;)
+        throw err
+    })
 }
-</code></pre>
+</code></pre></p>
 <ul>In plain English this code means (C == client, S == Server):
 <li>C: "Please tell me about all the cake Options you have"</li> 
 <li>S: "We have Chocolate Cake, Cheese Cake and  Balaclava"]</li>
@@ -189,23 +186,23 @@ const orderFirstCake = () => {
 
 <script>
 const getCakePrice = (cake) => {
-	return new Promise((resolve, reject) => {
-		const kebabCake = cake.replace(' ', '-').toLowerCase()
-		fetch('/assets/data/shopping/prices/' + kebabCake + '.json').then(data => 
-			data.json().then(cakePrice => resolve(cakePrice))
-		)
-	})
+    return new Promise((resolve, reject) => {
+        const kebabCake = cake.replace(' ', '-').toLowerCase()
+        fetch('/assets/data/shopping/prices/' + kebabCake + '.json').then(data => 
+            data.json().then(cakePrice => resolve(cakePrice))
+        )
+    })
 }
 
 const allCakes = ['Chocolate Cake', 'Cheese Cake', 'Balaclava']
 const cakePriceList = document.getElementById('cake-price-list')
 allCakes.forEach((cake) => {
-	getCakePrice(cake).then(cakePrice => {
-		const newPriceItem = document.createElement('ul')
-		newPriceItem.innerHTML = cake + ': ' + cakePrice.value + cakePrice.currency
-		cakePriceList.appendChild(newPriceItem)
-	}
-	)
+    getCakePrice(cake).then(cakePrice => {
+        const newPriceItem = document.createElement('ul')
+        newPriceItem.innerHTML = cake + ': ' + cakePrice.value + cakePrice.currency
+        cakePriceList.appendChild(newPriceItem)
+    }
+    )
 })
 </script>
 </code></pre>

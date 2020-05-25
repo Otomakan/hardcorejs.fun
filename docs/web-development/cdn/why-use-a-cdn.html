@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+
+<head>
+	<meta charset='utf-8'>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/index.css">
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel='manifest' href='/manifest.json'>
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-98810842-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-98810842-5');
+</script>
+
+
+	</head>
+
+	<body >
+		<nav>
+			<div class='nav-left-block'></div>
+			<ul class='nav-items'>
+				<li class='nav-item'><a href="/home">Home</a></li>
+				<li class='nav-item'><a href="/javascript">Javascript</a></li>
+				<li class='nav-item'><a href="/node">Node</a></li>
+				<li class='nav-item'><a href="/programming">Programming</a></li>
+				<li class='nav-item'><a href="/react">React</a></li>
+				<li class='nav-item'><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+</body><div class="page-wrapper">
+
+<div class='blog-page'>
+		<div class="blog-center-container">
+			<div class='blog-title-container'>
+					<h1 >Why should we use a CDN</h1>
+					<h4 class='blog-subtitle'>Jack Misteli</h4>
+			</div>
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p><p>Content Delivery networks are an amazing resource to improve our sites. We describe them in more tdetails in our article <a href="/web-development/cdn/what-is-a-cdn.html"> What is a CDN</a>.</p>
+<h2 id="tldr">TL;DR</h2>
+<ul>
+<li>Reliability: We want our site to always be up.</li>
+<li>Security: It makes our sites more secure.</li>
+<li>Speed: It improves page load.</li>
+<li>Availability: This  is connected to reliability. A CDN makes sure our site is available at all times in all region.</li>
+<li>Scalability: When your site grows from 10 to a millions visitors, a CDN takes care of your static content delivery. So you can focus on your product instead of scaling issues.</li>
+</ul>
+<h2 id="5-reasons-to-use-a-cdn">5 reasons to use a CDN</h2>
+<h3 id="a-cdn-provides-a-more-reliable-delivery">A CDN provides a more reliable delivery</h3>
+<p>Any website should aim at having 100% uptime. This means that when a user enters our URL it should always see the content of our site. A CDN alone will not guarantee 100% uptime but it goes a long way to improve uptime with very little configuration.</p>
+<h3 id="to-improve-the-security-of-your-site">To improve the security of your site</h3>
+<p>If you&#39;re a small static site security is not a super big issue. But if we have any intention to scale, we should all care about security. CDN often have great tools to protect our sites against Distributed Denial Of Service (DOS) attacks.</p>
+<p>Then from one CDN provider to the other we can find some additional tools to make our site safer, but DDOS are the most common ones.</p>
+<p>A few CDN providers also have built-in SSL to make sure our site always uses HTTPS.</p>
+<h3 id="to-make-our-content-available-in-different-geographical-zones">To Make our content available in different geographical zones</h3>
+<p>Managing content delivery across the world is not an easy task. We have to make sure that each user gets content delivered from really close to where they make their request. CDN providers are really good at caching content, and finding the fastest path to remote users.
+<img src='/assets/images/web-development/cdn-model.png' alt='An illustration of how CDNs can improve delivery'/></p>
+<h3 id="need-for-speed-improve-you-pages-load-time">Need For speed: improve you pages load time</h3>
+<p>CDNs can make your page load much faster.Cloudflare (not a sponsor) has<a href="https://www.cloudflare.com/learning/cdn/performance/"> a nice write up on how a CDN improves load times</a>. To sum it up, a CDN serves content from computers closer to the user by caching content in edge servers (computers closer to the users). It also has some hardware optimization and can minify the content before it reaches the users.</p>
+<h4 id="how-to-choose-the-fastest-cdn">How to choose the fastest CDN</h4>
+<p>To pick up a fast CDN a recommend using: <a href='https://www.cdnperf.com'><a href="https://www.cdnperf.com/">https://www.cdnperf.com/</a></a>. All we have to do is enter the name of our target region and see which providers are the fastest.</p>
+<p>Here is a screenshot taken the 15th of May 2020 showing the 8 best performing CDN in Asia.</p>
+<img src='/assets/images/web-development/cdnperf-screenshot.JPG' alt='Screenshot of CDN perf showing the 10 fastest CDN providers in Asia'/>
+
+<h4 id="the-consequences-of-having-a-slow-site">The consequences of having a slow site</h4>
+<p>According to <a href='http://loadstorm.com/2014/04/infographic-web-performance-impacts-conversion-rates/'>LoadStorm</a>:</p>
+<ul>
+<li>25% of all internet users will stop using  a website if it takes more than 4 seconds to load.</li>
+<li>74% of mobile users will abandon site with over 5 seconds load time.</li>
+<li>46% of users will not come back to a slow site.</li>
+</ul>
+<h3 id="it-allows-us-to-scale-our-sites-horizontally-and-vertically">It allows us to scale our sites horizontally and vertically</h3>
+<h4 id="vertical-scaling">Vertical Scaling</h4>
+<p>Vertical scaling is connected to reliability and speed. In this context, it means that we are able to serve quality content regardless of the number of users.</p>
+<p class='case-study'>
+We have a new blog which probably gets 50 visitors a month. One day a big blog notices us, and send tens of thousands of users our way. This is a lof of more bandwidth we have to deal with. If things are not setup up properly on our hand our servers could be overloaded. The consequence is extremely slow page loads and maybe even our blog going completely down. Having a CDN can prevent this horror show and help up us get as close as possible to 100% uptime and constant fast page loads.
+</p>
+
+<h4 id="horizontal-scaling">Horizontal Scaling</h4>
+<p>Horizontal scaling is related to our previous definition of availability.</p>
+<p class='case-study'>
+ For example, let's imagine most of our users are located in India and in the United States and our servers our located in the US. Without a CDN maybe the US users will have a super fast experience. On the other hand, our Indian users might experience very slow page loads. CDNs can solve that issue for us, and make sure our audience in India gets access to the fastest load time possible.
+</p>
+</p>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	<script type="text/javascript" src='/js/main.js' ></script>
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	<script type="text/javascript" src='/js/history.js' ></script>
+
+</footer>

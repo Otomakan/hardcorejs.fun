@@ -15,6 +15,8 @@ var gulpsitemap = require('gulp-sitemap')
 const named = require('vinyl-named')
 const markdown = require('gulp-markdown');
 const mdLoader = require('./gulpUtils/mdLoader')
+const ampIt = require('./gulpUtils/ampIt')
+
 const webpackOptions = {
 	output : {
 		filename : '[name].js'    
@@ -150,6 +152,9 @@ gulp.src(
 .pipe(rename({extname:'.html'}))
 
 .pipe(gulp.dest('./docs'))
+.pipe(ampIt())
+.pipe(gulp.dest('./docs/amp'))
+
 
 
 gulp.task('pwa', ()=>
@@ -199,7 +204,7 @@ gulp.task('pwa', ()=>
 const cleanCSS = ()=>
   gulp.src('src/styles/**/*.scss')
 	// .pipe(concat('bundle.css'))
-  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  .pipe(sass(({outputStyle: 'compressed'})).on('error', sass.logError))
   .pipe(autoprefixer())
   // .pipe(gulpCleanCSS())
   .pipe(gulp.dest('./docs/'))

@@ -54,7 +54,7 @@
 
 				<p><p>HTTP status codes tell the browsers (or us developers) what is happening with the requested resource. HTTP requests are classified based on the outcome of the request. There are 3 main categories and to know in which cate a status code is in, you just have to look at the first number.</p>
 <ul>
-	<li><em>Informational responses</em> start with 1  (100–199)</li>
+    <li><em>Informational responses</em> start with 1  (100–199)</li>
 <li><bold>Success</em> start with 2 (200–299)</li>
 <li><em>Redirect</em> start with 3 (300–399)</li>
 <li><em>Client errors</em> start with 4 (400–499)</li>
@@ -71,17 +71,17 @@
 
 <pre><code>
 const myFetch = (url, options) => {
-	return new Promise((resolve, reject) => {
-	fetch(url, options).then(
-		data => {
-			const isSuccess = res.status.toString()[0] === '2'
-			if(!isSuccess){
-				const logMessage = `Request  to ${url} with Options ${options} failed with status code ${res.status}
-			} else {
-				// Do something with successful request
-			}
-		})
-	})
+    return new Promise((resolve, reject) => {
+    fetch(url, options).then(
+        data => {
+            const isSuccess = res.status.toString()[0] === '2'
+            if(!isSuccess){
+                const logMessage = `Request  to ${url} with Options ${options} failed with status code ${res.status}
+            } else {
+                // Do something with successful request
+            }
+        })
+    })
 }
 
 </code></pre>

@@ -13,38 +13,38 @@ const path = require('path')
 // it is an array with all the file paths we are interested in
 
 const findFiles = async (currentPath, targetList, exclusionList, allFilesPaths) => {
-	exclusionList = exclusionList || []
-	allFilesPaths = allFilesPaths || []
-	const file = await fs.stat(currentPath)
-	const fileName =  path.basename(currentPath)
-	for (let i = 0; i < exclusionList.length; i++) {
-		const targetReg = exclusionList[i]
-		if(fileName.match(targetReg)){
-			return
-		}
-	}
-	if(file.isDirectory()) {
-		// readdir shows all the files in a given directory
-		const directories = await fs.readdir(currentPath)
-		await Promise.all(	directories.map(async dir => {
-			const nextFile = path.join(currentPath, dir)
-			await findFiles(nextFile, targetList, exclusionList, allFilesPaths)
-		}))
-	} else {
-		for (let i = 0; i < targetList.length; i++) {
-			const targetReg = targetList[i]
-			if(fileName.match(targetReg)){
-				allFilesPaths.push(currentPath)
-			}
-		}
+    exclusionList = exclusionList || []
+    allFilesPaths = allFilesPaths || []
+    const file = await fs.stat(currentPath)
+    const fileName =  path.basename(currentPath)
+    for (let i = 0; i < exclusionList.length; i++) {
+        const targetReg = exclusionList[i]
+        if(fileName.match(targetReg)){
+            return
+        }
+    }
+    if(file.isDirectory()) {
+        // readdir shows all the files in a given directory
+        const directories = await fs.readdir(currentPath)
+        await Promise.all(    directories.map(async dir => {
+            const nextFile = path.join(currentPath, dir)
+            await findFiles(nextFile, targetList, exclusionList, allFilesPaths)
+        }))
+    } else {
+        for (let i = 0; i < targetList.length; i++) {
+            const targetReg = targetList[i]
+            if(fileName.match(targetReg)){
+                allFilesPaths.push(currentPath)
+            }
+        }
 
-	}
-	return allFilesPaths
+    }
+    return allFilesPaths
 }
 
 const main = async () => {
-	const allMDFiles = await findFiles(__dirname,[/\.md/g], [/2019-09-22-animations-in-flutter.md/])
-	console.log(allMDFiles.length)
+    const allMDFiles = await findFiles(__dirname,[/\.md/g], [/2019-09-22-animations-in-flutter.md/])
+    console.log(allMDFiles.length)
 }
 
 main()

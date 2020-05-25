@@ -54,10 +54,8 @@
 
 				<p><p class='prelude'>To build this blog I have recently been working on some Input Output in Node. <a href="/web-development/how-this-website-is-built/">This site</a> uses a <a href="/web-development/compiling-web-pages">custom static site builder</a> based on Gulp. You can learn more about Gulp in <a href="/web-development/how-to-use-gulp">this blog post</a>. The Node documentation can be <a href="https://nodejs.org/api/path.html">a bit hard to understand at first</a>, so here are some Node path helpers. If you are a bit scared by <code>path</code> just try to remember that is it just a string manipulation library. You enter a string and it returns a string.</p>
 
-# Getting a specific directory
-
-One thing I have to do is to classify each blog post by category. And I write each blog post in the folder matching its category like this:
-
+<h1 id="getting-a-specific-directory">Getting a specific directory</h1>
+<p>One thing I have to do is to classify each blog post by category. And I write each blog post in the folder matching its category like this:</p>
 <pre class='folder'>
 ├───javascript
 │   ├───arrow-functions.md
@@ -66,8 +64,7 @@ One thing I have to do is to classify each blog post by category. And I write ea
 │   ├───counting-files-in-node.md
 </pre>
 
-In this example, I would like to turn this directory tree into:
-
+<p>In this example, I would like to turn this directory tree into:</p>
 <pre><code>
 {
  "javascript": [
@@ -80,11 +77,9 @@ In this example, I would like to turn this directory tree into:
 }
 </code></pre>
 
-In my case I have an absolute path <code>C:\rootDir\projectDir\src\content</code> in Windows (you might have noticed the slash direction).
-
-# Getting a filename in NodeJS
-
-Let's first see how we can extract the file name from a path:
+<p>In my case I have an absolute path <code>C:\rootDir\projectDir\src\content</code> in Windows (you might have noticed the slash direction).</p>
+<h1 id="getting-a-filename-in-nodejs">Getting a filename in NodeJS</h1>
+<p>Let&#39;s first see how we can extract the file name from a path:</p>
 <p class='module-name'>getFileName.js</p>
 <pre><code>
 const path = require('path')
@@ -95,40 +90,34 @@ console.log(getFileName('C:\rootDir\projectDir\src\content\node\arrow-functions.
 // logs 'arrow-functions.md'
 </code></pre>
 
-Now
-
-# Convert a path to an array
-
-To convert a path to an array we just need to use <a href='/javascript/split-string'> the native string <code>split</code> function</a>. And use <code>path.sep</code> as the split target. The cool thing with <code>path.sep</code> is that it detects what our operating system uses to divide directories. So on POSIX: <code>path.sep === '/'</code> and on Windows, <code>path.sep ==='\' || '\\'</code>.
-
+<p>Now</p>
+<h1 id="convert-a-path-to-an-array">Convert a path to an array</h1>
+<p>To convert a path to an array we just need to use <a href='/javascript/split-string'> the native string <code>split</code> function</a>. And use <code>path.sep</code> as the split target. The cool thing with <code>path.sep</code> is that it detects what our operating system uses to divide directories. So on POSIX: <code>path.sep === '/'</code> and on Windows, <code>path.sep ==='&#39; || '\'</code>.</p>
 <p class='module-name'>pathToArray.js</p>
 <pre><code>
 const path = require('path')
 const target = 'C:\rootDir\projectDir\src\content\node\arrow-functions.md'
 
-const arrayPath = target.split(path.sep)
+<p>const arrayPath = target.split(path.sep)
 //arrayPath === [
-//  'C:',
-//  'rootDir',
-//  'projectDir',
-//  'src',
-//  'content',
-//  ',
-//  'node',
-//  'arrow-functions.md'
-//]
-
-//You can also try just opening your terminal and run 'node'
+//  &#39;C:&#39;,
+//  &#39;rootDir&#39;,
+//  &#39;projectDir&#39;,
+//  &#39;src&#39;,
+//  &#39;content&#39;,
+//  &#39;,
+//  &#39;node&#39;,
+//  &#39;arrow-functions.md&#39;
+//]</p>
+<p>//You can also try just opening your terminal and run &#39;node&#39;
 process.cwd().split(path.sep)
 //and see what shows up for you
-</code></pre>
-
-To get a directory at a specific position all we have to do is:
-
+</code></pre></p>
+<p>To get a directory at a specific position all we have to do is:</p>
 <p class='module-name'>getNthDir.js</p>
 <pre><code>
 
-</code></pre>
+<p></code></pre></p>
 <pre><code>
 const path = require('path')
 const getNthDirectory = (dir, dirNumber) => {

@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en" amp><head>
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<link rel="canonical" href="/javascript/promises-in-real-world-javascript/index.html"><script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script><meta charset="utf-8">
+	
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<style amp-custom>:root{--red:#DC136C;--yellow:#FDD483;--green:#8ED1B7;--pink:#E7A8C6;--purple:#606EFE;--orange:#ED6550;--light-grey:#DDD5D0;--dark-grey:#818AA3;--navbar-height:150px;--main-containers-margin:3rem}html{width:100vw;-moz-box-sizing:border-box;box-sizing:border-box}body,html{position:relative;overflow-x:hidden}body{max-width:100vw;width:100%;overflow-x:hidden;margin:0;padding-top:var(--navbar-height);isolation:isolate;position:relative;overflow-y:hidden}body,div,p{font-family:Inter,sans-serif;font-size:21px}@media (max-width:550px){body,div,p{font-size:18px}}p{line-height:30px}.mini{font-weight:500;font-size:14px;line-height:18px;background:snow;padding:10px 22px}iframe{border:2px solid var(--red);border-radius:30px}*{-moz-box-sizing:inherit;box-sizing:inherit}div{margin:0}div,h1,h2,h3,h4,h5,p{overflow-y:none}h1,h2,h3,h4,h5{font-family:'Libre Baskerville',serif}h1,h2,h3{mix-blend-mode:multiply;z-index:3}img{width:100%}a{color:inherit;cursor:pointer}@font-face{font-family:"Libre Baskerville";src:url(https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700)}@font-face{font-family:"Open Sans";src:url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap;)}@font-face{font-family:JetBrainsMono;font-display:auto;src:url(/assets/fonts/JetBrainsMono-1.0.3/ttf/JetBrainsMono-Medium.ttf)}@font-face{font-family:'Nexa Bold';font-display:auto;src:url(/assets/fonts/Nexa_Bold.otf)}nav{position:fixed;top:0;left:0;width:100%;background:0 0;height:var(--navbar-height);background:#fff;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}.nav-left-block{height:50vh;width:-moz-calc(var(--navbar-height)*2);width:calc(var(--navbar-height)*2);background:#fff;width:inherit;background:#fff;height:100%}.nav-items{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:end;-moz-box-pack:end;-ms-flex-pack:end;justify-content:end;list-style-type:none;height:100%;margin:0;background:rgba(70,43,133,.7);background:0 0;color:#ffebcd;color:#00bfff;color:#ff8c00;color:#ff69b4;color:#32cd32;-webkit-justify-content:flex-end;justify-content:flex-end;padding:0;width:15rem;padding-top:2rem;display:block}@media (max-width:780px){.nav-items{margin:0}}.nav-item{padding:0 1rem;position:relative;padding:0 1rem;cursor:pointer;letter-spacing:1px;font-size:20px;color:var(--red);color:var(--red);font-weight:700;background:#fff}.nav-item:hover{background:#fff}footer{background:var(--yellow);height:50rem}.blog-page{width:100%;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;position:relative}.blog-center-container{max-width:820px;width:100%;display:-webkit-inline-flex;display:-moz-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;isolation:unset;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center}.blog-title-container{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;margin:1rem;max-width:100%}@media (max-width:820px){.blog-title-container{margin:1rem 24px}}.blog-title-container h1{background:#fff;font-size:3.6rem;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;max-width:80%}@media (max-width:400px){.blog-title-container h1{font-size:32px}}.blog-title-container .blog-subtitle{background:#fff;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;padding:.6rem;font-weight:800;mix-blend-mode:overlay}.blog-content-container{width:100%;max-width:100%;background:#fff;-moz-transition:.3s;transition:.3s;z-index:2}.blog-content-container .blog-content{margin:2rem}@media (max-width:550px){.blog-content-container .blog-content{margin:2rem 24px}}.blog-content-container .blog-content h1{background:#fff;font-size:3.6rem;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}@media (max-width:550px){.blog-content-container .blog-content h1{font-size:30px}}.code-rotate{-moz-transition:3s;transition:3s}.code-rotate:hover{-webkit-transform:rotate3d(1.3,2,1,360deg);-moz-transform:rotate3d(1.3,2,1,360deg);transform:rotate3d(1.3,2,1,360deg)}.hero{width:100vw;padding:1rem 3rem;mix-blend-mode:luminosity;-moz-transition:.3s;transition:.3s;z-index:1}@media (max-width:780px){.hero{padding:1rem 0}}.hero:hover{mix-blend-mode:unset}.home-page-title-container{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background:#fff;margin-left:var(--main-containers-margin);padding:1rem;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column}@media (max-width:780px){.home-page-title-container{margin-left:0}}.home-page-title{font-size:3rem;mix-blend-mode:luminosity}@media (max-width:780px){.home-page-title{font-size:2rem}}.example-container{width:100%;max-width:100%;max-height:100%}pre .hljs{display:block;font-family:JetBrainsMono;letter-spacing:1px;font-size:15px;padding:.5em}@media (max-width:550px){pre .hljs{font-size:18px}}.hljs{overflow-x:auto;padding:3px;background:#fffacd;background:#ffefd5;background:snow;-moz-tab-size:2;tab-size:2;line-height:26px}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700;color:var(--red)}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:var(--green)}.hljs-section,.hljs-title{color:var(--red)}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:var(--orange)}.hljs-literal{color:var(--green)}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:var(--purple)}.hljs-meta{color:var(--pink)}.hljs-meta-string{color:var(--yellow)}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.main-container{position:relative;padding:3rem 3rem;margin-left:var(--main-containers-margin)}@media (max-width:780px){.main-container{padding:3rem 1rem;margin:0}}.main-container-background{width:100%;height:100%;position:absolute;top:0;mix-blend-mode:lighten;background:var(--red);z-index:-1;left:0}.home-articles-container{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:100%}@media (max-width:780px){.home-articles-container{-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;width:100%}}.article-box{max-width:26rem;background:#fff;padding:2rem;cursor:pointer;-moz-transition:.3s;transition:.3s;margin-right:1rem;z-index:2;margin-top:1rem;margin-bottom:1rem}@media (max-width:780px){.article-box{max-width:100vw;width:80%}}.article-box:hover{-webkit-transform:translateY(-1rem);-moz-transform:translateY(-1rem);transform:translateY(-1rem)}.article-box .description p{margin:0}.separator{background:#fff}@-webkit-keyframes right-and-left{from{-webkit-transform:translateX(0);transform:translateX(0)}to{-webkit-transform:translateX(80%);transform:translateX(80%)}}@-moz-keyframes right-and-left{from{-moz-transform:translateX(0);transform:translateX(0)}to{-moz-transform:translateX(80%);transform:translateX(80%)}}@keyframes right-and-left{from{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0)}to{-webkit-transform:translateX(80%);-moz-transform:translateX(80%);transform:translateX(80%)}}.main-container-title{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;padding:2rem;padding-right:5rem;font-size:3rem;-webkit-animation:right-and-left 5s infinite alternate;-moz-animation:right-and-left 5s infinite alternate;animation:right-and-left 5s infinite alternate;margin-bottom:0}.pretty-square{background:0 0;-moz-transition:.4s;transition:.4s;position:absolute;mix-blend-mode:lighten}</style>
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel="manifest" href="/manifest.json">
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+
+	<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript></head>
+
+	<body>
+		<nav>
+			<div class="nav-left-block"></div>
+			<ul class="nav-items">
+				<li class="nav-item"><a href="/home">Home</a></li>
+				<li class="nav-item"><a href="/javascript">Javascript</a></li>
+				<li class="nav-item"><a href="/node">Node</a></li>
+				<li class="nav-item"><a href="/programming">Programming</a></li>
+				<li class="nav-item"><a href="/react">React</a></li>
+				<li class="nav-item"><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+<div class="page-wrapper">
+
+<div class="blog-page">
+		<div class="blog-center-container">
+			<div class="blog-title-container">
+					<h1>null</h1>
+					<h4 class="blog-subtitle">Jack Misteli</h4>
+			</div>
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p></p><p class="prelude">Promises are probably one of the most discussed topic in Javacript for the past 5-10 years. So one more article is obviously what you need!</p>
+
+<h1>What are promises</h1>
+
+<p>Promises are bits of code that will tell another part of your code to wait before it is executed.</p>
+
+<p>In the following example the promise is &quot;After I get the groceries you can eat them&quot;.</p>
+
+<div class="horizontal-codes">
+<pre><code class="executable">
+
+<p>const buyCake = (returnPromisedValue, reject) =&gt; {
+        returnPromisedValue(&apos;cake&apos;)
+}
+// Today we are only buying cake 
+const gettingGroceries = new Promise((resolve, reject) =&gt; buyCake(resolve, reject))
+const eat = (food) =&gt; {console.log(&apos;Eating&apos;, food)}</p>
+<p>// We get the groceries, then we eat the groceries
+gettingGroceries.then(groceries =&gt;  eat(groceries))</p>
+<p>// console will log &quot;Eating cake&quot;</p>
+</code>
+<div class="code-description"> Level 1: always succeeding Promise</div>
+</pre>
+
+
+</div>
+<p>A few things in this code. <code>buyCake</code> is called an executor function. We call it executor because it executes the promise. As you can see the executor function takes to arguments which are usually called <code>resolve</code> and <code>reject</code>. Resolve returns a value in case the promise goes as expected (that&apos;s why I called it <code>&apos;returnPromisedValue&apos;</code>).</p>
+
+<h2>What if something goes wrong with my Promise: Promise rejection</h2>
+
+<pre><code class="executable">
+
+const buyCake = (returnPromisedValue, reject) =&gt; {
+    try {
+        if (Math.random() &gt; 0.2)
+            throw new Error(&apos;You slipped on a banana peel on your way there&apos;)
+        returnPromisedValue(&apos;cake&apos;)
+    } catch (error) {
+        reject(new Error(&apos;something went wrong with our cake shopping: &apos; + error.toString()))
+    }
+}
+
+// Today we are only buying cake 
+const gettingGroceries = new Promise(buyCake)
+const eat = (food) =&gt; {console.log(&apos;Eating&apos;, food)}
+
+// We get the groceries, then we eat the groceries
+gettingGroceries
+    .then(groceries =&gt;  {eat(groceries);})
+    .catch(error =&gt; { 
+        console.log(error.toString());
+})
+
+// While we are doing the groceries we can do other things in the meantime
+const callVance = () =&gt; {console.log(&apos;calling Vance&apos;); console.log(&apos;called Vance&apos;)}
+callVance()
+//  The console will first log (&apos;calling Vance&apos; then &apos;called Vance&apos;, then log the error message or &apos;Eating cake&apos;)
+</code></pre>
+
+<p>The last piece of code is very important to understand. One really powerful feature of promises is that they allow us to do things while we are waiting for another to finish. In the code, we can imagine that we were waiting calling Vance while walking to the cake shop (things are a bit more tricky than that but it&apos;s good enough for now).</p>
+
+<h1>I said real world promises!</h1>
+
+<p>Alright, our promise is OK, but it don&apos;t make much sense. We could accomplish the same results as above without promises. Promises make sense when there is a delay in time. The most common use case is when we are waiting for an api call.</p>
+
+<p>Here we are going to use the native <code>fetch</code> function. You can <a href=" https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">find out more about it on MDN&apos;s website</a>. As you can see fetch also returns a promise! <a href="/javascript/making-a-nicer-fetch"> I also wrote a little post about how you can change fetch&apos;s behavior to fit your coding style </a> (because as you will see it&apos;s a bit wordy).</p>
+
+<pre><code>
+// (I removed the error catches to make things more readable.
+// But don&apos;t forget to catch your errors)
+
+const buyCake = (returnPromisedValue, reject) =&gt; {
+    fetch(&apos;/assets/data/shopping/cakes.json&apos;)
+        .then(data =&gt;{
+            data.json().then(cakes =&gt; {
+                console.log(cakes)
+                // cakes === [&apos;Chocolate Cake&apos;, &apos;Cheese Cake&apos;, &apos;Balaclava&apos;]
+                const firstCake = cakes[0]
+                // firstCake === &apos;Chocolate Cake&apos;
+                returnPromisedValue(firstCake)
+            })
+        })
+}
+
+const gettingGroceries = new Promise(buyCake)
+const eat = (food) =&gt; {console.log(&apos;Eating&apos;, food)}
+gettingGroceries
+    .then(groceries =&gt;  {eat(groceries);})
+
+console.log(&apos;Singing WonderWall&apos;)
+
+// This code will log
+// Singing WonderWall
+// Eating Chocolate Cake
+</code></pre>
+
+<h1>Getting Promises to work together</h1>
+
+<p>When we do API calls,  it is very common to have to do multiple calls.  The first thing you have to ask yourself is : are my calls dependant or not.
+ </p>
+<h5>Example of dependant calls</h5>
+<pre><code>
+
+</code><p><code>const orderFirstCake = () =&gt; {
+    getAllCakes.then( allCakes =&gt;{
+        if (allCakes.includes)
+        const firstCake = allCakes[]
+        orderCake(firstCake).then(res =&gt; {
+            console.log(res)
+        }).catch(err =&gt; {
+            console.log(&apos;something went wrong when ordering the cake&apos;)
+            throw err
+        })
+    }).catch(err=&gt; {
+        console.log(&apos;something went wrong getting all the cakes&apos;)
+        throw err
+    })
+}
+</code></p>
+<ul>In plain English this code means (C == client, S == Server):
+<li>C: &quot;Please tell me about all the cake Options you have&quot;</li> 
+<li>S: &quot;We have Chocolate Cake, Cheese Cake and  Balaclava&quot;]</li>
+<li>C: &quot;Please Give me a Chocolate Cake (aka option one)&quot;</li>
+<li>S: &quot;Here is your chocolate cake&quot;</li>
+</ul>
+
+
+<pre><code>
+
+<ul id="cake-price-list">
+</ul>
+
+
+</code></pre>
+
+<iframe class="example-container" src="./cakePriceExample.html"></iframe>
+
+<p>In this code snippet we don&apos;t care in what order we get the price of each cake. I added some useless data to the chocolate-cake file, so on a slow network (or simulated slow network) you can see that Chocolate Cake should appear at the end of the list.</p>
+
+
+
+
+<p>You might have noticed that all the consecutive <code>.then</code> can get very messy. That&apos;s why today we prefer to use the <code>async/await</code> notation. To make our code cleaner. </p>
+<requirements>
+fetch https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+try catch
+forEach
+</requirements>
+
+<p></p>
+				</pre></div>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	
+
+</footer>
+<amp-analytics type="gtag" data-credentials="include">
+<script type="application/json">
+{
+	"vars" : {
+		"gtag_id": "UA-98810842-5",
+		"config" : {
+			"UA-98810842-5": { "groups": "default" }
+		}
+	}
+}
+</script>
+</amp-analytics></body></html>

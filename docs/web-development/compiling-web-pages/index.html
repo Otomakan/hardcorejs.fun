@@ -66,7 +66,7 @@
 <p class='module-name'>my-es6-file.js</p>
 <pre><code>
 window.setTimeout(()=> {
-	alert('Hello there!')
+    alert('Hello there!')
 },1000)
 </code></pre>
 
@@ -90,10 +90,10 @@ const sayHi = () => {console.log('say hi')}
 <pre><code>
 "use strict";
 
-var sayHi = function sayHi() {
-  console.log('say hi');
+<p>var sayHi = function sayHi() {
+  console.log(&#39;say hi&#39;);
 };
-</code></pre>
+</code></pre></p>
 <p class='mini'>I used: https://babeljs.io/repl to do the code translation. It is a fun tool to understand how Babel compiling works.</p>
 
 <p>You can't run the first code snippet on Internet Explorer but you can use the second snippet almost anywhere. Using more modern Javascript feature can allow us to use more readable code. It can also help us write our code faster.</p>
@@ -128,24 +128,20 @@ var finalFile = file1 + file2
 <pre><code>
 const capitalize = (s) => s[0].toUpperCase() + s.slice(1)
 
-module.exports = capitalize
-</code></pre>
-
+<p>module.exports = capitalize
+</code></pre></p>
 <p>We will import this module in our <em class='filename'>sayHiJerry.js</em>file.</p>
 <p class='module-name'>sayHiJerry.js</p>
 <pre><code>
 const capitalize = require('./capitalize.js')
 
-const name = 'jerry'
-const greetings =  'Hi ' + capitalize(name)
-
-console.log(greetings)
-</code></pre>
-
+<p>const name = &#39;jerry&#39;
+const greetings =  &#39;Hi &#39; + capitalize(name)</p>
+<p>console.log(greetings)
+</code></pre></p>
 <p>This code could not work in your browser, because <a href="/node/node-vs-javascript"> we cannot use require in the browser</a>. To use this code in our browser we can run:</p>
 
-<code class='command'> browserify -r ./sayHiJerry.js > bundle.js</code>
-
+<p><code class='command'> browserify -r ./sayHiJerry.js > bundle.js</code></p>
 <p>Which will output a very ugly <em class='filename'>bundle.js</em> file.</p>
 
 <pre><code>

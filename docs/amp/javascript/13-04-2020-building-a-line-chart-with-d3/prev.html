@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en" amp><head>
+	<script async src="https://cdn.ampproject.org/v0.js"></script>
+	<link rel="canonical" href="/javascript/13-04-2020-building-a-line-chart-with-d3/prev.html"><script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script><meta charset="utf-8">
+	
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<style amp-custom>:root{--red:#DC136C;--yellow:#FDD483;--green:#8ED1B7;--pink:#E7A8C6;--purple:#606EFE;--orange:#ED6550;--light-grey:#DDD5D0;--dark-grey:#818AA3;--navbar-height:150px;--main-containers-margin:3rem}html{width:100vw;-moz-box-sizing:border-box;box-sizing:border-box}body,html{position:relative;overflow-x:hidden}body{max-width:100vw;width:100%;overflow-x:hidden;margin:0;padding-top:var(--navbar-height);isolation:isolate;position:relative;overflow-y:hidden}body,div,p{font-family:Inter,sans-serif;font-size:21px}@media (max-width:550px){body,div,p{font-size:18px}}p{line-height:30px}.mini{font-weight:500;font-size:14px;line-height:18px;background:snow;padding:10px 22px}iframe{border:2px solid var(--red);border-radius:30px}*{-moz-box-sizing:inherit;box-sizing:inherit}div{margin:0}div,h1,h2,h3,h4,h5,p{overflow-y:none}h1,h2,h3,h4,h5{font-family:'Libre Baskerville',serif}h1,h2,h3{mix-blend-mode:multiply;z-index:3}img{width:100%}a{color:inherit;cursor:pointer}@font-face{font-family:"Libre Baskerville";src:url(https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700)}@font-face{font-family:"Open Sans";src:url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap;)}@font-face{font-family:JetBrainsMono;font-display:auto;src:url(/assets/fonts/JetBrainsMono-1.0.3/ttf/JetBrainsMono-Medium.ttf)}@font-face{font-family:'Nexa Bold';font-display:auto;src:url(/assets/fonts/Nexa_Bold.otf)}nav{position:fixed;top:0;left:0;width:100%;background:0 0;height:var(--navbar-height);background:#fff;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex}.nav-left-block{height:50vh;width:-moz-calc(var(--navbar-height)*2);width:calc(var(--navbar-height)*2);background:#fff;width:inherit;background:#fff;height:100%}.nav-items{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:end;-moz-box-pack:end;-ms-flex-pack:end;justify-content:end;list-style-type:none;height:100%;margin:0;background:rgba(70,43,133,.7);background:0 0;color:#ffebcd;color:#00bfff;color:#ff8c00;color:#ff69b4;color:#32cd32;-webkit-justify-content:flex-end;justify-content:flex-end;padding:0;width:15rem;padding-top:2rem;display:block}@media (max-width:780px){.nav-items{margin:0}}.nav-item{padding:0 1rem;position:relative;padding:0 1rem;cursor:pointer;letter-spacing:1px;font-size:20px;color:var(--red);color:var(--red);font-weight:700;background:#fff}.nav-item:hover{background:#fff}footer{background:var(--yellow);height:50rem}.blog-page{width:100%;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;position:relative}.blog-center-container{max-width:820px;width:100%;display:-webkit-inline-flex;display:-moz-inline-box;display:-ms-inline-flexbox;display:inline-flex;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;isolation:unset;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center}.blog-title-container{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;margin:1rem;max-width:100%}@media (max-width:820px){.blog-title-container{margin:1rem 24px}}.blog-title-container h1{background:#fff;font-size:3.6rem;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;max-width:80%}@media (max-width:400px){.blog-title-container h1{font-size:32px}}.blog-title-container .blog-subtitle{background:#fff;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;padding:.6rem;font-weight:800;mix-blend-mode:overlay}.blog-content-container{width:100%;max-width:100%;background:#fff;-moz-transition:.3s;transition:.3s;z-index:2}.blog-content-container .blog-content{margin:2rem}@media (max-width:550px){.blog-content-container .blog-content{margin:2rem 24px}}.blog-content-container .blog-content h1{background:#fff;font-size:3.6rem;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content}@media (max-width:550px){.blog-content-container .blog-content h1{font-size:30px}}.code-rotate{-moz-transition:3s;transition:3s}.code-rotate:hover{-webkit-transform:rotate3d(1.3,2,1,360deg);-moz-transform:rotate3d(1.3,2,1,360deg);transform:rotate3d(1.3,2,1,360deg)}.hero{width:100vw;padding:1rem 3rem;mix-blend-mode:luminosity;-moz-transition:.3s;transition:.3s;z-index:1}@media (max-width:780px){.hero{padding:1rem 0}}.hero:hover{mix-blend-mode:unset}.home-page-title-container{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;background:#fff;margin-left:var(--main-containers-margin);padding:1rem;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column}@media (max-width:780px){.home-page-title-container{margin-left:0}}.home-page-title{font-size:3rem;mix-blend-mode:luminosity}@media (max-width:780px){.home-page-title{font-size:2rem}}.example-container{width:100%;max-width:100%;max-height:100%}pre .hljs{display:block;font-family:JetBrainsMono;letter-spacing:1px;font-size:15px;padding:.5em}@media (max-width:550px){pre .hljs{font-size:18px}}.hljs{overflow-x:auto;padding:3px;background:#fffacd;background:#ffefd5;background:snow;-moz-tab-size:2;tab-size:2;line-height:26px}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888}.hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta-keyword,.hljs-name,.hljs-selector-tag{font-weight:700;color:var(--red)}.hljs-deletion,.hljs-number,.hljs-quote,.hljs-selector-class,.hljs-selector-id,.hljs-string,.hljs-template-tag,.hljs-type{color:var(--green)}.hljs-section,.hljs-title{color:var(--red)}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:var(--orange)}.hljs-literal{color:var(--green)}.hljs-addition,.hljs-built_in,.hljs-bullet,.hljs-code{color:var(--purple)}.hljs-meta{color:var(--pink)}.hljs-meta-string{color:var(--yellow)}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.main-container{position:relative;padding:3rem 3rem;margin-left:var(--main-containers-margin)}@media (max-width:780px){.main-container{padding:3rem 1rem;margin:0}}.main-container-background{width:100%;height:100%;position:absolute;top:0;mix-blend-mode:lighten;background:var(--red);z-index:-1;left:0}.home-articles-container{display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap;max-width:100%}@media (max-width:780px){.home-articles-container{-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;width:100%}}.article-box{max-width:26rem;background:#fff;padding:2rem;cursor:pointer;-moz-transition:.3s;transition:.3s;margin-right:1rem;z-index:2;margin-top:1rem;margin-bottom:1rem}@media (max-width:780px){.article-box{max-width:100vw;width:80%}}.article-box:hover{-webkit-transform:translateY(-1rem);-moz-transform:translateY(-1rem);transform:translateY(-1rem)}.article-box .description p{margin:0}.separator{background:#fff}@-webkit-keyframes right-and-left{from{-webkit-transform:translateX(0);transform:translateX(0)}to{-webkit-transform:translateX(80%);transform:translateX(80%)}}@-moz-keyframes right-and-left{from{-moz-transform:translateX(0);transform:translateX(0)}to{-moz-transform:translateX(80%);transform:translateX(80%)}}@keyframes right-and-left{from{-webkit-transform:translateX(0);-moz-transform:translateX(0);transform:translateX(0)}to{-webkit-transform:translateX(80%);-moz-transform:translateX(80%);transform:translateX(80%)}}.main-container-title{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;padding:2rem;padding-right:5rem;font-size:3rem;-webkit-animation:right-and-left 5s infinite alternate;-moz-animation:right-and-left 5s infinite alternate;animation:right-and-left 5s infinite alternate;margin-bottom:0}.pretty-square{background:0 0;-moz-transition:.4s;transition:.4s;position:absolute;mix-blend-mode:lighten}</style>
+
+	<meta name="theme-color" content="#dc136c">
+	<link rel="manifest" href="/manifest.json">
+	
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+		<title>Hardcore JS</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+
+	<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate="">body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript></head>
+
+	<body>
+		<nav>
+			<div class="nav-left-block"></div>
+			<ul class="nav-items">
+				<li class="nav-item"><a href="/home">Home</a></li>
+				<li class="nav-item"><a href="/javascript">Javascript</a></li>
+				<li class="nav-item"><a href="/node">Node</a></li>
+				<li class="nav-item"><a href="/programming">Programming</a></li>
+				<li class="nav-item"><a href="/react">React</a></li>
+				<li class="nav-item"><a href="/svelte">Svelte</a></li>
+			</ul>
+		</nav>
+
+<div class="page-wrapper">
+
+<div class="blog-page">
+		<div class="blog-center-container">
+			<div class="blog-title-container">
+					<h1>Building a Line Chart with D3</h1>
+					<h4 class="blog-subtitle">Jack Misteli</h4>
+			</div>
+			<div class="blog-content-container">
+				<div class="blog-content">
+
+				<p></p><p>If you are using the D3 API for the first time, you are probably a little bit intimidating. A line chart is great project to get your feet in the water &#x1F603; &#x1F4A7;. Before we get started make sure you read <a href="/javascript/setting-up-d3">our article about setting up d3 in your project</a>.
+</p>
+
+
+<h1>Choosing our data</h1>
+<p><a href="#writing-lines"> I already know how data works: Skip &#x2193;</a></p><p>
+</p><p>Choosing the right data set is important. We have to make sure that we&apos;ll have something that plots well with no crazy edge cases. </p>
+
+<p>I wanted to choose something a bit uplifting in these hard times so I chose some of the happiness data available at <a href="https://ourworldindata.org/happiness-and-life-satisfaction#all-charts-preview" target="_blank">Our World in Data</a>.
+ </p>
+
+<p>
+Usually when you find data it will be <a href="/programming/what-is-csv.html"> in a CSV format</a>. Here our data looks like this:
+
+</p><pre>Entity,Code,Year, (%)
+Albania,ALB,1998,33.433434
+Albania,ALB,2004,58.799999
+Algeria,DZA,2004,80.733231
+Algeria,DZA,2014,79.89418
+Andorra,AND,2009,92.878632
+Argentina,ARG,1984,78.571426
+...
+</pre>
+
+<p>You can find <a href="/assets/data/share-of-people-who-say-they-are-happy.csv">the full data set here</a></p>, and then load it into google a google spreadsheet.
+
+<h1>Setting up our data</h1>
+
+<p>
+We have four columns with country names and codes, years, and percentages. The first thing I want to do is think about what data format I want to play with. All I&apos;m interested in is the year, country name and happiness percentage.</p>
+
+<p> I want to use that data in Javascript so we have to think in terms of Javascript friendly format. To do so, I want to turn the CSV data into a JSON Object.</p> 
+
+<p>There is a multitude of services you can use</p>
+
+<p>An array of objects very similar to the csv format.</p>
+<pre><code class="javascript">
+const data = [
+    {country: &apos;Albania&apos;, year:&apos;1998&apos;, happinessPercentage:33.433434},
+    ...
+]
+</code>
+</pre>
+
+<div class="pros-cons">
+    <ul class="pros">
+        <li>Not a lot of work needed to convert the data.</li>
+        <li>An array if you are using arrays your chart component doesn&apos;t need to know much about your data&apos;s context.</li>
+    </ul>
+    <ul class="cons">
+    <li>We are using objects in the array, so the chart will need to know some context about the data it is consuming.</li>
+    <li>The data is not easy to read, we can&apos;t access specific data points easily. For example, if I want to know about what the happiness score was in the United States in 1992 I have to build a specific function to do so.</li>
+    </ul>
+</div>
+<p>An object with country names as keys.</p>
+<pre><code class="code-rotate">
+const data = {
+    Albania: [{
+        year:&apos;1998&apos;, 
+        happinessPercentage:33.433434},
+        {
+            year: &apos;2004&apos;
+            happinessPercentage: 58.799999
+        }
+        // More years
+        ]
+    Argentina: [
+        //...
+    ]
+    //...
+}
+</code>
+</pre>
+<div class="pros-cons">
+<ul class="pros">
+    <li>The data is relatively easy to access.</li>
+    <li>Each data keys is equivalent to on line</li>
+</ul>
+<ul>
+    <li>Same problem as above with the keys in the array of entries. The chart needs to know about the `.year` and `.happinessPercentage` to draw the chart. We also need a way to tell the chart that each key is a country name. But we will see that there are some ways around it.</li>
+</ul>
+</div>
+<p>A very explicit object.</p>
+<pre><code>
+const data = {
+    &apos;1998&apos;: [&apos;Albania&apos;, 33.433434],
+        {
+            country: &apos;France&apos;
+            happinessPercentage: 86.799999
+        }
+        // ...More countries
+    ]
+    &apos;1999&apos;: [
+        //...
+    ]
+    //...More years
+}
+</code>
+</pre>
+<div class="pros-cons">
+<ul class="pros">
+<li>Same as above</li>
+</ul>
+<ul class="cons">
+<li>Similar to above. We need to somehow pass even more context to the chart because now we don&apos;t have a way to tell that the keys are years, first element of the array is a country and second a percentage.</li>
+</ul>
+<ul>Not as readable as the country names as keys in my opinion, this would work better if we were interested in building a map</ul>
+
+<p>
+    You can also imagine a multitude of combination of all these approaches. Here we will choose to go with this:
+</p>
+<pre><code>
+const data = {
+    properties: {
+        lineLabel: &apos;Country&apos;,
+        xAxisLabel: &apos;Year&apos;,
+        yAxisLabel: &apos;Happiness Percentage&apos;
+    },
+    data: [
+        {
+            id: &apos;Albania&apos;,
+            data: [
+                [&apos;1998&apos;, &apos;86.799999&apos;],
+                [&apos;2004&apos;,&apos;58.799999&apos;]
+            ]
+        },
+        {
+            id: &apos;Algeria&apos;,
+            data: //...
+        }]
+    ]
+}
+</code>
+</pre>
+
+<p>
+This might seem a bit impractical at first. But the
+</p>
+
+<h2>Converting our data to JSON. </h2>
+<p>
+There are a lot of tools you can use to transform csv to json. If you want to stick to Node/Javascript you can use the npm package <mark>csvtojson</mark>. Here is the script I used:
+</p>
+
+<pre><code>
+const path = require(&apos;path&apos;)
+const fs = require(&apos;fs&apos;)
+const csv=require(&apos;csvtojson&apos;)
+csv().fromFile(path.resolve(__dirname, &apos;./share-of-people-who-say-they-are-happy.csv&apos;))
+.then(jsonObj =&gt; {
+        // console.log(jsonObj);
+        // jsonObj is an array of objects which looks like this:
+        // { Entity: &apos;Hungary&apos;, Code: &apos;HUN&apos;, Year: &apos;1984&apos;, &apos;(%)&apos;: &apos;78.451881&apos; },
+        const finalArray = []
+        jsonObj.forEach(entry=&gt;{
+            finalArray.push([entry.Entity, entry.Year, entry[&apos;(%)&apos;]])
+        })
+        fs.writeFileSync(
+            path.resolve(__dirname, &apos;./share-of-people-who-say-they-are-happy.json&apos;), 
+            JSON.stringify(finalArray)
+        )
+})
+</code></pre>
+
+<h1>Calling our data </h1>
+
+
+<p>Alright so now we can access our data by running:</p>
+<pre><code>
+const getHappinessData = () =&gt; {
+    return fetch(&apos;/assets/data/share-of-people-who-say-they-are-happy.json&apos;).then(res =&gt; res.text())
+}
+
+</code></pre>
+
+<p>You can run in your developer console: <code>getHappinessData().then(data=&gt; console.log(data) )</code> to see the data.
+</p>
+
+
+<h1><a id="writing-lines"></a>Writing the lines </h1>
+
+
+
+<p>Finally some code ! The only thing you need to know is that I don&apos;t use all the d3 builtin functions here. We only use d3 functions to draw our lines paths and map our values. </p>
+<pre><code>
+
+<div class="svg-container">
+<!--Our target svg inside of which we will build the graph-->
+    <svg>
+    </svg>
+</div>
+<!--Loading d3-->
+
+
+
+</code></pre>
+
+<p>And this gives us.... This!</p>
+<iframe class="example-container" src="./example-one.html" style="height: 500px"></iframe>
+
+<p>Ok this is super ugly, I just wanted to show the most basic line chart you can make without any noise. Let&apos;s change <mark>buildData</mark>&apos;s input a bit.</p>
+
+<pre><code>
+    // we are only going to look at Russia and Brazil for now
+    const filteredData = rawData.data.filter(data=&gt; data.id.match(/Russia|Brazil/))
+    rawData.data = filteredData
+    buildLineGraph(rawData, graphWidth, graphHeight)
+</code></pre>
+
+
+
+<iframe class="example-container" style="height: 500px" src="./example-two.html"></iframe>
+
+<h1>Bringing context to our D3 Chart</h1>
+
+<h2>Coloring D3 Lines</h2>
+
+<p>In the previous line is Brazil and one is Russia to add some differenciation we can add some color:</p>
+
+<pre><code>
+//... skipping
+const filteredData = rawData.data.filter(data=&gt; data.id.match(/Russia|Brazil/))
+rawData.data = filteredData
+buildLineGraph(rawData, graphWidth, graphHeight)
+//...
+const buildLineGraph = (rawData, graphWidth, graphHeight, lineColors) =&gt; {
+...
+    for(let i=0; i &lt; numberOfLines; i++) {
+        ...
+        const path = document.createElementNS(&apos;http://www.w3.org/2000/svg&apos;, &apos;path&apos;)
+        const lineColor = lineColors[i % lineColors.length]
+        path.setAttribute(&apos;stroke&apos;, lineColor)
+        ...
+    }
+...
+
+</code></pre>
+
+<iframe class="example-container" style="height: 500px" src="./example-three.html"></iframe>
+
+<p>Super easy! You can imagine different ways to introduce custom line styles to your lines.</p>
+
+<h2>Building axis</h2>
+
+<p>In d3, everything is an svg element. To me it feels a bit somehow <code>wrong|uncomfortable|countreintuitive</code> to use svg for text. But it&apos;s just because I&apos;m not used to it. 
+</p>
+<p>d3 gives us really hand tools to build our axis. We are going to use our <code>xScale</code> and <code>yScale</code> objects. They have a <code>.tick</code> property which generates a regular array of ticks.</p>
+
+<pre><code>
+
+</code></pre>
+
+
+
+<p></p>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+<footer class="footer">
+	
+	<!-- <script type="text/javascript" src='/js/bundle.js' async></script>  -->
+	
+	<!-- <script type="text/javascript" src="/js/transitions.js" ></script> -->
+	
+
+</footer></div>
+<amp-analytics type="gtag" data-credentials="include">
+<script type="application/json">
+{
+	"vars" : {
+		"gtag_id": "UA-98810842-5",
+		"config" : {
+			"UA-98810842-5": { "groups": "default" }
+		}
+	}
+}
+</script>
+</amp-analytics></body></html>

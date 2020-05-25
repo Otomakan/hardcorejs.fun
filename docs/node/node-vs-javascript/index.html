@@ -71,11 +71,11 @@
 <!-- This script contains the javascript-->
 <script>
 document.getElementById('calculate-button').onclick = function () {
-	// valA stores the value in the first input box
-	// valB stores the value in the second input box
-	var valA = document.getElementById('number-a').value
-	var valB = document.getElementById('number-b').value
-	document.getElementById('result').innerHTML = Number(valA) + Number(valB)
+    // valA stores the value in the first input box
+    // valB stores the value in the second input box
+    var valA = document.getElementById('number-a').value
+    var valB = document.getElementById('number-b').value
+    document.getElementById('result').innerHTML = Number(valA) + Number(valB)
 }
 </script>
 </code></pre>
@@ -128,13 +128,13 @@ const fs = require('fs')
 const fileContent  = fs.readFileSync(filename)
 //or 
 fs.readFile(filename, (err, fileContent) => {
-	// do something with fileContent
+    // do something with fileContent
 })
 //or 
 
 const fsPromise = require('fs').promises
 const readFile = async (fileName) => {
-	const fileContent = await fsPromise.readFile(fileName)
+    const fileContent = await fsPromise.readFile(fileName)
 }
 </code></pre>
 

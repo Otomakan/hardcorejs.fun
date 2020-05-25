@@ -86,7 +86,7 @@ app.listen(port, () => console.log(`Server running on: http://localhost:${port}`
 const express = require('express')
 const app = express() 
 const port = 3000
- 
+
 // Here, we pass two arguments to app.get: the route name, and the handler
 app.get('/', (request, response) => {
  response.send('This is the main page!')
@@ -106,13 +106,10 @@ const express = require('express')
 const app = express() 
 const port = 3000
 
-// The static function only takes on argument the name of the target folder
-app.use(express.static('public'))
-
-app.listen(port, () => console.log(`Server running on: http://localhost:${port}`))
-
-</code></pre>
-
+<p>// The static function only takes on argument the name of the target folder
+app.use(express.static(&#39;public&#39;))</p>
+<p>app.listen(port, () =&gt; console.log(<code>Server running on: http://localhost:${port}</code>))</p>
+<p></code></pre></p>
 <p>The in our public folder we can put any file we want. And it will be served by express. For example, you can add an index.html file inside of public</p> 
 
 <p class='careful'>index.html is always a special file. It is the only file that we can access without having to actually write our<code> path + index.html</code>. So when we go to <em>/</em> we are implicitely calling (/index.html). The page you are currently viewing is in my server <em>/node/creating-a-server-with-express/index.html</em> but the web server is configured so you can also access the file by visiting <em>/node/creating-a-server-with-express</em> </p>
@@ -122,13 +119,13 @@ app.listen(port, () => console.log(`Server running on: http://localhost:${port}`
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Page!</title>
-	<link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
-	<script src='/main.js'></script>
-	<script>console.log('you stink')</script>
+    <title>My Page!</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
+    <script src='/main.js'></script>
+    <script>console.log('you stink')</script>
 </head>
 <body>
-	<h1> This is My Custom page</h1>
+    <h1> This is My Custom page</h1>
 </body>
 </html>
 </code></pre>
@@ -140,13 +137,12 @@ Then create <em>main.js</em> and <em>style.css</em> next to your file. You might
 <p class="module-name">public/main.js</p>
 <pre><code>
 
-</code></pre>
-
+<p></code></pre></p>
 <p class="module-name">public/style.css</p>
 <pre><code>
 body {
-	background: red;
-	color: white
+    background: red;
+    color: white
 }
 </code></pre>
 
@@ -178,14 +174,14 @@ app.use(express.static('public'))
 
 // Express allows us to access named parameters by adding ":" in front of the route
 app.get('/product/:id', (request, response) => {
-	// We can access the productId in the Response params object
-	// For example if the used tries to access "/product/abc"
-	// productId === 'abc'
-	const productId = request.params.id
+    // We can access the productId in the Response params object
+    // For example if the used tries to access "/product/abc"
+    // productId === 'abc'
+    const productId = request.params.id
 
-	const product = productDao.getInfo(productId)
-	const template = getProductTemplate()
-	const finalHTML = populateTemplate(template, product)
+    const product = productDao.getInfo(productId)
+    const template = getProductTemplate()
+    const finalHTML = populateTemplate(template, product)
 
   response.send(finalHTML)
 })
@@ -199,31 +195,29 @@ app.listen(port, () => console.log(`Server running on: http://localhost:${port}`
 // The variable allProducts simulates our database
 // Normally you would call a database like MySQL, MongoDB, Postgres ...
 const allProducts = {
-	'abc': {
-		name: 'Deck of Cards',
-		price: '5'
-	},
-	'cde': {
-		name: 'Awesome Video Game',
-		price: '50'
-	},
-		'efg': {
-		name: 'Cheese Grater',
-		price: '7'
-	}
+    'abc': {
+        name: 'Deck of Cards',
+        price: '5'
+    },
+    'cde': {
+        name: 'Awesome Video Game',
+        price: '50'
+    },
+        'efg': {
+        name: 'Cheese Grater',
+        price: '7'
+    }
 }
 
-const getInfo = (productId) => {
-	if(allProducts[productId]) {
-		return allProducts[productId]
-	} else {
-		throw new Error('The product with id ' + productId + ' does not exist')
-	}
-}
-
-module.exports = {getInfo}
-</code></pre>
-
+<p>const getInfo = (productId) =&gt; {
+    if(allProducts[productId]) {
+        return allProducts[productId]
+    } else {
+        throw new Error(&#39;The product with id &#39; + productId + &#39; does not exist&#39;)
+    }
+}</p>
+<p>module.exports = {getInfo}
+</code></pre></p>
 <p class='module-name'>getProductTemplate.js</p>
 <pre><code class='language-javascript'>
 // Usually you we read the content of templates from files
@@ -231,21 +225,15 @@ module.exports = {getInfo}
 const head = '<!DOCTYPE html>
 <html>
 <head>
-	<title>{{name}}</title>
-	<link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
-	<script src='/main.js'></script>
+    <title>{{name}}</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='/style.css'>
+    <script src='/main.js'></script>
 </head>'
 
-const body  = `
-	<body>
-		<h1>This is the product page for {{name}} </h1>
-		<div>This product will cost you {{price}} dollars </h1>
-	</body>
-`
+<p>const body  = <code>    &lt;body&gt;         &lt;h1&gt;This is the product page for {{name}} &lt;/h1&gt;         &lt;div&gt;This product will cost you {{price}} dollars &lt;/h1&gt;     &lt;/body&gt;</code>
 const template =  head + body
-module.exports =  () => template
-</code></pre>
-
+module.exports =  () =&gt; template
+</code></pre></p>
 <p>In our template you noticed that we use double brackets. The values inside of the brackets are the dynamic value. The brackets will be turned into values in the <em class='filename'>populateTemplate</em> function. To do so we will use a library called Handlebars.</p> 
 
 <pre><code>
@@ -257,16 +245,14 @@ npm install handlebars
 const Handlebars = require("handlebars");
 
 
-// Populate template will replace the content in our brackets by the values in the targets object
-const populateTemplate = (template, targets) => {
-	// You don't really need to understand how it workd for now
-	let compiled = Handlebars.compile(template)
-	return compiled(targets)
-}
-
-module.exports = populateTemplate
-</code></pre>
-
+<p>// Populate template will replace the content in our brackets by the values in the targets object
+const populateTemplate = (template, targets) =&gt; {
+    // You don&#39;t really need to understand how it workd for now
+    let compiled = Handlebars.compile(template)
+    return compiled(targets)
+}</p>
+<p>module.exports = populateTemplate
+</code></pre></p>
 <p>Now if you followed all the steps and go to 'http://localhost:3000/product/abc' we should see our product page</p>
 
 <h1>Building a quick API with express</h1>
@@ -284,74 +270,62 @@ const productDao = require('./productDao')
 const getProductTemplate = require('./getProductTemplate')
 const populateTemplate = require('./populateTemplate')
 
-// Here, we pass two arguments to app.get: the route name, and the handler
-app.use(express.static('public'))
-
-
-// Returns all products 
-app.get('/product', (req, res) => {
-	const allProducts = productDao.getAll()
-	res.send(allProducts) 
-})
-
-app.get('/product/:id', (req, res) => {
-	const productId = req.params.id
-	const allProducts = productDao.getInfo(productId)
-	res.send(allProducts) 
-})
-
-app.post('/product', (req, res) => {
-	const { name, price }= req.query
-	productDao.addProduct({name, price})
-	res.send('success')
-})
-
-app.listen(3000, () => console.log(`Server running on: http://localhost:${port}`))
-
-</code></pre>
-
-
+<p>// Here, we pass two arguments to app.get: the route name, and the handler
+app.use(express.static(&#39;public&#39;))</p>
+<p>// Returns all products 
+app.get(&#39;/product&#39;, (req, res) =&gt; {
+    const allProducts = productDao.getAll()
+    res.send(allProducts) 
+})</p>
+<p>app.get(&#39;/product/:id&#39;, (req, res) =&gt; {
+    const productId = req.params.id
+    const allProducts = productDao.getInfo(productId)
+    res.send(allProducts) 
+})</p>
+<p>app.post(&#39;/product&#39;, (req, res) =&gt; {
+    const { name, price }= req.query
+    productDao.addProduct({name, price})
+    res.send(&#39;success&#39;)
+})</p>
+<p>app.listen(3000, () =&gt; console.log(<code>Server running on: http://localhost:${port}</code>))</p>
+<p></code></pre></p>
 <p class='module-name'>productDao.js</p>
 <pre><code>
 // The variable allProducts simulates our database
 // Normally you would call a database like MySQL, MongoDB, Postgres ...
 const allProducts = {
-	'abc': {
-		name: 'Deck of Cards',
-		price: '5'
-	},
-	'cde': {
-		name: 'Awesome Video Game',
-		price: '50'
-	},
-		'efg': {
-		name: 'Cheese Grater',
-		price: '7'
-	}
+    'abc': {
+        name: 'Deck of Cards',
+        price: '5'
+    },
+    'cde': {
+        name: 'Awesome Video Game',
+        price: '50'
+    },
+        'efg': {
+        name: 'Cheese Grater',
+        price: '7'
+    }
 }
 
-const getInfo = (productId) => {
-	if(allProducts[productId]) {
-		return allProducts[productId]
-	} else {
-		throw new Error('The product with id ' + productId + ' does not exist')
-	}
-}
-
-const addProduct = (product) => {
-	// Bad way to create a random id
-	const createId = () => Math.random()
-	const productId = createId()
-	allProducts[productId] = product
-}
-
-const getAll = () => {
-	return allProducts
-}
-
-module.exports = {getInfo, addProduct, getAll}
-</code></pre>
-
+<p>const getInfo = (productId) =&gt; {
+    if(allProducts[productId]) {
+        return allProducts[productId]
+    } else {
+        throw new Error(&#39;The product with id &#39; + productId + &#39; does not exist&#39;)
+    }
+}</p>
+<p>const addProduct = (product) =&gt; {
+    // Bad way to create a random id
+    const createId = () =&gt; Math.random()
+    const productId = createId()
+    allProducts[productId] = product
+}</p>
+<p>const getAll = () =&gt; {
+    return allProducts
+}</p>
+<p>module.exports = {getInfo, addProduct, getAll}
+</code></pre></p>
 <p>You can run that code and you have a very basic API to add, see all products or a specific one. To test your api <a href='https://www.postman.com/' target='_blank'>I recommend downloading Postman</a>. If you post at <code>http://localhost:4000/product?name=figuriners&price=15</code>. Then if you go to  <code></code> and you can see something close to:</p>
 <pre><code>
 {

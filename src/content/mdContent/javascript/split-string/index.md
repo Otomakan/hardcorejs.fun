@@ -1,5 +1,5 @@
 ---
-layout: blog-page
+template: blog-page
 title:  "Turning strings to arrays with Split"
 categories:
 - JS
@@ -40,11 +40,15 @@ console.log(allDialogSentences)
 ## Convert a string to an Array
 
 We can also convert each character to an array. To do so we have to enter an empty string
-<p class='module-name'>stringToArray</p>
+<p class='module-name'>stringToArray.js</p>
 <pre><code>
 const sentence = 'I love cheese'
 const splitSentence = sentence.split('')
 </code></pre>
+
+## Extracting dates
+
+Dates are a gigantic pain in software development. There are just too many different format! We might be using an API which uses the 'DD/MM/YYYY' format, a library which requires a 'MM-DD-YYYY' format and the display it to our users in their preferred format.
 
 # Reading a CSV file in Javascript
 
